@@ -138,7 +138,7 @@
 <meta property="og:image" content="https://leiizhang.github.io/2019/06/27/A-Deep-Learning-Approach-to-Fast-Format-Agnostic-Detection-of-Malicious-WebContent-S-P-2018/5.png">
 <meta property="og:image" content="https://leiizhang.github.io/2019/06/27/A-Deep-Learning-Approach-to-Fast-Format-Agnostic-Detection-of-Malicious-WebContent-S-P-2018/6.png">
 <meta property="og:image" content="https://leiizhang.github.io/2019/06/27/A-Deep-Learning-Approach-to-Fast-Format-Agnostic-Detection-of-Malicious-WebContent-S-P-2018/7.png">
-<meta property="og:updated_time" content="2019-06-28T01:34:59.113Z">
+<meta property="og:updated_time" content="2019-06-28T01:41:30.165Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="A Deep Learning Approach to Fast, Format-Agnostic Detection of Malicious WebContent(S&amp;P 2018)">
 <meta name="twitter:description" content="1 概述&amp;emsp;&amp;emsp;本文提出了一种用于快速、不依赖于格式的检测恶意网页内容的深度学习方法：  使用正则表达式直接从静态HTML文件（包括HTML, CSS, 嵌入式Javascript）中提取出与语言无关的令牌流，使其能够快速地在诸如防火墙和web代理之类的高频数据上下文中运行，适合部署到端点、防火墙和web代理； 与诸如词袋模型等忽略空间信息的方法不同，该方法在层次空间尺度上检查内容">
@@ -479,7 +479,7 @@
 <p><div align="center"><br><img src="/2019/06/27/A-Deep-Learning-Approach-to-Fast-Format-Agnostic-Detection-of-Malicious-WebContent-S-P-2018/7.png" width="350" height="250"><br></div></p>
 <h2 id="5-总结"><a href="#5-总结" class="headerlink" title="5 总结"></a>5 总结</h2><p>&emsp;&emsp;使用深度学习能够学习到相对原始的web内容输入的高质量内部表示，其性能优于手工提取的特征。而且，从更广泛的意义上说，深度学习方法在检测恶意web内容方面具有广阔的前景。</p>
 <h2 id="6-个人观点"><a href="#6-个人观点" class="headerlink" title="6 个人观点"></a>6 个人观点</h2><ul>
-<li><strong>优点</strong>：相对于传统使用机器学习检测恶意网页的方法，本文并没有通过手工的方式提取特征，二是将提取的token块经过哈希以后送入Inspector模块，得到1×1024维的向量表示，再输入到最后的Mster网络进行分类。  </li>
+<li><strong>优点</strong>：相对于传统使用机器学习检测恶意网页的方法，本文并没有通过手工的方式提取特征，二是将提取的token块经过哈希以后送入Inspector模块，得到1×1024维的向量表示，再输入到最后的Master网络进行分类。  </li>
 <li><strong>缺点</strong>：第一组对照实验对整个模型的效果进行了验证，第二组对照实验分别对多空间尺度特征和Inspector的效果进行了验证。但是本文并<font color="red">没有验证Master网络，没有跟其它网络进行对比<font>。</font></font></li>
 </ul>
 
