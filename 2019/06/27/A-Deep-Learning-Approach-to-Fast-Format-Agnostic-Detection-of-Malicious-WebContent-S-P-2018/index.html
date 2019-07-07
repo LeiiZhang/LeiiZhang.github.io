@@ -123,14 +123,15 @@
 
 
 
-<meta name="description" content="1 概述&amp;emsp;&amp;emsp;本文提出了一种用于快速、不依赖于格式的检测恶意网页内容的深度学习方法：  使用正则表达式直接从静态HTML文件（包括HTML, CSS, 嵌入式Javascript）中提取出与语言无关的令牌流，使其能够快速地在诸如防火墙和web代理之类的高频数据上下文中运行，适合部署到端点、防火墙和web代理； 与诸如词袋模型等忽略空间信息的方法不同，该方法在层次空间尺度上检查内容">
+<meta name="description" content="作者介绍一作：Joshua Saxe（Sophos的首席数据科学家）公司：Sophos（一家英国软件和硬件安全公司）个人主页：https://www.sophos.com/en-us/labs/researchers/joshua-saxe.aspxGoogle Scholar：https://scholar.google.com/citations?user=OO7TDFsAAAAJ&amp;amp;h">
 <meta name="keywords" content="Deep Learning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="A Deep Learning Approach to Fast, Format-Agnostic Detection of Malicious WebContent(S&amp;P 2018)">
 <meta property="og:url" content="https://leiizhang.github.io/2019/06/27/A-Deep-Learning-Approach-to-Fast-Format-Agnostic-Detection-of-Malicious-WebContent-S-P-2018/index.html">
 <meta property="og:site_name" content="还是吃太多乐">
-<meta property="og:description" content="1 概述&amp;emsp;&amp;emsp;本文提出了一种用于快速、不依赖于格式的检测恶意网页内容的深度学习方法：  使用正则表达式直接从静态HTML文件（包括HTML, CSS, 嵌入式Javascript）中提取出与语言无关的令牌流，使其能够快速地在诸如防火墙和web代理之类的高频数据上下文中运行，适合部署到端点、防火墙和web代理； 与诸如词袋模型等忽略空间信息的方法不同，该方法在层次空间尺度上检查内容">
+<meta property="og:description" content="作者介绍一作：Joshua Saxe（Sophos的首席数据科学家）公司：Sophos（一家英国软件和硬件安全公司）个人主页：https://www.sophos.com/en-us/labs/researchers/joshua-saxe.aspxGoogle Scholar：https://scholar.google.com/citations?user=OO7TDFsAAAAJ&amp;amp;h">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://leiizhang.github.io/2019/06/27/A-Deep-Learning-Approach-to-Fast-Format-Agnostic-Detection-of-Malicious-WebContent-S-P-2018/0.png">
 <meta property="og:image" content="https://leiizhang.github.io/2019/06/27/A-Deep-Learning-Approach-to-Fast-Format-Agnostic-Detection-of-Malicious-WebContent-S-P-2018/1.png">
 <meta property="og:image" content="https://leiizhang.github.io/2019/06/27/A-Deep-Learning-Approach-to-Fast-Format-Agnostic-Detection-of-Malicious-WebContent-S-P-2018/2.png">
 <meta property="og:image" content="https://leiizhang.github.io/2019/06/27/A-Deep-Learning-Approach-to-Fast-Format-Agnostic-Detection-of-Malicious-WebContent-S-P-2018/3.png">
@@ -138,11 +139,11 @@
 <meta property="og:image" content="https://leiizhang.github.io/2019/06/27/A-Deep-Learning-Approach-to-Fast-Format-Agnostic-Detection-of-Malicious-WebContent-S-P-2018/5.png">
 <meta property="og:image" content="https://leiizhang.github.io/2019/06/27/A-Deep-Learning-Approach-to-Fast-Format-Agnostic-Detection-of-Malicious-WebContent-S-P-2018/6.png">
 <meta property="og:image" content="https://leiizhang.github.io/2019/06/27/A-Deep-Learning-Approach-to-Fast-Format-Agnostic-Detection-of-Malicious-WebContent-S-P-2018/7.png">
-<meta property="og:updated_time" content="2019-06-28T01:41:30.165Z">
+<meta property="og:updated_time" content="2019-07-07T08:06:35.416Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="A Deep Learning Approach to Fast, Format-Agnostic Detection of Malicious WebContent(S&amp;P 2018)">
-<meta name="twitter:description" content="1 概述&amp;emsp;&amp;emsp;本文提出了一种用于快速、不依赖于格式的检测恶意网页内容的深度学习方法：  使用正则表达式直接从静态HTML文件（包括HTML, CSS, 嵌入式Javascript）中提取出与语言无关的令牌流，使其能够快速地在诸如防火墙和web代理之类的高频数据上下文中运行，适合部署到端点、防火墙和web代理； 与诸如词袋模型等忽略空间信息的方法不同，该方法在层次空间尺度上检查内容">
-<meta name="twitter:image" content="https://leiizhang.github.io/2019/06/27/A-Deep-Learning-Approach-to-Fast-Format-Agnostic-Detection-of-Malicious-WebContent-S-P-2018/1.png">
+<meta name="twitter:description" content="作者介绍一作：Joshua Saxe（Sophos的首席数据科学家）公司：Sophos（一家英国软件和硬件安全公司）个人主页：https://www.sophos.com/en-us/labs/researchers/joshua-saxe.aspxGoogle Scholar：https://scholar.google.com/citations?user=OO7TDFsAAAAJ&amp;amp;h">
+<meta name="twitter:image" content="https://leiizhang.github.io/2019/06/27/A-Deep-Learning-Approach-to-Fast-Format-Agnostic-Detection-of-Malicious-WebContent-S-P-2018/0.png">
 
 
 
@@ -399,7 +400,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.5k 字
+                  1.7k 字
                 </span>
               
 
@@ -415,7 +416,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  5 分钟
+                  6 分钟
                 </span>
               
             </div>
@@ -436,7 +437,10 @@
       
 
       
-        <h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1 概述"></a>1 概述</h2><p>&emsp;&emsp;本文提出了一种用于<strong>快速</strong>、<strong>不依赖于格式</strong>的检测恶意网页内容的<strong>深度学习方法</strong>：</p>
+        <h2 id="作者介绍"><a href="#作者介绍" class="headerlink" title="作者介绍"></a>作者介绍</h2><p><strong>一作：</strong>Joshua Saxe（Sophos的首席数据科学家）<br><strong>公司：</strong>Sophos（一家英国软件和硬件安全公司）<br><strong>个人主页：</strong><a href="https://www.sophos.com/en-us/labs/researchers/joshua-saxe.aspx" target="_blank" rel="noopener">https://www.sophos.com/en-us/labs/researchers/joshua-saxe.aspx</a><br><strong>Google Scholar：</strong><a href="https://scholar.google.com/citations?user=OO7TDFsAAAAJ&amp;hl=en" target="_blank" rel="noopener">https://scholar.google.com/citations?user=OO7TDFsAAAAJ&amp;hl=en</a><br><strong>简介：</strong>Joshua Saxe是Sophos的首席数据科学家。他领导的数据科学团队专注于发明、评估和部署深度学习检测模型，以支持下一代端点安全解决方案。</p>
+<div align="center"><br><img src="/2019/06/27/A-Deep-Learning-Approach-to-Fast-Format-Agnostic-Detection-of-Malicious-WebContent-S-P-2018/0.png" width="600" height="300"><br></div>
+
+<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1 概述"></a>1 概述</h2><p>&emsp;&emsp;本文提出了一种用于<strong>快速</strong>、<strong>不依赖于格式</strong>的检测恶意网页内容的<strong>深度学习方法</strong>：</p>
 <ul>
 <li>使用正则表达式直接从静态HTML文件（包括HTML, CSS, 嵌入式Javascript）中提取出与语言无关的令牌流，使其能够快速地在诸如防火墙和web代理之类的高频数据上下文中运行，适合部署到<font color="red">端点、防火墙和web代理</font>；</li>
 <li>与诸如词袋模型等忽略空间信息的方法不同，该方法在层次空间尺度上检查内容，捕获局部性，从而产生更高的精度；<br>实验达到 97.5%的正确率 和0.1%误报率（原因：之前未见过的网页内容），在普通硬件上以每秒100个以上的速度对小批量web页面进行分类。</li>
@@ -557,6 +561,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/07/07/Phishing-URL-Detection-with-Oversampling-based-on-Text-Generative-Adversarial-Networks/" rel="prev" title="Phishing URL Detection with Oversampling based on Text Generative Adversarial（Big Data 2018） Networks">
+                Phishing URL Detection with Oversampling based on Text Generative Adversarial（Big Data 2018） Networks <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -637,7 +645,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -648,7 +656,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -659,7 +667,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -711,7 +719,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-概述"><span class="nav-number">1.</span> <span class="nav-text">1 概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-系统结构"><span class="nav-number">2.</span> <span class="nav-text">2 系统结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-特征提取"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 特征提取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Inspector"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 Inspector</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Master"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 Master</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-数据集"><span class="nav-number">3.</span> <span class="nav-text">3 数据集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-实验数据"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 实验数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-标记策略"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 标记策略</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-实验"><span class="nav-number">4.</span> <span class="nav-text">4 实验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-模型比较"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 模型比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-内部结构测试"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 内部结构测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（1）FlatSequential"><span class="nav-number">4.2.1.</span> <span class="nav-text">（1）FlatSequential</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（2）FlattenedFF"><span class="nav-number">4.2.2.</span> <span class="nav-text">（2）FlattenedFF</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-结果细分"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 结果细分</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-总结"><span class="nav-number">5.</span> <span class="nav-text">5 总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-个人观点"><span class="nav-number">6.</span> <span class="nav-text">6 个人观点</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#作者介绍"><span class="nav-number">1.</span> <span class="nav-text">作者介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-概述"><span class="nav-number">2.</span> <span class="nav-text">1 概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-系统结构"><span class="nav-number">3.</span> <span class="nav-text">2 系统结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-特征提取"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 特征提取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Inspector"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 Inspector</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Master"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 Master</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-数据集"><span class="nav-number">4.</span> <span class="nav-text">3 数据集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-实验数据"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 实验数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-标记策略"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 标记策略</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-实验"><span class="nav-number">5.</span> <span class="nav-text">4 实验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-模型比较"><span class="nav-number">5.1.</span> <span class="nav-text">4.1 模型比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-内部结构测试"><span class="nav-number">5.2.</span> <span class="nav-text">4.2 内部结构测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（1）FlatSequential"><span class="nav-number">5.2.1.</span> <span class="nav-text">（1）FlatSequential</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（2）FlattenedFF"><span class="nav-number">5.2.2.</span> <span class="nav-text">（2）FlattenedFF</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-结果细分"><span class="nav-number">5.3.</span> <span class="nav-text">4.3 结果细分</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-总结"><span class="nav-number">6.</span> <span class="nav-text">5 总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-个人观点"><span class="nav-number">7.</span> <span class="nav-text">6 个人观点</span></a></li></ol></div>
             
 
           </div>
@@ -752,7 +760,7 @@
     
       <span class="post-meta-item-text">本站总计&#58;</span>
     
-    <span title="本站总计">4.7k 字</span>
+    <span title="本站总计">8.2k 字</span>
   
 </div>
 
