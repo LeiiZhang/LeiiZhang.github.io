@@ -138,7 +138,7 @@
 <meta property="og:image" content="https://leiizhang.github.io/2019/06/27/DeltaPhish-Detecting-Phishing-Webpages-in-Compromised-Websites-ESORICS-2017/4.png">
 <meta property="og:image" content="https://leiizhang.github.io/2019/06/27/DeltaPhish-Detecting-Phishing-Webpages-in-Compromised-Websites-ESORICS-2017/5.png">
 <meta property="og:image" content="https://leiizhang.github.io/2019/06/27/DeltaPhish-Detecting-Phishing-Webpages-in-Compromised-Websites-ESORICS-2017/6.png">
-<meta property="og:updated_time" content="2019-07-07T08:05:57.168Z">
+<meta property="og:updated_time" content="2019-07-08T04:46:34.515Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DeltaPhish: Detecting Phishing Webpages in Compromised Websites(ESORICS 2017)">
 <meta name="twitter:description" content="作者介绍一作：Igino Corona（教员）实验室：模式识别与应用实验室，意大利实验室主页：http://prag.diee.unica.it/it个人主页：http://prag.diee.unica.it/it/IginoCoronaGoogle Scholar：https://scholar.google.it/citations?user=_Omv5NkAAAAJ&amp;amp;hl=it">
@@ -450,7 +450,7 @@
 <li>然后，使用HTML特征提取器和快照特征提取器，分别提取输入页面和主页的HTML特征以及快照特征。然后使用映射函数将特征映射到适合学习分类函数的向量空间上，这两个特性集都是根据输入页面x和主页x0的特性之间的比较计算出来的；</li>
 <li>接着，使用这两个基于向量的表示来学习HTML和基于快照的分类器；</li>
 <li>分类器输出不相似性得分s1(x)和s2(x)，从本质上衡量输入页面与相应主页的不同程度，得分越高越有可能是钓鱼网页；</li>
-<li>通过融合策略将两个得分进行组合，输出集成得分g(x)，g(x)&gt;=0为钓鱼网页，否则为合法网页。<div align="center"><br><img src="/2019/06/27/DeltaPhish-Detecting-Phishing-Webpages-in-Compromised-Websites-ESORICS-2017/2.png" width="800" height="300"><br></div>
+<li>通过融合策略将两个得分进行组合，输出集成得分g(x)，g(x)&gt;=0为钓鱼网页，否则为合法网页。<div align="center"><br><img src="/2019/06/27/DeltaPhish-Detecting-Phishing-Webpages-in-Compromised-Websites-ESORICS-2017/2.png" width="800" height="280"><br></div>
 
 </li>
 </ul>
@@ -459,7 +459,7 @@
 <p>官方文档：<a href="http://docs.seleniumhq.org" target="_blank" rel="noopener">http://docs.seleniumhq.org</a></p>
 </blockquote>
 <h3 id="2-2-基于HTML的分类"><a href="#2-2-基于HTML的分类" class="headerlink" title="2.2 基于HTML的分类"></a>2.2 基于HTML的分类</h3><p>&emsp;&emsp;<strong>1) 定义了11个特征</strong><br>&emsp;&emsp;每个特征都是通过比较输入页面x和同一域中托管的网站的主页x0获得。这些特征组成d1维特征向量δ1(x)。特征包括：URL、2LD、SS、SS-URL、SS-2LD、I-URL、I-2LD、Copyright、X-links、Title、Language。<br>&emsp;&emsp;<strong>2) 分类</strong><br>&emsp;&emsp;使用带标记的训练集训练SVM分类器，得到权重和偏置，对于每个输入的网页，利用权重和偏置计算的得到dissimilarity score s1(x)。</p>
-<h3 id="2-3-基于快照的分类"><a href="#2-3-基于快照的分类" class="headerlink" title="2.3 基于快照的分类"></a>2.3 基于快照的分类</h3><div align="center"><br><img src="/2019/06/27/DeltaPhish-Detecting-Phishing-Webpages-in-Compromised-Websites-ESORICS-2017/3.png" width="750" height="500"><br></div>
+<h3 id="2-3-基于快照的分类"><a href="#2-3-基于快照的分类" class="headerlink" title="2.3 基于快照的分类"></a>2.3 基于快照的分类</h3><div align="center"><br><img src="/2019/06/27/DeltaPhish-Detecting-Phishing-Webpages-in-Compromised-Websites-ESORICS-2017/3.png" width="750" height="480"><br></div>
 
 <h4 id="（1）图像分块"><a href="#（1）图像分块" class="headerlink" title="（1）图像分块"></a>（1）图像分块</h4><ul>
 <li>将图像分为 (1×1)+(2×2)+(4×4) = 21 个块；  </li>
@@ -669,7 +669,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -691,7 +691,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -784,7 +784,7 @@
     
       <span class="post-meta-item-text">本站总计&#58;</span>
     
-    <span title="本站总计">8.2k 字</span>
+    <span title="本站总计">11.1k 字</span>
   
 </div>
 
