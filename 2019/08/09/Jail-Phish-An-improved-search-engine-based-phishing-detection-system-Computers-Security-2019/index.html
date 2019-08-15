@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon_my.jpg?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_my.jpg?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Search engine,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1 作者介绍一作：Routhu Srinivasa Rao（印度NITK Surathkal计算机科学与工程系）Google Scholar：https://scholar.google.co.in/citations?user=1X_WI3UAAAAJ&amp;amp;hl=en   2 概述&amp;emsp;&amp;emsp;基于搜索引擎的技术的局限性在于，它们无法检测托管在受攻击服务器上的钓鱼网站。本文提出了一">
+<meta name="keywords" content="Search engine">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jail-Phish: An improved search engine based phishing detection system（Computers Security 2019）">
+<meta property="og:url" content="https://leiizhang.github.io/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/index.html">
+<meta property="og:site_name" content="还是吃太多乐">
+<meta property="og:description" content="1 作者介绍一作：Routhu Srinivasa Rao（印度NITK Surathkal计算机科学与工程系）Google Scholar：https://scholar.google.co.in/citations?user=1X_WI3UAAAAJ&amp;amp;hl=en   2 概述&amp;emsp;&amp;emsp;基于搜索引擎的技术的局限性在于，它们无法检测托管在受攻击服务器上的钓鱼网站。本文提出了一">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/1.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/2.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/3.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/4.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/5.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/12.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/6.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/7.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/8.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/9.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/10.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/11.png">
+<meta property="og:updated_time" content="2019-08-12T01:20:32.555Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Jail-Phish: An improved search engine based phishing detection system（Computers Security 2019）">
+<meta name="twitter:description" content="1 作者介绍一作：Routhu Srinivasa Rao（印度NITK Surathkal计算机科学与工程系）Google Scholar：https://scholar.google.co.in/citations?user=1X_WI3UAAAAJ&amp;amp;hl=en   2 概述&amp;emsp;&amp;emsp;基于搜索引擎的技术的局限性在于，它们无法检测托管在受攻击服务器上的钓鱼网站。本文提出了一">
+<meta name="twitter:image" content="https://leiizhang.github.io/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://leiizhang.github.io/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/">
+
+
+
+
+
+  <title>Jail-Phish: An improved search engine based phishing detection system（Computers Security 2019） | 还是吃太多乐</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/LeiiZhang" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">还是吃太多乐</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leiizhang.github.io/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lei Zhang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还是吃太多乐">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Jail-Phish: An improved search engine based phishing detection system（Computers Security 2019）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-09T13:11:14+08:00">
+                2019-08-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CCF-B/" itemprop="url" rel="index">
+                    <span itemprop="name">CCF-B</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.7k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  14 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-作者介绍"><a href="#1-作者介绍" class="headerlink" title="1 作者介绍"></a>1 作者介绍</h2><p><strong>一作：</strong>Routhu Srinivasa Rao（印度NITK Surathkal计算机科学与工程系）<br><strong>Google Scholar：</strong><a href="https://scholar.google.co.in/citations?user=1X_WI3UAAAAJ&amp;hl=en" target="_blank" rel="noopener">https://scholar.google.co.in/citations?user=1X_WI3UAAAAJ&amp;hl=en</a></p>
+<div align="center"><br><img src="/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/1.png" width="350" height="140"><br></div>
+
+<h2 id="2-概述"><a href="#2-概述" class="headerlink" title="2 概述"></a>2 概述</h2><p>&emsp;&emsp;基于搜索引擎的技术的局限性在于，它们无法检测托管在受攻击服务器上的钓鱼网站。本文提出了一个名为 <strong>Jail-Phish</strong> 的应用程序，它可以提高基于搜索引擎的技术的准确性，能够检测受攻击服务器上托管的网络钓鱼站点（Phishing Sites Hosted on Compromised Servers, <strong>PSHCS</strong>）以及检测新注册的合法站点。Jail-Phish 比较可疑站点和搜索结果中匹配的域名，以计算它们之间的相似性得分。在同一网站的页面内存在某种程度的相似性，例如logo, favicon, images, scripts, styles 和 anchorlinks；而另一方面，PSHCS 中页面内的不相似性非常高。因此，使用可疑站点和匹配的域名之间的相似性得分作为检测 PSHCS 的参数。实验结果表明，Jail-Phish 的 accuracy 为98.61%，真阳性率为97.77%，假阳性率小于0.64%。</p>
+<a id="more"></a>
+<h2 id="3-介绍"><a href="#3-介绍" class="headerlink" title="3 介绍"></a>3 介绍</h2><h3 id="3-1-钓鱼网站分类"><a href="#3-1-钓鱼网站分类" class="headerlink" title="3.1 钓鱼网站分类"></a>3.1 钓鱼网站分类</h3><p>&emsp;&emsp;攻击者以各种方式设计钓鱼网站，分为以下几种类别： </p>
+<ul>
+<li>C1：对内容进行操纵的钓鱼网站，包括删除标题，版权，元数据等中的品牌名称，以及使用 NULL 或其本地链接替换合法超链接。</li>
+<li>C2：网络钓鱼网站用单个图像替换整个合法文本。 </li>
+<li>C3：使用 URL 模糊技术的钓鱼网站（在商标名中拼写错误，或在子域或路径域中使用过多的点或冗长的 URL 保存商标名）。 </li>
+<li>C4：使用 HTTPS 连接的模仿高合法行为的钓鱼网站。 </li>
+<li>C5：免费网站托管服务器上托管的钓鱼网站。 </li>
+<li>C6：托管在受攻击 Web 服务器上的钓鱼网站。 </li>
+<li>C7：在 iframes 或 flash 中嵌入合法内容的钓鱼网站。</li>
+</ul>
+<div align="center"><br><img src="/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/2.png" width="360" height="220"><br></div>
+
+<p>&emsp;&emsp;图2显示了通过恶意注册和受攻击域名进行钓鱼攻击的数量。从图中可以看出，随着多年来钓鱼攻击的增加，使用<strong>受攻击服务器的钓鱼网站</strong>数量也在增加。与恶意注册相比，在受攻击的服务器上托管钓鱼网站的优点在于所设计的钓鱼网站也具有与受攻击域名相同的声誉，合法站点的声誉使得钓鱼网页可以绕过基于列表的技术和基于第三方服务的检测技术。</p>
+<h3 id="3-2-本文贡献"><a href="#3-2-本文贡献" class="headerlink" title="3.2 本文贡献"></a>3.2 本文贡献</h3><p>&emsp;&emsp;本文通过动态搜索查询来解决以下基于搜索引擎方法的缺口：<br>（1）当钓鱼网站中的文本被替换为图像时，使用从版权、纯文本、标题文本中提取的标识关键字用于基于搜索引擎的技术无法提取相关术语。<br>（2）许多基于搜索引擎的技术难以解决托管在合法 web 服务器上的钓鱼网站，这是因为这些合法域名已经运行了很长时间，有更多的机会被搜索引擎索引。<br>（3）当使用域名+标题或网站标识关键字查询时，一些良性网站不会显示在搜索结果中，因而现有技术将合法网页分类为钓鱼网页。</p>
+<p>&emsp;&emsp;<strong>本文贡献</strong>：<br>（1）提出了一种<strong>动态搜索查询字符串的生成方法</strong>，用于返回相关搜索结果；<br>（2）提出了一种<strong>基于相似性的机制</strong>来检测托管在受攻击服务器(PSHCS)上的钓鱼网站；<br>（3）该技术对不同的 URL 伪装技术具有较强的鲁棒性，并能检测到 zero-day 网络钓鱼攻击；<br>（4）提出的方法能检测出非英文钓鱼网站，而且不依赖于事先访问目标网站资源数据库或网站历史；<br>（5）通过对新老网络钓鱼数据的综合评价表明，Jail-Phish 适用于long-lived 钓鱼站点的检测。  </p>
+<div align="center"><br><img src="/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/3.png" width="700" height="410"><br></div>
+
+<p>&emsp;&emsp;对现有技术的各种属性的总结如表1所示，属性包括：language independence (LI), phishing sites hosted on compromised servers detection (PSHCSD), image based phishing detection (IPD), access time in seconds (AT)</p>
+<div align="center"><br><img src="/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/4.png" width="500" height="210"><br></div>
+
+<p>&emsp;&emsp;表2展示了用于进行实验的数据集的大小、来源及其性能属性，如 true positive rate(TPR)、true negative rate(TNR)、accuracy 和网站类型。</p>
+<h2 id="4-本文方法"><a href="#4-本文方法" class="headerlink" title="4 本文方法"></a>4 本文方法</h2><p>&emsp;&emsp;本文提出了一种有效的基于搜索引擎的技术，该技术对应于不同类别的网站有不同的搜索查询字符串，包括新的和不受欢迎的合法站点。本文还使用基于相似性的特征来检测受攻击服务器上的钓鱼网页。</p>
+<h3 id="4-1-domain-title-搜索查询中的观察"><a href="#4-1-domain-title-搜索查询中的观察" class="headerlink" title="4.1 domain + title 搜索查询中的观察"></a>4.1 domain + title 搜索查询中的观察</h3><p>（1）In <strong>legitimate</strong> sites  </p>
+<ul>
+<li>当查询域名和标题时，一些非英语站点不会显示在搜索结果中，但是当只查询域名时则会出现；  </li>
+<li>TLD 问题：当查询具有 ccTLD(country code top level domain)的域名时，搜索结果中显示具有 gTLD(global top level domain)的域名；  </li>
+<li>如果 brand 名中没有标题，或者标题中的关键词更具竞争力，那么查询的域名就不会出现在搜索结果中。  </li>
+</ul>
+<p>（2）In <strong>phishing</strong> sites  </p>
+<ul>
+<li>当受攻击的服务器上托管的钓鱼网站（PSHCS）中不存在标题时，搜索结果中会显示 query-domain。</li>
+<li>当 PSHCS 的标题中具有常规关键字(sign in、log in、login、home、untitled)时，搜索结果中显示 query-domain。</li>
+</ul>
+<h3 id="4-2-Jail-Phish"><a href="#4-2-Jail-Phish" class="headerlink" title="4.2 Jail-Phish"></a>4.2 Jail-Phish</h3><p>&emsp;&emsp;工具采用 Java 实现，以 URL 为输入，从网站中提取标题、域名和源代码。提取的标题和域名用以生成搜索查询，考虑前 n 个搜索结果，如果查询域名出现在搜索结果中，则计算查询URL内容与SERP中匹配域名之间的相似性。如果相似性超过阈值，则将其分类为合法的，否则为PSHCS。另一种可能性是搜索结果中没有查询域名，最终被归类为钓鱼网站。这一假设也导致了将新注册的或不受欢迎的合法网站错误分类为网络钓鱼，但由于使用动态搜索查询，假阳性率(对网络钓鱼合法)大大降低。<br>&emsp;&emsp;Jail-Phish的目标如下：（1）独立于语言；（2）高效的查询；（3）检测受攻击的域名；（4）基于客户端。</p>
+<div align="center"><br><img src="/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/5.png" width="325" height="870"><br></div>
+
+<p>&emsp;&emsp;将 Jail-Phish 分为6个阶段，伪代码如 Algorithm 1 所示：<br>（1）<strong>提取 domain 和 title</strong><br>&emsp;&emsp;使用 <a href="http://docs.seleniumhq.org/download/" title="Selenium WebDriver" target="_blank" rel="noopener">Selenium WebDriver</a> 访问给定的 suspicious URL 并提取 source code，使用 Jsoup 库解析source code，提取 title 和其他相关的 DOM 文件。使用谷歌的 Guava 库从 URL 中提取 domain。<br>（2）<strong>Search query string 准备</strong><br>&emsp;&emsp;该模块为不同类型的网站提供动态搜索查询字符串。本文选择 domain + title 作为 search query，一般来说，domain 会给出相应网站的品牌名称，而 title 则会向在线用户和搜索引擎简要介绍网站。<br>&emsp;&emsp;总体而言，本文的结论是：标题对于一些合法站点集的搜索查询是必须的，对于其他合法站点集应该跳过标题。因此，search query 将为 domain + title 或 domain。search query 初始化为 domain + title，在两种情况下改变：（1）返回搜索结果中的域名与 query domain 没有匹配的，则将 search query 更改为仅query domain；（2）给定的 URL 的源码中没有 title，search query 也将更改为仅 query domain。<br>（3）<strong>搜索处理</strong><br>&emsp;&emsp;使用 Google 作为搜索引擎，通过实验发现，搜索结果阈值的最优值 T=10。<br>（4）<strong>初始决策</strong><br>&emsp;&emsp;如果在前10个搜索结果中返回 query domain，则将domain status 更改为 true，这表明该 query domain 要么是纯合法页面，要么是 PSHCS。为了进一步确定，将匹配域的 baseURL 与查询域的 baseURL 进行比较。如果匹配，则将 URL 的查询域分类为合法域；否则将进行下一步筛选，在 matched domain 和给定的可疑页面之间执行相似性计算以区分合法页面和 PSHCS。</p>
+<table><tr><td bgcolor="yellow"><strong>baseURL</strong> is termed as protocol + hostname + pathname of given URL</td></tr></table>
+
+<p>&emsp;&emsp;存在一些查询域与搜索结果中的主域匹配，但在国家代码顶级域(ccTLD)或全局顶级域(gTLD)上有所不同，这类网站也经过相似度计算阶段。<br>&emsp;&emsp;如果查询域与返回结果的任何域都不匹配，则仅使用 domain 重置查询字符串以执行搜索处理。 若还没有匹配，则将其归类为网络钓鱼，否则匹配的域 URL 将经历进一步的过滤阶段。<br>（5）<strong>相似性计算</strong><br>&emsp;&emsp;此模块检查给定的URL是否是受攻击服务器上托管的网络钓鱼页面。通常，网站内的页面之间存在一定程度的相似性，该假设用于检测 PSHCS。存在一些资源，如 Javascript，CSS，images，网站内所有页面共有的 logos。因此，从可疑网站 S 中提取这些资源文件，并在搜索结果中匹配域 M 以计算它们之间的相似性。算法2给出了相似度计算机制，基于相似度的特征如下：</p>
+<ul>
+<li>URL：从它们各自的源代码中提取所有与S和M对应的本地URL，使用[href]从检查代码中提取本地锚链接，并将其保存在每个页面的不同集合中。</li>
+<li>Styles：使用link[href]从检查代码中提取了M和S对应的所有局部样式，这些样式文件在链接URL中包含CSS扩展名。</li>
+<li>Javascript：提取嵌入在这两个页面中的所有javascript文件，并将其存储在不同的集合中。这些文件都有js扩展名，是从script[src]中提取出来的。</li>
+<li>Images：对img标签的src属性即img[src]进行检查，提取出与两个页面对应的所有图像。</li>
+</ul>
+<p>&emsp;&emsp;一旦从 JS、CSS、images、anchorlinks 中提取出所有这些资源url，它们就组合成两个大集合，对应于 M 和 S。将这两个集合作为输入馈送到 Jaccardian 相似性模块中，计算页面之间的相似性。</p>
+<div align="center"><br><img src="/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/12.png" width="300" height="350"><br></div>
+
+<p>（6）<strong>最终决策</strong><br>&emsp;&emsp;如果相似度得分高于阈值，则将其分类为合法。为简单起见，本文将阈值设为0，也就是说，如果相似性得分高于0，表明存在某种程度的相似性，则将其归类为合法的，否则将其归类为托管在受攻击服务器上的钓鱼网站。</p>
+<h2 id="5-实验"><a href="#5-实验" class="headerlink" title="5 实验"></a>5 实验</h2><h3 id="5-1-数据集"><a href="#5-1-数据集" class="headerlink" title="5.1 数据集"></a>5.1 数据集</h3><p>&emsp;&emsp;从 PhishTank 中提取钓鱼数据集，从 Alexa 中收集合法数据集，表 3 给出了数据集的属性。在不同的时间间隔收集钓鱼数据集，检查这些技术是否适用于 old 和 live 的钓鱼网站；在 Alexa 的不同 Page ranks 范围内收集合法数据集，以检查 Jail-Phish 在 popular、medium 和 newly registered 域名中的性能。</p>
+<div align="center"><br><img src="/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/6.png" width="530" height="110"><br></div>
+
+<h3 id="5-2-评价标准"><a href="#5-2-评价标准" class="headerlink" title="5.2 评价标准"></a>5.2 评价标准</h3><ul>
+<li>phishing —— positive</li>
+<li>legitimate —— negative</li>
+<li>正确预测的钓鱼网站 —— true positive (TP)</li>
+<li>正确预测的合法网站 —— true negative (TN)</li>
+<li>错误预测的合法网站 —— false positive (FP)<br>（将合法网站错误的预测成了钓鱼网站）</li>
+<li>错误预测的钓鱼网站——false negative (FN)<br>（将钓鱼网站错误的预测成了合法网站）</li>
+</ul>
+<table><tr><td bgcolor="yellow">对于一个好的系统，FP应该是最小的，TP应该是最大的。</td></tr></table>
+
+<p>（1）<strong>True Positive Rate (TPR)</strong><br>&emsp;&emsp;在所有钓鱼网站中，正确预测的钓鱼网站(TP)的百分比，也被称为 Sensitivity 或 Recall。<br>&emsp;&emsp;$TPR=\frac{TP}{TP+FN}<em>100$<br>（2）<strong>True Negative Rate (TNR)</strong><br>&emsp;&emsp;在所有合法网站中，正确预测的合法网站(TN)的百分比，也被称为 Specificity。<br>&emsp;&emsp;$TNR=\frac{TN}{TN+FP}</em>100$<br>（3）<strong>False Positive Rate(FPR)</strong><br>&emsp;&emsp;在所有合法网站中，错误预测的合法网站(FP)的百分比。<br>&emsp;&emsp;$FPR=\frac{FP}{FP+TN}<em>100=1-Specificity$<br>（4）<strong>False Negative Rate(FNR)</strong><br>&emsp;&emsp;在所有钓鱼网站中，错误预测的钓鱼网站(FN)的百分比。<br>&emsp;&emsp;$FNR=\frac{FN}{FN+TP}</em>100=1-Recall$<br>（5）<strong>Accuracy (Acc)</strong><br>&emsp;&emsp;正确预测的合法网站和钓鱼网站占网站总数的百分比。<br>&emsp;&emsp;$Acc=\frac{TP+TN}{TP+FP+TN+FN}<em>100=\frac{TP+TN}{P+L}</em>100$<br>（6）<strong>Precision (Pre)</strong><br>&emsp;&emsp;在所有预测的钓鱼网站中，正确预测的钓鱼网站的百分比。<br>&emsp;&emsp;$Pre=\frac{TP}{TP+FP}<em>100$<br>（7）<strong>F-Measure</strong><br>&emsp;&emsp;F-Measure 是 precision 和 recall 的调和平均值。F-Measure 总是更接近于 precision 和 recall 中的较小值，是一个评估 precision 和 recall 的综合度量。<br>&emsp;&emsp;$F=2</em>\frac{Pre*Recall}{Pre+Recall}$ </p>
+<h3 id="5-3-实验"><a href="#5-3-实验" class="headerlink" title="5.3 实验"></a>5.3 实验</h3><p>（1）实验1 —— 用 legitimate 数据集评估 Jail-Phish<br>&emsp;&emsp;本实验使用 LD1、LD2 和 LD3 数据集来评估 Jail-Phish 的 TNR，比较 Jail-Phish 在不同受欢迎程度的合法网页上检测的效果。实验结果如表 4 所示，TNR 分别为 100%，99.39% 和 99.11%。<br>（2）实验2 —— 用 legitimate 数据集比较 Jail-Phish 和 Varshney et al. (2016b)<br>&emsp;&emsp;使用 LD1, LD2 和 LD3 数据集，将 Varshney 使用 GCSE（Google custom search engine）和 GWS（Google web search） 的实现称为 M1 和 M2，实验结果如表 4 所示。</p>
+<div align="center"><br><img src="/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/7.png" width="530" height="135"><br></div>
+
+<p>&emsp;&emsp;据观察，Jail-Phish 的表现优于 M1 和 M2，平均 TNR 为 99.50％。 M2 优于 M1，平均 TNR 为 96.38％。 由于使用 GWS，Jail-Phish 和 M2 的表现优于 M1，因为它包括实时搜索结果。由于 M1 使用 GCSE，因此导致非常差的 TNR 和高 FPR。LD3 的 M1 达到最大 FPR 为 16.01％。Jail-Phish 和 M1，M2 之间的 TNR 差异随着排名较高的网站和非英语网站的增加而增加。<br>（3）实验3 —— 用 phishing 数据集评估 Jail-Phish<br>&emsp;&emsp;本实验使用 PD1 和 PD2 数据集来评估 Jail-Phish，实验结果如表 5 所示。<br>（4）实验4 —— 用 phishing 数据集比较 Jail-Phish 与 M1、M2<br>&emsp;&emsp;实验结果如表 5 所示。  </p>
+<div align="center"><br><img src="/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/8.png" width="530" height="170"><br></div>
+
+<p>（5）实验5 —— 评估相似度计算模块  </p>
+<ul>
+<li>Case 1：使用 SQ = domain + title，Jail-Phish 检查可疑域名与 SERP 中域名的匹配状态，如果匹配则合法否则为钓鱼网页。  </li>
+<li>Case 2：使用 SQ = domain + title 检查 SERP 中匹配的域名，如果没有找到匹配的，则使用 SQ = domain 匹配 SERP 中可疑的域名，如果匹配则合法否则为钓鱼网页。  </li>
+<li>Case 3：包含相似度计算模块的 Jail-Phish。  </li>
+</ul>
+<div align="center"><br><img src="/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/9.png" width="530" height="90"><br></div>
+
+<p>&emsp;&emsp;实验结果如表 6 所示，Case 3 的误分类实例数量最少，说明了在 Jail-Phish 中包含相似度计算模块的重要性。<br>（6）实验6——整体比较现有工作与Jail-Phish </p>
+<div align="center"><br><img src="/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/10.png" width="580" height="200"><br></div>
+
+<div align="center"><br><img src="/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/11.png" width="530" height="135"><br></div>
+
+
+
+
+
+
+
+
+
+
+
+
+      
+    </div>
+    <div>
+      
+          <div> 
+     
+    	<div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------本文结束<i class="fa fa-paw"></i>感谢您的阅读------------
+    	</div>
+     
+</div>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Lei Zhang 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Search-engine/" rel="tag"><i class="fa fa-tag"></i> Search engine</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/05/A-new-hybrid-ensemble-feature-selection-framework-for-machine-learning-based-phishing-detection-system-Information-Sciences-2019/" rel="next" title="A new hybrid ensemble feature selection framework for machine learning-based phishing detection system（Information Sciences 2019）">
+                <i class="fa fa-chevron-left"></i> A new hybrid ensemble feature selection framework for machine learning-based phishing detection system（Information Sciences 2019）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/" rel="prev" title="A stacking model using URL and HTML features for phishing webpage detection（FGCS 2019）">
+                A stacking model using URL and HTML features for phishing webpage detection（FGCS 2019） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/touxiang.jpg" alt="Lei Zhang">
+            
+              <p class="site-author-name" itemprop="name">Lei Zhang</p>
+              <p class="site-description motion-element" itemprop="description">走自己的路吧开心最重要</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/LeiiZhang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zlcumtcs@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+          
+          
+
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-作者介绍"><span class="nav-number">1.</span> <span class="nav-text">1 作者介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-概述"><span class="nav-number">2.</span> <span class="nav-text">2 概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-介绍"><span class="nav-number">3.</span> <span class="nav-text">3 介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-钓鱼网站分类"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 钓鱼网站分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-本文贡献"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 本文贡献</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-本文方法"><span class="nav-number">4.</span> <span class="nav-text">4 本文方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-domain-title-搜索查询中的观察"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 domain + title 搜索查询中的观察</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-Jail-Phish"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 Jail-Phish</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-实验"><span class="nav-number">5.</span> <span class="nav-text">5 实验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-数据集"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 数据集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-评价标准"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 评价标准</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-实验"><span class="nav-number">5.3.</span> <span class="nav-text">5.3 实验</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lei Zhang</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总计&#58;</span>
+    
+    <span title="本站总计">34.2k 字</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 你是本站第
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      位访问者
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'culOf1aK4Nkj7faLPEIes1Qq-gzGzoHsz',
+        appKey: 'kLWDBKtAdcFzhEzyf9p4cjHB',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":80,"height":300,"hOffset":20,"vOffset":-200},"mobile":{"show":true},"log":false,"tagMode":false});</script></body>
+</html>

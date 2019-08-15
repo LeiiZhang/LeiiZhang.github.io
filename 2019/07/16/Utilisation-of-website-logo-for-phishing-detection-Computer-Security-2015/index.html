@@ -132,7 +132,11 @@
 <meta property="og:description" content="1 作者介绍一作：Kang Leng Chiew研究所：马来西亚沙捞越大学计算机科学与信息技术学院主页：http://www.archive.unimas.my/faculties/fcsit/chiew-kang-leng.htmlGoogle Scholar：https://scholar.google.com.my/citations?user=fbeB3JEAAAAJ&amp;amp;hl=en">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://leiizhang.github.io/2019/07/16/Utilisation-of-website-logo-for-phishing-detection-Computer-Security-2015/1.png">
-<meta property="og:updated_time" content="2019-08-05T12:29:37.804Z">
+<meta property="og:image" content="https://leiizhang.github.io/2019/07/16/Utilisation-of-website-logo-for-phishing-detection-Computer-Security-2015/2.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/07/16/Utilisation-of-website-logo-for-phishing-detection-Computer-Security-2015/3.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/07/16/Utilisation-of-website-logo-for-phishing-detection-Computer-Security-2015/4.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/07/16/Utilisation-of-website-logo-for-phishing-detection-Computer-Security-2015/5.png">
+<meta property="og:updated_time" content="2019-08-07T03:39:26.021Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Utilisation of website logo for phishing detection （Computer&amp;Security 2015）">
 <meta name="twitter:description" content="1 作者介绍一作：Kang Leng Chiew研究所：马来西亚沙捞越大学计算机科学与信息技术学院主页：http://www.archive.unimas.my/faculties/fcsit/chiew-kang-leng.htmlGoogle Scholar：https://scholar.google.com.my/citations?user=fbeB3JEAAAAJ&amp;amp;hl=en">
@@ -393,7 +397,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  62 字
+                  2.2k 字
                 </span>
               
 
@@ -409,7 +413,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1 分钟
+                  8 分钟
                 </span>
               
             </div>
@@ -433,7 +437,34 @@
         <h2 id="1-作者介绍"><a href="#1-作者介绍" class="headerlink" title="1 作者介绍"></a>1 作者介绍</h2><p><strong>一作：</strong>Kang Leng Chiew<br><strong>研究所：</strong>马来西亚沙捞越大学计算机科学与信息技术学院<br><strong>主页：</strong><a href="http://www.archive.unimas.my/faculties/fcsit/chiew-kang-leng.html" target="_blank" rel="noopener">http://www.archive.unimas.my/faculties/fcsit/chiew-kang-leng.html</a><br><strong>Google Scholar：</strong><a href="https://scholar.google.com.my/citations?user=fbeB3JEAAAAJ&amp;hl=en" target="_blank" rel="noopener">https://scholar.google.com.my/citations?user=fbeB3JEAAAAJ&amp;hl=en</a></p>
 <div align="center"><br><img src="/2019/07/16/Utilisation-of-website-logo-for-phishing-detection-Computer-Security-2015/1.png" width="530" height="300"><br></div>
 
-<h2 id="2-概述"><a href="#2-概述" class="headerlink" title="2 概述"></a>2 概述</h2>
+<h2 id="2-概述"><a href="#2-概述" class="headerlink" title="2 概述"></a>2 概述</h2><p>&emsp;&emsp;本文使用<strong>logo图像</strong>来确定网站的<em>真实身份</em>和<em>描绘身份</em>之间的一致性。首先下载网站的所有图片，并使用SVM分类模型提取网站的唯一logo；然后使用谷歌图像搜索库来识别logo标识；最后使用URL的一致性来检测钓鱼攻击。结果表明，谷歌的识别结果对钓鱼检测的成功率有很大的影响。</p>
+<a id="more"></a>
+<h3 id="2-1-方法概述"><a href="#2-1-方法概述" class="headerlink" title="2.1 方法概述"></a>2.1 方法概述</h3><p><strong>（1）logo提取</strong><br>&emsp;&emsp;下载网站的所有图片，提取文中定义的10个特征，使用SVM分类器提取出网站的logo。<br><strong>（2）身份验证</strong><br>&emsp;&emsp;作者认为，维护一个完整的和最新的数据库（保存logo以及对应的域名）是很难实现的，因此使用谷歌图像搜索库来识别logo。首先在Google图像搜索工具中输入logo图像进行检索，返回的内容包括3部分：<br>&emsp;&emsp;1) 该查询图像的最佳猜测；<br>&emsp;&emsp;2) 视觉上相似的图像列表；<br>&emsp;&emsp;3) 页面中包含与该查询图像相匹配图像的网页。<br>&emsp;&emsp;使用搜索结果的第一页，解析返回结果第1, 3部分的url中的域名（这里将除去TLD(顶级域名)和任何子域名的部分作为域名）。将这些域名与query website的域名进行比较，若至少有一个匹配结果，则为legitimate；否则，被归类为phishing。</p>
+<h3 id="2-2-定义"><a href="#2-2-定义" class="headerlink" title="2.2 定义"></a>2.2 定义</h3><p>（1）<strong>Query website：</strong>当前正在检测的该网页；<br>（2）<strong>Portrayed identity：</strong>合法网站所宣称的品牌或实体；<br>（3）<strong>Real identity：</strong>当前正在检测的网页的真实身份；<br>（4）<strong>Phishing target：</strong>钓鱼网站试图模仿的合法网站。  </p>
+<h2 id="3-本文方法"><a href="#3-本文方法" class="headerlink" title="3 本文方法"></a>3 本文方法</h2><p>&emsp;&emsp;该方法包括两个主要过程：logo 提取和身份验证。logo 提取过程将从 query website 提取 logo。基于提取的 logo，身份验证过程将评估 query website 的真实身份与描绘的身份之间的一致性。如果一致，则查询网站是合法的，反之亦然。图1给出了该方法的框架。</p>
+<div align="center"><br><img src="/2019/07/16/Utilisation-of-website-logo-for-phishing-detection-Computer-Security-2015/2.png" width="770" height="150"><br></div>
+
+<h3 id="3-1-Logo-extraction"><a href="#3-1-Logo-extraction" class="headerlink" title="3.1 Logo extraction"></a>3.1 Logo extraction</h3><p>&emsp;&emsp;给定一个图像，首先计算像素强度直方图$H=[h_0, h_1, h_2, \dots, h_{255}]$，然后对直方图进行归一化，得到像素的强度分布 $h’_i=\frac{h_i}{\sum_{j=0}^{255}h_j}$。提取以下特征，然后根据提取的特征集对图像进行分类，本文选用<strong>SVM分类器</strong>。<br>（1）Mean：像素强度分布的均值，$\mu=\frac{\sum_{i=0}^{255}h’<em>i}{256}$；<br>（2）Standard deviation：像素强度分布的标准差，$\sigma=\sqrt{\sum</em>{i=0}^{255}(i-\mu)^2h’<em>i}$；<br>（3）Skewness：像素强度分布的偏度，$\sum</em>{i=0}^{255}(\frac{i-\mu}{\sigma})^3h’<em>i$；<br>（4）Kurtosis：像素强度分布的峰度，$\sum</em>{i=0}^{255}(\frac{i-\mu}{\sigma})^4h’<em>i-3$；<br>（5）Energy：能量，度量图像内容的均匀性，$\sum</em>{i=0}^{255}(h’_i)^2$；<br>（6）Significant pixel intensity：显著像素强度，像素强度$h’<em>i&gt;0.02$的个数；<br>（7）Entropy：熵，度量每个像素的平均bits，$\sum</em>{i=0}^{255}h’_ilog_2h’<em>i$；<br>（8）Otsu threshold：将像素划分为暗区和亮区的阈值；<br>（9）Image resolution ratio：图像分辨率，即图像的高宽比；<br>（10）Energy compactness：离散余弦变换图像，计算DCT系数的熵，$\sum h</em>{dct}log_2h_{dct}$，$h_{dct}$是256个bins的DCT系数直方图。  </p>
+<h3 id="3-2-Identity-verification"><a href="#3-2-Identity-verification" class="headerlink" title="3.2 Identity verification"></a>3.2 Identity verification</h3><p>&emsp;&emsp;<strong>身份一致</strong>是指 Real identity 和 Portrayed identity 是完全相同的。<strong>真实身份</strong>可以从 Query website 的域名中获取，使用 Google 图像搜索工具检索 Query website 的<strong>描述身份</strong>。<br>&emsp;&emsp;作者认为，维护一个完整的和最新的数据库（保存logo以及对应的域名）是很难实现的，因此使用谷歌图像搜索库来识别logo。首先在Google图像搜索工具中输入logo图像进行检索，返回的内容包括3部分：<br>&emsp;&emsp;1) 该查询图像的最佳猜测；<br>&emsp;&emsp;2) 视觉上相似的图像列表；<br>&emsp;&emsp;3) 页面中包含与该查询图像相匹配图像的网页。<br>&emsp;&emsp;使用搜索结果的第一页，解析返回结果第1, 3部分的url中的域名（这里将除去TLD顶级域名和子域名的部分作为域名）。将这些域名与 Query website 的域名进行比较，若至少有一个匹配结果，则为 legitimate；否则，被归类为 phishing。图 2 是使用 PayPal 的 logo 图像进行谷歌图像搜索的结果示例。</p>
+<div align="center"><br><img src="/2019/07/16/Utilisation-of-website-logo-for-phishing-detection-Computer-Security-2015/3.png" width="580" height="480"><br></div>
+
+<h2 id="4-实验"><a href="#4-实验" class="headerlink" title="4 实验"></a>4 实验</h2><h3 id="4-1-数据来源"><a href="#4-1-数据来源" class="headerlink" title="4.1 数据来源"></a>4.1 数据来源</h3><p>&emsp;&emsp;PhishTank+Alexa（包含不同类别，即银行、社交网络、新闻、电子商务、论坛和博客）。</p>
+<h3 id="4-2-数据收集方法"><a href="#4-2-数据收集方法" class="headerlink" title="4.2 数据收集方法"></a>4.2 数据收集方法</h3><p>&emsp;&emsp;手动下载这些网页，并将它们组织到文件夹中。每个文件夹保存一个网页，其中包含该网页的所有图像资源。</p>
+<h3 id="4-3-数据集构成（包括3组数据集）"><a href="#4-3-数据集构成（包括3组数据集）" class="headerlink" title="4.3 数据集构成（包括3组数据集）"></a>4.3 数据集构成（包括3组数据集）</h3><p><strong>（1）140个网页（phishing + legitimate）</strong><br>&emsp;&emsp;用于 logo extraction 部分，即 logo 分类器训练。其中包括 1947 个 logo 图片和 1947 个非 logo 图片，logo 和 non-logo 图片中都包括来自钓鱼和正常网页的图片。<br><strong>（2）1000个网页 (500 phishing + 500 legitimate)</strong><br>&emsp;&emsp;用于 identity verification 部分，利用数据集1对整个方法的检测性能进行测试。<br><strong>（3）500个不受欢迎的合法网页</strong><br>&emsp;&emsp;除了 Alexa，还从 dmoz 和 botw 中获取。数据集3的目的是评估该方法在一些非常具有挑战性的情况下的有效性，即检测不受欢迎的合法网页时的有效性。</p>
+<h3 id="4-4-实验设计"><a href="#4-4-实验设计" class="headerlink" title="4.4 实验设计"></a>4.4 实验设计</h3><p><strong>（1）与 GoldPhish 方法进行比较</strong><br>&emsp;&emsp;GoldPhish 主要思想：首先捕获网页的截图，然后执行OCR提取文本内容(包括 logo 中的文本)，使用谷歌搜索引擎搜索提取的文本并返回最相关的网站。之后对搜索结果进行评估，检查返回的相关网站的域名与 Query website 是否匹配，不匹配则为 phishing。实验结果如图3所示。</p>
+<div align="center"><br><img src="/2019/07/16/Utilisation-of-website-logo-for-phishing-detection-Computer-Security-2015/4.png" width="530" height="220"><br></div>
+
+<p><strong>（2）使用数据集3</strong><br>&emsp;&emsp;在数据集3上进行的实验结果如图4所示，所提出的方法和 GoldPhish 的性能都有所下降。这并不奇怪，因为数据集3故意使用一些不常见的特征构造。相比之下，该方法仅下降 7.6%，而 GoldPhish 下降了 8.2%。该方法的正确率为 79.4%，假阳性率为 20.6%。考虑到数据集的性质，这些速率仍然可以接受。而 GoldPhish 的真假阳性率仅为 49.4% 和 50.6%。</p>
+<div align="center"><br><img src="/2019/07/16/Utilisation-of-website-logo-for-phishing-detection-Computer-Security-2015/5.png" width="500" height="220"><br></div>
+
+<h2 id="5-总结"><a href="#5-总结" class="headerlink" title="5 总结"></a>5 总结</h2><h3 id="5-1-缺点"><a href="#5-1-缺点" class="headerlink" title="5.1 缺点"></a>5.1 缺点</h3><p><strong>（1）方法的有效性将受到 logo 提取的影响</strong><br>&emsp;&emsp;1）logo提取过程中没有提取并返回正确的logo图像(请注意logo图像确实存在)；<br>&emsp;&emsp;2）网页中没有任何logo图像。<br><strong>（2）补救方法</strong><br>&emsp;&emsp;从 Query webpage 的全宽截屏中截取前200个像素，原因是为了获得这个区域内的 logo，实验结果发现大多数合法网站的 logo 都位于这个区域的左右。作者承认这个补救措施是一个特别的解决方案，而长期的解决方案是找到一个更好的 logo 提取方法。（本文中补救方法仅用于第2种情况）<br><strong>（3）为了使提出的方法更加有效</strong><br>&emsp;&emsp;1）对于logo提取过程未能正确提取并返回logo图像的问题，可以研究更有效的标识检测算法来增强标识提取过程（例如，使用对象分割技术从网页截图中提取logo图像就是一种合适的方法）；<br>&emsp;&emsp;2）对于原始网页不包含任何logo图像的问题，可以结合其他启发式方法，如TF-IDF技术。</p>
+<h3 id="5-2-优点"><a href="#5-2-优点" class="headerlink" title="5.2 优点"></a>5.2 优点</h3><p>&emsp;&emsp;作者将探索一个对象分割方法作为未来的工作。例如，捕获网页截图并直接执行对象分割来提取logo。</p>
+<ul>
+<li>屏幕截图呈现实际的web内容，意味着没有其他隐藏的图像；</li>
+<li>避免得到一个sprite类型的logo图像，这通常是用来优化网站加载速度。使用sprite图像作为查询将导致谷歌图像搜索返回一个不希望的结果，即使sprite图像中存在logo也是如此；</li>
+<li>从网站的banner图像中提取logo会更加精确，提取的logo图像不会包含其他非logo图像。</li>
+</ul>
+
       
     </div>
     <div>
@@ -592,7 +623,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -614,7 +645,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -666,7 +697,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-作者介绍"><span class="nav-number">1.</span> <span class="nav-text">1 作者介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-概述"><span class="nav-number">2.</span> <span class="nav-text">2 概述</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-作者介绍"><span class="nav-number">1.</span> <span class="nav-text">1 作者介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-概述"><span class="nav-number">2.</span> <span class="nav-text">2 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-方法概述"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 方法概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-定义"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 定义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-本文方法"><span class="nav-number">3.</span> <span class="nav-text">3 本文方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-Logo-extraction"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 Logo extraction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-Identity-verification"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 Identity verification</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-实验"><span class="nav-number">4.</span> <span class="nav-text">4 实验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-数据来源"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 数据来源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-数据收集方法"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 数据收集方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-数据集构成（包括3组数据集）"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 数据集构成（包括3组数据集）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-实验设计"><span class="nav-number">4.4.</span> <span class="nav-text">4.4 实验设计</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-总结"><span class="nav-number">5.</span> <span class="nav-text">5 总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-缺点"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-优点"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 优点</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -707,7 +738,7 @@
     
       <span class="post-meta-item-text">本站总计&#58;</span>
     
-    <span title="本站总计">17.6k 字</span>
+    <span title="本站总计">34.2k 字</span>
   
 </div>
 

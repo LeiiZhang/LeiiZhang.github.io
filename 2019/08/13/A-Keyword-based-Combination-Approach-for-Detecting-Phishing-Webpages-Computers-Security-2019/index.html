@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon_my.jpg?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_my.jpg?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Feature-based,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1 作者介绍一作：Yan Ding（新疆大学研究生） 2 概述&amp;emsp;&amp;emsp;文本提出了 Search &amp;amp; Heuristic Rule &amp;amp; Logistic Regression (SHLR) 相结合的方法，用以 a）检测钓鱼网站常用的混淆技术；b）提高过滤合法网页的效率。具体方法如下：（1）基于搜索引擎识别合法网页&amp;emsp;&amp;emsp;将网页的 title 标签的内容">
+<meta name="keywords" content="Feature-based">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A Keyword-based Combination Approach for Detecting Phishing Webpages（Computers &amp; Security 2019）">
+<meta property="og:url" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/index.html">
+<meta property="og:site_name" content="还是吃太多乐">
+<meta property="og:description" content="1 作者介绍一作：Yan Ding（新疆大学研究生） 2 概述&amp;emsp;&amp;emsp;文本提出了 Search &amp;amp; Heuristic Rule &amp;amp; Logistic Regression (SHLR) 相结合的方法，用以 a）检测钓鱼网站常用的混淆技术；b）提高过滤合法网页的效率。具体方法如下：（1）基于搜索引擎识别合法网页&amp;emsp;&amp;emsp;将网页的 title 标签的内容">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/1.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/2.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/3.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/4.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/6.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/5.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/7.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/8.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/9.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/10.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/11.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/12.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/13.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/14.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/15.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/16.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/17.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/18.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/19.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/22.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/20.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/21.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/23.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/24.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/25.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/26.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/27.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/28.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/29.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/30.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/31.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/32.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/33.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/34.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/35.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/36.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/37.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/38.png">
+<meta property="og:updated_time" content="2019-08-14T12:36:57.558Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="A Keyword-based Combination Approach for Detecting Phishing Webpages（Computers &amp; Security 2019）">
+<meta name="twitter:description" content="1 作者介绍一作：Yan Ding（新疆大学研究生） 2 概述&amp;emsp;&amp;emsp;文本提出了 Search &amp;amp; Heuristic Rule &amp;amp; Logistic Regression (SHLR) 相结合的方法，用以 a）检测钓鱼网站常用的混淆技术；b）提高过滤合法网页的效率。具体方法如下：（1）基于搜索引擎识别合法网页&amp;emsp;&amp;emsp;将网页的 title 标签的内容">
+<meta name="twitter:image" content="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/">
+
+
+
+
+
+  <title>A Keyword-based Combination Approach for Detecting Phishing Webpages（Computers & Security 2019） | 还是吃太多乐</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/LeiiZhang" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">还是吃太多乐</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leiizhang.github.io/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lei Zhang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还是吃太多乐">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">A Keyword-based Combination Approach for Detecting Phishing Webpages（Computers & Security 2019）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-13T20:30:25+08:00">
+                2019-08-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CCF-B/" itemprop="url" rel="index">
+                    <span itemprop="name">CCF-B</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5.9k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  22 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-作者介绍"><a href="#1-作者介绍" class="headerlink" title="1 作者介绍"></a>1 作者介绍</h2><p><strong>一作：</strong>Yan Ding（新疆大学研究生）</p>
+<h2 id="2-概述"><a href="#2-概述" class="headerlink" title="2 概述"></a>2 概述</h2><p>&emsp;&emsp;文本提出了 <strong>Search &amp; Heuristic Rule &amp; Logistic Regression (SHLR)</strong> 相结合的方法，用以 a）检测钓鱼网站常用的混淆技术；b）提高过滤合法网页的效率。具体方法如下：<br>（1）<strong>基于搜索引擎识别合法网页</strong><br>&emsp;&emsp;将网页的 title 标签的内容作为搜索关键词输入到百度搜索引擎中，如果该网页的域名与前10名搜索结果中的任何一个域名匹配，则认为该网页是合法的;否则，将执行进一步的评估。  </p>
+<p><table><tr><td bgcolor="yellow">个人观点：匹配并不能直接判断为合法网页，也有可能是 PSHCS（Phishing Sites Hosted on Compromised Servers），Jail-Phish中的方法是匹配且baseURL（protocol+hostname+pathname）相同才判定为合法网页。</td></tr></table><br>（2）<strong>基于启发式规则识别钓鱼网页</strong><br>&emsp;&emsp;如果网页不能被识别为合法的，则根据字符特征所定义的启发式规则，进一步检查网页是否为钓鱼网页。前两步可以快速过滤网页，满足实时检测的需要。<br>（3）<strong>基于 logistic 回归分类器识别网页</strong><br>&emsp;&emsp;利用 logistic 回归分类器对剩余页面进行评估，提高检测方法的适应性和准确性。  </p>
+<p>&emsp;&emsp;实验结果表明，SHLR 可以过滤 61.9% 的合法网页，基于 URL 的词汇信息可识别 22.9% 的钓鱼网页。</p>
+<a id="more"></a>
+<h2 id="3-介绍"><a href="#3-介绍" class="headerlink" title="3 介绍"></a>3 介绍</h2><h3 id="3-1-钓鱼策略"><a href="#3-1-钓鱼策略" class="headerlink" title="3.1 钓鱼策略"></a>3.1 钓鱼策略</h3><p>&emsp;&emsp;合理的钓鱼攻击分类有助于采用有效的检测手段，本文根据钓鱼攻击中使用的关键过程对网络钓鱼攻击进行分类：（1）General phishing attacks：不针对特定对象的攻击；（2）Spear phishing attacks：攻击特定类别的对象（业务的关键信息持有者）；（3）Whale phishing attacks：针对公司首席执行官和政治领导人的钓鱼攻击。<br>&emsp;&emsp;钓鱼网页的传播方式可以分为三类：（1）E-mail；（2）Short Message Service (SMS)；（3）Others：例如 Voice phishing，一种利用电话系统或IP语音(VoIP)系统进行攻击的技术。<br>&emsp;&emsp;一种新的钓鱼攻击技术 <strong>domain shadow</strong>，攻击者窃取网站管理员的域帐户并创建成千上万的子域。然后，攻击者使用子域指向恶意站点或将恶意代码上载到域名服务器。</p>
+<h3 id="3-2-检测方法使用的特征的分类"><a href="#3-2-检测方法使用的特征的分类" class="headerlink" title="3.2 检测方法使用的特征的分类"></a>3.2 检测方法使用的特征的分类</h3><p>&emsp;&emsp;检测方法通过提取网页的相关特征来确定网站的性质，这些方法常用的特征可以分为以下几类：<br>（1）<strong>URL based</strong><br>&emsp;&emsp;1）URL<br>&emsp;&emsp;许多不相关的词存在于钓鱼网页的网址中，因此，钓鱼url在其字符中与合法url存在一定的差异。<br>&emsp;&emsp;2）Domain<br>&emsp;&emsp;域名是由两个或多个单词组成的唯一标识符，它们之间用点隔开。<strong>能够清楚表示 URL 标识的词汇表被认为是 URL 的标识名称，比如 <a href="http://www.jd.com" target="_blank" rel="noopener">http://www.jd.com</a>  中的 jd。</strong>钓鱼网页通常使用 URL 混淆技术。<br>（2）<strong>Host based</strong><br>&emsp;&emsp;1）Whois<br>&emsp;&emsp;Whois是用于查询域的IP和所有者信息的传输协议。如果攻击者使用相同的电子邮件地址或名称来注册URL，则可以确定该网页是否是钓鱼网页。<br>&emsp;&emsp;2）DNS<br>&emsp;&emsp;DNS是域名和IP地址之间映射的分布式数据库。例如，可以使用DNS日志检测恶意网页、使用被动DNS分析技术检测恶意域名。<br>（3）<strong>Content based</strong><br>&emsp;&emsp;1）HTML<br>&emsp;&emsp;HTML包含页面的所有资源，通常使用文档的长度、单词的数量和标签属性作为检测特征。<br>&emsp;&emsp;2）Code<br>&emsp;&emsp;用 JavaScript 编写的恶意代码可以在没有用户许可的情况下执行，可以使用 n-gram、entropy 和 word size 来检测 JavaScript 的混淆。</p>
+<h3 id="3-3-本文贡献"><a href="#3-3-本文贡献" class="headerlink" title="3.3 本文贡献"></a>3.3 本文贡献</h3><p>（1）为了检测在钓鱼网页中插入许多不相关单词的逃逸技术，使用网页的 title 标签的内容作为关键词，借助搜索引擎快速过滤合法网页。<br>（2）提出了七种用于检测 URL 混淆技术启发式规则，能够快速识别钓鱼网站。<br>（3）提出的基于关键字的组合检测方法具有良好的检测性能，能够满足实时检测的需要。</p>
+<h2 id="4-方法结构"><a href="#4-方法结构" class="headerlink" title="4 方法结构"></a>4 方法结构</h2><div align="center"><br><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/1.png" width="700" height="200"><br></div>
+
+<p>&emsp;&emsp;图 2 为 SHLR 体系结构，具体步骤如下：<br>（1）进入基于搜索引擎的检测阶段。<br>（2）在百度搜索引擎中使用web标题标记的内容作为搜索关键词。如果网页域名与前10名搜索结果中的任何一个域名匹配，则该网页是合法的；否则，继续执行步骤3。<br>（3）进入基于启发式规则的检测阶段。<br>（4）根据规则库中的规则检查URL。如果URL匹配，则将该网页归类为钓鱼网页；否则，继续执行步骤5。<br>（5）进入基于logistic回归(LR)分类器的检测阶段。<br>（6）URL的DNS、Whois、与钓鱼词汇表的相似性、词汇特性和HTML中提取特征。<br>（7）使用逻辑回归分类器来评估网页。</p>
+<h3 id="4-1-基于搜索引擎的检测阶段"><a href="#4-1-基于搜索引擎的检测阶段" class="headerlink" title="4.1 基于搜索引擎的检测阶段"></a>4.1 基于搜索引擎的检测阶段</h3><p>&emsp;&emsp;将网页 HTML 中 title 标签的内容作为搜索关键词，搜索引擎只用于识别合法的网页。实验表明，该阶段可以过滤 61.9% 的合法网页，错误率仅为0.04%，具有较好的识别可信网站的能力。</p>
+<p><table><tr><td bgcolor="yellow">个人观点：匹配并不能直接判断为合法网页，也有可能是 PSHCS（Phishing Sites Hosted on Compromised Servers），Jail-Phish中的方法是匹配且baseURL（protocol+hostname+pathname）相同才判定为合法网页。</td></tr></table></p>
+<h3 id="4-2-基于启发式规则的检测阶段"><a href="#4-2-基于启发式规则的检测阶段" class="headerlink" title="4.2 基于启发式规则的检测阶段"></a>4.2 基于启发式规则的检测阶段</h3><p>&emsp;&emsp;通过字符串进行模式匹配可以检测 URL 混淆技术，例如URL命名标准违规和隐藏的网络钓鱼目标字。如果检测阶段可以直接判断URL是否是钓鱼网站，则可以省略分类器检测所需的特征提取过程，以满足实时检测的要求。下面详细介绍了三种分割URL的方式，不同的分割方法会产生不同的URL词汇表：  </p>
+<ul>
+<li>Mode 1：通过不包含下划线“_”和连字符“-”的非字母数字和非数字字符进行分割。</li>
+<li>Mode 2：通过’ / ‘和’ \ ‘分割。</li>
+<li>Mode 3：通过包含下划线“_”和连字符“-”的非字母数字和非数字字符进行分割。</li>
+</ul>
+<p>&emsp;&emsp;在合法 url 中，标识名（identification name）作为二级或三级域名标签使用，例如，在 <a href="http://www.taobao.com" target="_blank" rel="noopener">http://www.taobao.com</a> 中，taobao 是淘宝的标识名。phishing target word 是指钓鱼 URL 试图伪装的标识名称，钓鱼 URL 通过将 phishing target word 添加到其域名、路径或文件部分，以模仿合法网站。本文根据全球知名企业或集团(苹果、阿里巴巴、谷歌、Gmail)的标识名称，选择了电子商务、邮件通信、网上银行、APP 等领域的企业名称，如表 1 所示，建立了一个包含90个钓鱼目标词的词集。通过检测 URL 中的钓鱼目标词，可以确定它是否是钓鱼 URL 以及钓鱼网页试图伪装的主体，从而得到更有效的对策。</p>
+<div align="center"><br><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/2.png" width="700" height="170"><br></div>
+
+<p>&emsp;&emsp;由于标识名称的特殊性，合法网页不会在其 URL 中插入其他公司的标识名称。一种 URL 混淆技术是在 path 部分添加一个钓鱼目标词，这会导致多个标识名称出现在一个URL中。表 2 显示了 PhishTank 和Yahoo 数据集的URL总数以及各种异常信息的比例。6.9%的钓鱼url具有多个标识名，如<a href="http://www.frrtrt2.com/" target="_blank" rel="noopener">http://www.frrtrt2.com/</a> Dropbox/id，这个链接是伪装成Dropbox的钓鱼URL。URL的路径部分包含钓鱼目标词dropbox，但不匹配域标签frrtrt2。基于这一现象，本文提出了规则1和规则2。</p>
+<ul>
+<li>Rule 1：URL由模式1分割。如果路径中包含钓鱼目标词，且该词与二级或三级域名不同，则该URL被认为是钓鱼网站。</li>
+<li>Rule 2：URL由模式1分割。如果域名或路径部分包含两个或多个不同的标识名，则该URL被认为是钓鱼网站。</li>
+</ul>
+<div align="center"><br><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/3.png" width="355" height="145"><br></div>
+
+<p>&emsp;&emsp;使用数字、分隔符和连接字符串伪造标识名的方法是攻击者使用的一种常见混淆技术。如表 2 所示，这种混淆技术的使用频率为7.1%。规则3可以有效地检测出使用数字进行的混淆。规则4是一个通过URL字重组的方法来检测更复杂的混淆技术。例如，图3为 URL 单词列表重组的流程图。在域名部分，标准顶级域名术语不参与单词的重组。此外，对于少于4个字符的名称，规则4不适用。</p>
+<ul>
+<li>Rule 3：URL被模式1分割，但没有钓鱼目标词。若在删除 URL 中的数字后出现钓鱼目标词，则认为该网站是钓鱼网站。</li>
+<li>Rule 4：URL被模式1分割，但没有钓鱼目标词。然后将 URL 按模式2划分为多个部分，并按模式3划分这些部分。在每个部分中，将连续索引位置上的单词连接起来形成新单词，并生成一个新的URL单词列表。如果在单词列表中存在钓鱼目标单词或存在包含其他标识名称子字符串的单词，则认为该网站为钓鱼网站。</li>
+</ul>
+<div align="center"><br><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/4.png" width="470" height="210"><br></div>
+
+<p>&emsp;&emsp;直接使用 IP 地址作为域名通常意味着链接指向一个私有页面，例如<a href="http://124.248.212.46/caixa/，这不是合法网页的URL，据此提出规则5。" target="_blank" rel="noopener">http://124.248.212.46/caixa/，这不是合法网页的URL，据此提出规则5。</a></p>
+<ul>
+<li>Rule 5：若使用 IP 地址为域名，则该网站被视为钓鱼网站。</li>
+</ul>
+<p>&emsp;&emsp;在URL标准命名约定中，第一部分是协议类型，如 ftp 或 https。为了迷惑用户，钓鱼 URL 的非协议部分将编写协议字段，例如 <a href="http://www.oilchangeasheville.com/https:/www2.antander.com.br，试图冒充" target="_blank" rel="noopener">http://www.oilchangeasheville.com/https:/www2.antander.com.br，试图冒充</a> Santander 的网站，据此提出规则6。顶级域名应该只出现在 URL 的域名部分，而不出现在其他部分，据此提出规则7。</p>
+<ul>
+<li>Rule 6：协议字段出现在 URL 的非协议部分，则该网站被视为钓鱼网站。</li>
+<li>Rule 7：顶级域名出现在 URL 的非域名部分，则该网站被视为钓鱼网站。</li>
+</ul>
+<p>&emsp;&emsp;通过规则库评估 URL 的性质，可以避免确定的钓鱼网站的特征提取过程。此外，使用逻辑回归分类器执行第三步检测避免了由于规则库的大小引起的钓鱼网站的漏报。</p>
+<h3 id="4-3-基于逻辑回归分类器的检测阶段"><a href="#4-3-基于逻辑回归分类器的检测阶段" class="headerlink" title="4.3 基于逻辑回归分类器的检测阶段"></a>4.3 基于逻辑回归分类器的检测阶段</h3><p>&emsp;&emsp;使用 logistic 回归分类器，从DNS、Whois、与钓鱼词汇的相似度、词汇特征和HTML中提取特征，确定剩余页面的性质，提高检测方法的适应性和准确性。<br>（1）<strong>DNS doubt</strong><br>&emsp;&emsp;本文提出了一种新的检测特征——DNS doubt，它与 DNS 可信度成反比。首先计算 PhishTank(2776个钓鱼url)和 Yahoo(5883个合法url)数据集中的 url 使用的 DNS，DNS doubt 计算如下:<br>$$<br>F_{d}=\frac{P_{d n s}}{Q_{d n s}}<br>$$<br>其中 $P_{dns}$ 是在 PhishTank URL 数据集中使用 DNS 的频率，$Q_{dns}$ 是在 Yahoo URL 数据集中使用 DNS 的频率。如表3所示，$P_{domaincontrol.com}$ 为0.13，$Q_{domaincontrol.com}$为0.04。 因此，domaincontrol.com 的 DNS doubt 是 3.25。 对于 $Q_{dns}$，如果值为0，则无法正确解析URL；随后，DNS doubt计算如下：<br>$$<br>F_{d}=\frac{P_{d n s_{-} m a x}}{Q_{d n s_{-} m i n}}<br>$$<br>例如，$P_{dns_{max}}$ 为 0.13 (369/2823)，$Q_{dns_{min}}$ 为 0.0001 (1/8819)。</p>
+<div align="center"><br><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/6.png" width="700" height="140"><br></div>
+
+<p>&emsp;&emsp;除 DNS doubt 外，本文共提取了7个特征，包括 ip 数量、ip 是否在黑名单中、重试值、TTL值、刷新值和过期值，URL 的 DNS 特征向量定义如下：</p>
+<div align="center"><br><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/5.png" width="330" height="30"><br></div>
+
+<p>（2）<strong>HTML</strong>  </p>
+<p>1）Meta<br>&emsp;&emsp;&lt; meta http−equiv = “refresh” content = “…” &gt; 表明此页是重定向的页链接，链接重定向通常被攻击者使用。因此计算该类型 tag 的数量，以及确定原始 URL 和跳转链接是否在同一个域中。特征提取公式如下：</p>
+<div align="center"><br><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/7.png" width="290" height="80"><br></div>
+
+<p>其中 $S_{meta}$ 是指 &lt; meta http−equiv = “refresh” content = “… “ &gt; tags 集合，$S_{meta_domain}$ 表明重定向链接域的词集，$S_{domain}$ 指原域的词集。</p>
+<p>2）Title<br>&emsp;&emsp;使用 Mode 3 对标题标签和原始域进行裁剪，得到两个集合的交集。特征提取公式如下：</p>
+<div align="center"><br><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/8.png" width="290" height="40"><br></div>
+
+<p>其中 $S_{title_domain}$ 表示标题内容的单词集。</p>
+<p>3）A &amp; Link<br>&emsp;&emsp;&lt; link &gt; 标记定义了文档和外部资源之间的关系。&lt; a &gt;标记定义了从一个页面到另一个页面的超链接。合法网页内的链接通常指向它们自己的域名，而钓鱼链接常常插入其他域名下的资源，以提高页面排名。提取这些 tags 的 href 属性作为检测特征：<br>① HTTPS<br>&emsp;&emsp;提取网页中两类标签中HTTPS协议的使用百分比作为检测特性之一：</p>
+<div align="center"><br><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/9.png" width="170" height="70"><br></div>
+
+<p>其中Count(a_tag) 和Count(link_tag) 分别代表网页中 &lt; a &gt; 和 &lt; link &gt; 标签的数量，Count(a_tag_https) 和 Count(link_tag_https) 表示分别在 &lt; a &gt; 和 &lt; link &gt; 标记中使用 HTTPS 协议的链接数。<br>② href = “ # “<br>&emsp;&emsp;当该属性字段出现在标签中时，单击相应的链接不会跳转到该链接，而是将用户返回到当前页面：</p>
+<div align="center"><br><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/10.png" width="170" height="70"><br></div>
+
+<p>其中 Count(a_hash_tag) 和 Count(link_hash_tag) 分别表示 &lt; a href = “#” &gt; 和 &lt; link href = “#” &gt; 的数量。<br>③ href = javascript:void(0)<br>该属性表明是一个死链接：</p>
+<div align="center"><br><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/11.png" width="180" height="70"><br></div>
+
+<p>其中 Count(a_javascript) 和 Count(link_javascript)分别表示 &lt; a href = javascript : void(0) &gt; 和 &lt; link href = javascript : void(0) &gt; 的数量。<br>④ 不同域名数<br>&emsp;&emsp;合法网页往往指向自己域名下的网络资源，而攻击者则试图增加外部链接的数量，以提高钓鱼网页的搜索排名和声誉：</p>
+<div align="center"><br><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/12.png" width="170" height="70"><br></div>
+
+<p>其中 Count(a_diff_domain) 和 Count(link_diff_domain) 分别表明在 &lt; a &gt; 标签和 &lt; link &gt; 标签中的 URL 的域名与原 URL 的域名不同的数量。<br>⑤ “.” 数<br>&emsp;&emsp;提取相关标签链接的平均 ”.“ 数作为特征之一：</p>
+<div align="center"><br><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/13.png" width="170" height="70"><br></div>
+
+<p>其中 Sum(a_domain_dot) 和 Sum(link_domain_dot) 分别表明在 &lt; a &gt; 标签和 &lt; link &gt; 标签中域名中 “,” 数的总和。<br>⑥ “@” 数<br>&emsp;&emsp;提取在相关标签链接中包含 “@” 的链接数量作为检测特性之一：</p>
+<div align="center"><br><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/14.png" width="150" height="70"><br></div>
+
+<p>其中 Sum(a_tag_at) 和 Sum(link_tag_at) 分别表明在 &lt; a &gt; 标签和 &lt; link &gt; 标签中包含 “@” 的 URL 的总和。<br>⑦ 钓鱼目标词<br>&emsp;&emsp;钓鱼网页中的链接一般都有隐藏的钓鱼目标词：</p>
+<div align="center"><br><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/15.png" width="170" height="70"><br></div>
+
+<p>其中 Sum(a_tag_phish) 和 Sum(link_tag_phish) 分别表明在 &lt; a &gt; 标签和 &lt; link &gt; 标签中混淆 URL 的总和。</p>
+<p>最后，提取了网页 HTML 的17个特征，定义 HTML 的特征向量如下：</p>
+<div align="center"><br><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/16.png" width="330" height="30"><br></div>
+
+<p>（3）<strong>与钓鱼词汇的相似度</strong><br>&emsp;&emsp;将钓鱼 url 中的域名标签和字母数字字符的词汇表添加到钓鱼词汇库中。最后，本文从 2776 个钓鱼 url (PhishTank)中提取了 3675 个钓鱼单词。<br>&emsp;&emsp;统计分析表明，任意两个URL字符串之间具有相同的两元组、三元组和四元组的概率分别为95.7%、75.8%和33.6%。<br>&emsp;&emsp;为了降低错误率和时间复杂度，本文通过计算 triplets 之间的 Jaccard 相似性来计算合法 url 和钓鱼 url 之间的相似性。当字符串之间相同的 triplets 数量至少为目标字符串中包含的 triplets 数量的50%时，计算两个 url 之间的相似性；否则，两个 url 之间的 Jaccard 相似性被认为是零。为了降低操作的计算复杂度，首先执行单词搜索。当在钓鱼词汇表中观察到URL的域标签时，将URL和钓鱼词汇表之间的相似性设置为1，Jaccard相似性计算如下：</p>
+<div align="center"><br><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/17.png" width="80" height="35"><br></div>
+
+<p>其中 || || 表示集合中的元素数量，A 和 B 表示字符串的 3-gram 集合。URL 与钓鱼词汇的相似性 $F_sim$ 计算如下：</p>
+<div align="center"><br><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/18.png" width="130" height="85"><br></div>
+
+<p>其中 $JM_j$ 是 URL 单词列表中第 j 个词与钓鱼词汇之间的 Jaccard 相似性 ，$A_j$ 是 URL 的第 j 个词的 3-gram 集合，$B_i$ 是钓鱼词汇中第 i 个词的 3-gram集合，n 为钓鱼词汇表中的单词总数，k为模式3拆分URL后形成的单词集合中的元素个数。Jaccard 相似性特征向量定义如下：</p>
+<div align="center"><br><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/19.png" width="70" height="26"><br></div>
+
+<p>（4）<strong>词汇特征（Lexical features）</strong></p>
+<div align="center"><br><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/22.png" width="630" height="180"><br></div>
+
+<p>&emsp;&emsp;提取了 URL 的37个特性，如表 4 所示。URL 的词法特征向量定义如下：</p>
+<div align="center"><br><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/20.png" width="130" height="20"><br></div>
+
+<p>（5）<strong>Whois 特征</strong><br>&emsp;&emsp;攻击者常使用相同的信息注册钓鱼网页，提取：注册信息、更新日期、到期日期、是否为个人注册、IP是否被锁、是否注册权威、注册人、子网、国家或地区的代码、URL 的自治系统编号被列入黑名单。最后，提取了 web 页面 Whois 的以上 10 个特征，特征向量定义如下：</p>
+<div align="center"><br><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/21.png" width="130" height="20"><br></div>
+
+<h2 id="5-实验"><a href="#5-实验" class="headerlink" title="5 实验"></a>5 实验</h2><h3 id="5-1-数据集"><a href="#5-1-数据集" class="headerlink" title="5.1 数据集"></a>5.1 数据集</h3><p>&emsp;&emsp;本文使用 4 个数据集，<strong>钓鱼数据集</strong>：PhishTank（2776）、URLBlacklist（2216）；<strong>合法数据集</strong>：Yahoo（5883）、DMOZ（9509）。表 5 为实验数据组，表 6 为实验 1-4 的数据和目的。</p>
+<p></p>
+<div align="center"><br><table><br><tr><br><td><center><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/23.png" width="280" height="80"></center></td><br><td><center><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/24.png" width="280" height="150"></center></td><br></tr><br></table><br></div>
+
+<h3 id="5-2-实验一"><a href="#5-2-实验一" class="headerlink" title="5.2 实验一"></a>5.2 实验一</h3><p>&emsp;&emsp;实验 1 验证基于搜索引擎检测阶段的有效性，实验的主要目的如下：<br>（1）使用数据组1测试网页关键词提取方法的有效性。与 CANTINA 算法进行比较，CANTINA 使用 TF-IDF 算法提取网页的关键字作为搜索关键字，如果网站的域名不在搜索结果的前 n 位，则将该网站视为可疑。但是，本文将 title 标签的内容作为搜索关键字，只使用搜索引擎来识别合法的网页。<br>（2）使用数据组2来选择搜索引擎和 top 值 N。  </p>
+<div align="center"><br><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/25.png" width="680" height="95"><br></div>
+
+<p>&emsp;&emsp;表 7 显示了不同检测方法和搜索引擎识别的合法网页数量。N 设为 10，如表 7 所示，使用百度搜索引擎，SHLR 可以过滤 63.9% 的合法网页，错误率为 0.14%，而 CANTINA 只能过滤28.1%的合法网页。</p>
+<p></p>
+<div align="center"><br><table><br><tr><br><td><center><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/26.png" width="340" height="160"></center></td><br><td><center><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/27.png" width="300" height="120"></center></td><br></tr><br></table><br></div>
+
+<p>&emsp;&emsp;图 4 为两个搜索引擎设置不同 N 值的效果。如表 8 和图 4 所示，为了满足实时检测的需要，选择百度搜索引擎，N = 10。<br>&emsp;&emsp;如表 8 所示，基于搜索引擎的检测阶段可以直接判断出 61.9% 的合法网页，错误率仅为 0.04%。</p>
+<h3 id="5-3-实验二"><a href="#5-3-实验二" class="headerlink" title="5.3 实验二"></a>5.3 实验二</h3><p>&emsp;&emsp;实验 2 验证基于启发式规则检测阶段的有效性，实验的主要目的如下:<br>（1）使用数据组2测试每个规则识别网络钓鱼网页的能力。<br>（2）使用数据组2测试减少钓鱼目标词的效果。 </p>
+<div align="center"><br><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/28.png" width="680" height="180"><br></div>
+
+<p>&emsp;&emsp;表 9 显示了不同规则识别的钓鱼网页数量，结果表明，22.9% 的钓鱼网页能够被检测到，SHLR 启发式规则检测阶段的错误率仅为 0.36%。</p>
+<div align="center"><br><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/29.png" width="680" height="100"><br></div>
+
+<p>&emsp;&emsp;表 10 为减少钓鱼目标词对检测效果的影响，结果显示，钓鱼目标词的数量直接影响启发式规则检测结果。  </p>
+<div align="center"><br><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/30.png" width="350" height="135"><br></div>
+
+<p>&emsp;&emsp;表 11 列出了高频钓鱼目标词，因此可以通过添加钓鱼目标词来提高过滤钓鱼网页的能力。</p>
+<h3 id="5-4-实验三"><a href="#5-4-实验三" class="headerlink" title="5.4 实验三"></a>5.4 实验三</h3><p>&emsp;&emsp;实验 3 通过选择合适的机器学习分类算法，验证了基于LR分类器的检测阶段的有效性。采用数据组2，实验的主要目的如下：<br>（1）利用本文构建的特征集，比较 LR 与 L1 范数正则化、LR 与 L2 范数正则化、SVM、NB 的检测能力，并根据实验结果选择检测阶段使用的分类器。<br>（2）测试 DNS doubt 对 LR 分类器检测阶段的 accuracy、precision 和 recall 的影响。<br>&emsp;&emsp;如表 9 所示，由于规则库的大小有限，基于启发式规则的检测阶段具有较高的假阴性，因此 SHLR 引入了分类器来提高检测方法的准确性和适应性。<br>&emsp;&emsp;如表 8 和表 9 所示，前两个阶段的未识别 url 数量为4369，其中2138个是 PhishTank 的 url, 2231个是 yahoo 的 url。对于这部分URL，使用机器学习分类器进行第三次检测，执行10个 10-fold 的交叉验证来评估不同分类器的效果。如表 12 所示，在四个分类器中，L1规范正则化的LR更适合钓鱼URL检测。 </p>
+<p></p>
+<div align="center"><br><table><br><tr><br><td><center><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/31.png" width="300" height="120"></center></td><br><td><center><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/32.png" width="300" height="120"></center></td><br><td><center><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/33.png" width="300" height="120"></center></td><br></tr><br></table><br></div>
+
+<p>&emsp;&emsp;表 13 显示 DNS doubt 对 LR 分类器检测阶段的accuracy、precision 和 recall 的影响，说明DNS doubt 对钓鱼检测有很好的效果。<br>&emsp;&emsp;表 14 显示了设置不同的 C 值对 LR 分类accuracy、precision 和 recall 的影响。由表8、9、12可知，SHLR 检测方法的 accuracy 为98.9%，recall 为 99.1%，F-Score 为99%，precision 为 98.9%。</p>
+<h3 id="5-5-实验四"><a href="#5-5-实验四" class="headerlink" title="5.5 实验四"></a>5.5 实验四</h3><p>&emsp;&emsp;实验 4 综合分析了 SHLR 检测方法。选取了三种代表性的检测方法进行比较：PhishDef 、BeyondB 和BigData。BigData 只从URL中提取词法特性，BeyondB 和 PhishDef 从 URL 中提取词法和基于主机的特性，尽管 PhishDef 提取的特性更加详尽。这三种检测方法都使用词袋模型，实验的主要目的如下：<br>（1）使用数据组2分别比较分析三种方法检测的有效性，以及三种方法在不同组合下的有效性。<br>（2）使用数据组2比较 SHLR 与其他检测方法在 accuracy、recall、F-Score、precision、单个URL的平均特征提取时间、单个URL的平均识别时间、PRC曲线等方面的差异。然后，使用数据集3来测试 SHLR 的泛化能力。  </p>
+<div align="center"><br><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/34.png" width="680" height="550"><br></div>
+
+<div align="center"><br><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/35.png" width="650" height="170"><br></div>
+
+<p>&emsp;&emsp;为了更好地分析 SHLR 检测方法，对三种检测方法分别单独使用和使用不同组合的方法进行了比较和分析。图 5 显示了其他检测方法的流程，如表 15 所示，SHLR在各项评价指标上均表现良好。 </p>
+<div align="center"><br><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/36.png" width="650" height="120"><br></div>
+
+<div align="center"><br><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/37.png" width="400" height="240"><br></div>
+
+<p>&emsp;&emsp;表 16 综合比较了 BeyondB、PhishDef、BigData 和 SHLR四种检测方法。与传统检测方法相比，SHLR的 accuracy 提高了0%-3.2%，召回率提高了0.2%-3.4%，F-Score值提高了0.1%-3.3%，precision 提高了0.01%-3.3%。此外，SHLR 消耗的时间大大减少。基于综合的识别时间和测试性能，SHLR 的性能优于其他三种检测方法。图 6 为四种检测方法的 PRC 对比图，其中 SHLR 曲线下面积(AUC)最大。  </p>
+<div align="center"><br><img src="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/38.png" width="340" height="130"><br></div>
+
+<p>&emsp;&emsp;表 17 比较了四种检测方法对数据组3的检测效果，SHLR 比其他方法具有更好的适应性。</p>
+
+      
+    </div>
+    <div>
+      
+          <div> 
+     
+    	<div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------本文结束<i class="fa fa-paw"></i>感谢您的阅读------------
+    	</div>
+     
+</div>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Lei Zhang 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Feature-based/" rel="tag"><i class="fa fa-tag"></i> Feature-based</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/" rel="next" title="A stacking model using URL and HTML features for phishing webpage detection（FGCS 2019）">
+                <i class="fa fa-chevron-left"></i> A stacking model using URL and HTML features for phishing webpage detection（FGCS 2019）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/touxiang.jpg" alt="Lei Zhang">
+            
+              <p class="site-author-name" itemprop="name">Lei Zhang</p>
+              <p class="site-description motion-element" itemprop="description">走自己的路吧开心最重要</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/LeiiZhang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zlcumtcs@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+          
+          
+
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-作者介绍"><span class="nav-number">1.</span> <span class="nav-text">1 作者介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-概述"><span class="nav-number">2.</span> <span class="nav-text">2 概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-介绍"><span class="nav-number">3.</span> <span class="nav-text">3 介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-钓鱼策略"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 钓鱼策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-检测方法使用的特征的分类"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 检测方法使用的特征的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-本文贡献"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 本文贡献</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-方法结构"><span class="nav-number">4.</span> <span class="nav-text">4 方法结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-基于搜索引擎的检测阶段"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 基于搜索引擎的检测阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-基于启发式规则的检测阶段"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 基于启发式规则的检测阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-基于逻辑回归分类器的检测阶段"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 基于逻辑回归分类器的检测阶段</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-实验"><span class="nav-number">5.</span> <span class="nav-text">5 实验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-数据集"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 数据集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-实验一"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 实验一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-实验二"><span class="nav-number">5.3.</span> <span class="nav-text">5.3 实验二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-实验三"><span class="nav-number">5.4.</span> <span class="nav-text">5.4 实验三</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-5-实验四"><span class="nav-number">5.5.</span> <span class="nav-text">5.5 实验四</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lei Zhang</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总计&#58;</span>
+    
+    <span title="本站总计">34.2k 字</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 你是本站第
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      位访问者
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'culOf1aK4Nkj7faLPEIes1Qq-gzGzoHsz',
+        appKey: 'kLWDBKtAdcFzhEzyf9p4cjHB',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":80,"height":300,"hOffset":20,"vOffset":-200},"mobile":{"show":true},"log":false,"tagMode":false});</script></body>
+</html>

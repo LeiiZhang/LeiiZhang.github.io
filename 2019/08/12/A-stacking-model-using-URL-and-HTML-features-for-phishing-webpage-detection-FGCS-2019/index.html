@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon_my.jpg?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_my.jpg?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Feature-based,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1 作者介绍一作：Yukun Li（广东工业大学自动化学院研究生）     2 概述&amp;emsp;&amp;emsp;本文设计了轻量级的 URL 和 HTML 特征，引入了 HTML string embedding。此外，还将 GBDT、XGBoost 和 LightGBM 多层结合，设计了一个 stacking 模型，使得不同的模型可以互补，从而提高了钓鱼网页检测的性能。本文收集了两个用于评估的真实数据">
+<meta name="keywords" content="Feature-based">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A stacking model using URL and HTML features for phishing webpage detection（FGCS 2019）">
+<meta property="og:url" content="https://leiizhang.github.io/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/index.html">
+<meta property="og:site_name" content="还是吃太多乐">
+<meta property="og:description" content="1 作者介绍一作：Yukun Li（广东工业大学自动化学院研究生）     2 概述&amp;emsp;&amp;emsp;本文设计了轻量级的 URL 和 HTML 特征，引入了 HTML string embedding。此外，还将 GBDT、XGBoost 和 LightGBM 多层结合，设计了一个 stacking 模型，使得不同的模型可以互补，从而提高了钓鱼网页检测的性能。本文收集了两个用于评估的真实数据">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/1.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/2.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/3.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/4.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/5.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/6.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/9.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/7.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/8.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/10.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/11.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/12.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/13.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/14.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/15.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/16.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/17.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/18.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/19.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/20.png">
+<meta property="og:updated_time" content="2019-08-12T10:54:01.945Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="A stacking model using URL and HTML features for phishing webpage detection（FGCS 2019）">
+<meta name="twitter:description" content="1 作者介绍一作：Yukun Li（广东工业大学自动化学院研究生）     2 概述&amp;emsp;&amp;emsp;本文设计了轻量级的 URL 和 HTML 特征，引入了 HTML string embedding。此外，还将 GBDT、XGBoost 和 LightGBM 多层结合，设计了一个 stacking 模型，使得不同的模型可以互补，从而提高了钓鱼网页检测的性能。本文收集了两个用于评估的真实数据">
+<meta name="twitter:image" content="https://leiizhang.github.io/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://leiizhang.github.io/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/">
+
+
+
+
+
+  <title>A stacking model using URL and HTML features for phishing webpage detection（FGCS 2019） | 还是吃太多乐</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/LeiiZhang" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">还是吃太多乐</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leiizhang.github.io/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lei Zhang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还是吃太多乐">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">A stacking model using URL and HTML features for phishing webpage detection（FGCS 2019）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-12T16:38:14+08:00">
+                2019-08-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CCF-C/" itemprop="url" rel="index">
+                    <span itemprop="name">CCF-C</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.9k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  18 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-作者介绍"><a href="#1-作者介绍" class="headerlink" title="1 作者介绍"></a>1 作者介绍</h2><p><strong>一作：</strong>Yukun Li（广东工业大学自动化学院研究生）  </p>
+<div align="center"><br><img src="/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/1.png" width="350" height="120"><br></div>
+
+<h2 id="2-概述"><a href="#2-概述" class="headerlink" title="2 概述"></a>2 概述</h2><p>&emsp;&emsp;本文设计了轻量级的 <strong>URL</strong> 和 <strong>HTML</strong> 特征，引入了 <strong>HTML string embedding</strong>。此外，还将 GBDT、XGBoost 和 LightGBM 多层结合，设计了一个 <strong>stacking 模型</strong>，使得不同的模型可以互补，从而提高了钓鱼网页检测的性能。本文收集了两个用于评估的真实数据集，分别为 50K-PD 和 50K-IPD。50K-PD 包含 49,947 个带有 URL 和 HTML代码的网页；50K-IPD 包含 53,103 个网页，除 URL 和 HTML 代码外还有 Screenshots。本文贡献如下：<br>（1）在特征提取方面，将人工设计的特征与 Word2Vec 模型提取的 HTML string embedding 相结合；<br>（2）结合几种机器学习模型的优点，提出了一种检测钓鱼网页的 stacking 模型；<br>（3）设计了一个实时的钓鱼检测系统，可以用来保护用户免受钓鱼攻击；<br>（4）发布了一个真实的钓鱼网页检测数据集。</p>
+<a id="more"></a>
+<h2 id="3-本文方法"><a href="#3-本文方法" class="headerlink" title="3 本文方法"></a>3 本文方法</h2><p>&emsp;&emsp;本文方法概述如图1所示。首先，从网页的 url 和 HTML 代码中提取特征，并将它们连接为特征向量。此外，还设计了 stacking 模型进行预测。</p>
+<div align="center"><br><img src="/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/2.png" width="450" height="110"><br></div>
+
+<h3 id="3-1-Feature-extraction"><a href="#3-1-Feature-extraction" class="headerlink" title="3.1 Feature extraction"></a>3.1 Feature extraction</h3><h4 id="3-1-1-URL-related-features"><a href="#3-1-1-URL-related-features" class="headerlink" title="3.1.1 URL-related features"></a>3.1.1 URL-related features</h4><p>&emsp;&emsp;提取了8个 URL-related 特征，其中前6个特征由同行研究者设计。这些特性不依赖于第三方服务，可用于开发 real-time 系统。  </p>
+<ul>
+<li><strong>IP address</strong>：钓鱼网页的域名通常是 IP 地址，如 <a href="http://62.141" target="_blank" rel="noopener">http://62.141</a>. 45.54/portaleTitolaris8/;  </li>
+<li><strong>Suspicious symbols</strong>：分别计算“@”、“−”和“∼”三个符号的数量;</li>
+<li><strong>https</strong>：二进制值用于指示 URL 的协议是否是“https”;  </li>
+<li><strong>URL length information</strong>：长度信息分别包括 URL 中的字符数及其域名;</li>
+<li><strong>Number of dots in domain name</strong>：网络钓鱼网页往往在 url 中使用更多的点，域名中的“.”的数量用于表示此特征;  </li>
+<li><strong>Sensitive vocabulary</strong>：‘‘secure’’, ‘‘account’’, ‘‘webscr’’, ‘‘login’’, ‘‘ebayisapi’’, ‘‘signin’’, ‘‘banking’’, ‘‘confirm’’，使用URL中这些单词数量的统计数据作为特征;    </li>
+<li><strong>Top-level domain name related</strong>：Phishing URLs 通常包含多个顶级域名，例如“<a href="http://www.ebay" target="_blank" rel="noopener">http://www.ebay</a>. com.urgd.com/path”。 因此，本文设计了与顶级域名对应的三个特征：顶级域名是否在 Stuffgate（<a href="http://stuffgate.com/）的顶级域名列表中，域名中的顶级域名数量，以及" target="_blank" rel="noopener">http://stuffgate.com/）的顶级域名列表中，域名中的顶级域名数量，以及</a> URL 路径中的顶级域名数;  </li>
+<li><strong>Similar target brands</strong>：根据’.’和’/‘拆分 URL 以提取字符串，计算每个字符串与来自 Phishtank 的给定目标品牌之间的 Levenshtein 距离。如果存在小于2的距离值，将此特征设置为1；否则，将此特征设置为0。</li>
+</ul>
+<h4 id="3-1-2-HTML-related-features"><a href="#3-1-2-HTML-related-features" class="headerlink" title="3.1.2 HTML-related features"></a>3.1.2 HTML-related features</h4><p>&emsp;&emsp;提取了12个 HTML-related 特征，本文设计了其中后6个特征；提出使用 Word2Vec 模型来学习 HTML string embedding。</p>
+<ul>
+<li><strong>Number of internal and external links</strong>：为了欺骗用户该网页是合法的，网络钓鱼网页通常使用外部资源，如其钓鱼对象来丰富内容，导致网络钓鱼网页内部链接很少，外部链接较多。从HTML代码中的所有链接中提取域名，并将其与网页URL的域名进行比较，以识别内部和外部链接。将内部链接的数量作为一个特征，外部链接的数量作为另一个特征;  </li>
+<li><strong>Empty link</strong>：钓鱼网页通常使用空链接来伪装拥有大量超链接，有两种空链接，即‘‘<a href="′′" ′′> </a>’’ 和 ‘‘<a href="′′#′′" \></a>’’，网页中的空链接数用于表示此特征;</li>
+<li><strong>Login form</strong>：首先，必须识别网页中所有的 &lt;form> 标签。此外，对于标签 &lt;form> 中的每个子标签 &lt;input>，将使用关键字 “password” 和 “pass”，或 “login” 和 “signin” 进行匹配，以确定是否存在登录表单。</li>
+<li><strong>Length of HTML content</strong>：钓鱼网页的目的是欺骗用户的登录信息，所以其 HTML 内容通常比较简单，即钓鱼网页的 HTML 代码长度通常比合法代码的长度短。将 HTML 内容的长度细化为 tag 内容的长度，选择了5个标签分别计算它们的长度，包括 &lt;style>， &lt;script>， &lt;link>， &lt;!−−> 和 &lt;form>。标签 &lt;style> 和 &lt;link> 主要设置页面样式和 CSS，而钓鱼网页通常为了快速开发而没有这样的样式；标签&lt;script>用来动态改变网页内容，而钓鱼网页通常是静态的；标签&lt;!−−>用于注释，而钓鱼网页通常是一次性开发，开发人员不执行二次维护通常不写注释；标签&lt;form>用于在网页内设置表单。每个标签的长度分别作为一个特征，此外，HTML 代码的长度也作为一个特性，总共提取了6个特性来表示 Html 内容的长度。</li>
+<li><strong>Alarm window</strong>：一些钓鱼网页会弹出一个报警窗口，供用户输入个人信息，使用二进制值来表示网页是否有报警窗口。</li>
+<li><strong>Redirection</strong>：一些钓鱼网页设计人员创建供用户访问的合法网页，这些网页将重定向到钓鱼网页。重定向的仿冒网页在 HTML 代码中使用”redirect”字符串。使用二进制值表示是否存在此类字符串。</li>
+<li><strong>Hidden/Restricted information</strong>：HTML 代码中的一些特殊代码可以防止内容显示或限制标签的功能，这可能会被钓鱼网页使用。这些特殊代码适用于特定的标签，总结如下。对于这三个方面，可以相应地生成三个特征。例如，HTML 代码中所有 tag “div” 中包含的特殊代码的数量作为一个特征。</li>
+</ul>
+<div align="center"><br><img src="/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/3.png" width="310" height="160"><br></div>
+
+<ul>
+<li><strong>Consistency between title brand and URL brand</strong>：一般来说，合法网页的标题包含其 brand 名称。如果网页的 brand 与 URL brand 不一致，很可能是网络钓鱼。</li>
+<li><strong>Consistency between the most frequent link brand and URL brand</strong>：直观上，由于目标网页资源的广泛使用，最常见的链接 brand 应该与钓鱼网页的 URL brand 不一致。如图2所示，提取 HTML 代码中的所有链接，并计算每个 brand 名称在链接中出现的次数，得到一个 brand 名称字典。此外，基于 URL brand 是否击中最频繁的链接 brand 来计算一致性。此外，使用链接中出现频率最高的链接 brand 的次数作为特征。</li>
+</ul>
+<div align="center"><br><img src="/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/4.png" width="560" height="180"><br></div>
+
+<ul>
+<li><strong>Internal and external resources</strong>：基于网络钓鱼网页往往使用外部资源的思想，分别使用“&lt;link>”、“&lt;img>”、“&lt;script>”和“&lt;noscript>”四个标签来计算作为特征的内部资源和外部资源的数量。</li>
+<li><strong>Number of the URL brand name appears in HTML code</strong>：由于频繁使用内部资源，合法网页的 URL brand 名称通常在 HTML 代码中出现多次，钓鱼网页的情况通常相反。</li>
+<li><strong>HTML string embedding</strong>：Word2Vec 是一种神经网络语言算法，专注于学习单词的分布式表示，在 Word2Vec 中，有输入层、投影层和输出层。在 Word2Vec 的训练阶段，给定目标词的上下文，训练模型以预测目标词作为输出。在训练 Word2Vec 模型之后，可以提取投影层的参数来表示单词。本文基于空格提取 HTML strings，然后学习 n 维的 HTML string embedding，最后对每个 string embedding 求平均，得到一个表示 HTML 文档的 n 维向量，流程如图3所示。</li>
+</ul>
+<div align="center"><br><img src="/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/5.png" width="560" height="240"><br></div>
+
+<h3 id="3-2-Stacking-model"><a href="#3-2-Stacking-model" class="headerlink" title="3.2 Stacking model"></a>3.2 Stacking model</h3><div align="center"><br><img src="/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/6.png" width="560" height="360"><br></div>
+
+<p>&emsp;&emsp;本文提出的两层 stacking 模型如图4所示，每层由三个基本模型组成，即，<strong>Gradient Boosting Decision Tree(GBDT)</strong>，<strong>XGBoost</strong>，<strong>LightGBM</strong>。更具体地说，使用类似于 K-fold 交叉验证的方式来训练基本模型。将训练集分为 Z 份，其中 Z-1 份用于训练，1 份用于测试，在每个基本模型预测完所有样本之前，不会停止训练过程。此外，将原始特征与预测结果相结合，作为 stacking 模型第二层的输入，预测结果由第一层的多数投票得到。最后，将第二层的输入特征与输出结果结合起来作为最终特征，用于训练 GBDT 模型对钓鱼网页进行预测。表1总结了使用 URL 和 HTML 特性构建的钓鱼网页检测 stacking 模型的过程。</p>
+<div align="center"><br><img src="/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/9.png" width="380" height="370"><br></div>
+
+<h2 id="4-实验"><a href="#4-实验" class="headerlink" title="4 实验"></a>4 实验</h2><h3 id="4-1-数据集"><a href="#4-1-数据集" class="headerlink" title="4.1 数据集"></a>4.1 数据集</h3><p>（1）<strong>2K Phishing Detection Dataset (2K-PD)</strong><br>&emsp;&emsp;包含200个网页（URL+HTML），其中1000个合法网页（Alexa 排名100,000-101,000）以及1000个钓鱼网页（Phishtank 2017.7.12-2017.7.15）。<br>（2）<strong>50K Phishing Detection Dataset (50K-PD)</strong><br>&emsp;&emsp;包含49,947个网页（URL+HTML），其中30,873个合法网页（Alexa 排名10,000-12,000，其余28,873个从这些网页的超链接中收集）以及19,074个钓鱼网页（Phishtank 2009.6-2017.6）。图5和图6分别显示了2K-PD和50K-PD数据集中url长度的分布，可以观察到两个数据集url长度的分布是相似的。 </p>
+<div align="center"><br><img src="/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/7.png" width="510" height="380"><br></div>
+
+<p>（3）<strong>50K Image Phishing Detection Dataset (50K-IPD)</strong><br>&emsp;&emsp;包含53,103个网页（URL+HTML+Screenshots），其中28,320个合法网页（Alexa 排名10,000-15,000，其余23,320个从这些网页的超链接中收集）以及24,789个钓鱼网页（Phishtank 2009.6-2017.2）。该数据集用于评估视觉特征的有效性，50K-IPD 数据集中url长度分布如图7所示。</p>
+<div align="center"><br><img src="/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/8.png" width="510" height="190"><br></div>
+
+<h3 id="4-2-Baselines"><a href="#4-2-Baselines" class="headerlink" title="4.2 Baselines"></a>4.2 Baselines</h3><p>&emsp;&emsp;Baselines 包括一些流行的和最近提出的钓鱼网页检测方法，具体如下：<br>（1）<strong>CANTINA</strong> [26]：使用TF-IDF算法从HTML文本内容中提取关键字，并通过搜索引擎对其进行搜索，以检测网络钓鱼网页。作者还讨论了一些可用于降低 false positive rate 的简单启发式方法。<br>（2）<strong>Lightweight Phish Detector</strong> (LPD) [50]：一个基于搜索引擎的钓鱼网页检测系统，提取url的域名和网页标题，并用搜索引擎进行搜索。此外，还设计了一个决策算法，根据搜索结果检测网络钓鱼网页。<br>（3）<strong>URL Character Statistical Learning Classifiers</strong> (UCSLC) [51]：通过使用双样本Kolmogorov Smirnov检验来关注字符分布，并用一组选定的启发式特征补充它们以增强鲁棒性。</p>
+<blockquote>
+<p>[26] Y. Zhang, J. Hong, L. Cranor, Cantina: a content-based approach to detecting phishing web sites, in: Proceedings of the 16th International Conference on World Wide Web - WWW’07, 2007, pp. 639–648, <a href="http://dx.doi.org/10.1145/" target="_blank" rel="noopener">http://dx.doi.org/10.1145/</a> 1242572.1242659.<br>[50] G. Varshney, M. Misra, P.K. Atrey, A phish detector using lightweight search features, Comput. Secur. 62 (2016) 213–228, <a href="http://dx.doi.org/10.1016/j.cose" target="_blank" rel="noopener">http://dx.doi.org/10.1016/j.cose</a>. 2016.08.003.<br>[51] R. Verma, K. Dyer, On the character of phishing URLs: accurate and robust statistical learning classifier, in: Proceedings of the 5th ACM Conference on Data and Application Security and Privacy - CODASPY’15, 2015, pp. 111–122, <a href="http://dx.doi.org/10.1145/2699026.2699115" target="_blank" rel="noopener">http://dx.doi.org/10.1145/2699026.2699115</a>.</p>
+</blockquote>
+<h3 id="4-3-与-Baselines-模型比较"><a href="#4-3-与-Baselines-模型比较" class="headerlink" title="4.3 与 Baselines 模型比较"></a>4.3 与 Baselines 模型比较</h3><p>&emsp;&emsp;CANTINA 和 LPD 依赖于搜索引擎，难以应用于大规模数据，因此将基线方法应用于 <strong>2K-PD</strong> 数据集与本文方法进行比较。与本文方法不同的是，CANTINA 和 LPD 不需要训练数据，因此选取 2K-PD 数据集中70%的样本作为训练集，其余样本作为测试集，结果如表 2 所示。</p>
+<div align="center"><br><img src="/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/10.png" width="420" height="100"><br></div>
+
+<h3 id="4-4-与单个机器学习模型比较"><a href="#4-4-与单个机器学习模型比较" class="headerlink" title="4.4 与单个机器学习模型比较"></a>4.4 与单个机器学习模型比较</h3><p>&emsp;&emsp;为了证明 stacking 的有效性，将本文提出的 stacking 模型与支持向量机(SVM)、最近邻分类器(NN)、决策树(DT)、随机森林(RF)、梯度增强决策树(GBDT)、XGBoost (XGB)和LightGBM (LGB)等单个机器学习模型进行比较。其中，GBDT、XGB 和 LGB 是本文提出的 stacking 模型中采用的基本模型。对 <strong>50K-PD</strong> 数据集进行评估，该数据集中70%作为训练集，其余为测试集。这些方法的性能如表 3 所示，可以观察到，在这三个指标上，本文提出的 stacking 方法比其他单一模型表现更好。</p>
+<div align="center"><br><img src="/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/11.png" width="420" height="150"><br></div>
+
+<h3 id="4-5-HTML-string-embedding-维度的影响"><a href="#4-5-HTML-string-embedding-维度的影响" class="headerlink" title="4.5 HTML string embedding 维度的影响"></a>4.5 HTML string embedding 维度的影响</h3><p>&emsp;&emsp;本文使用 <strong>Word2Vec</strong> 来学习向量形式的 HTML string embedding，因此评估了 HTML string embedding 的维数的影响。如图 8 所示，随着 HTML string embedding 维数的增加，准确率先上升后下降，当 embedding 维度为200维时性能最佳。总体而言，HTML string embedding 维度的影响较小，波动率不超过0.5%。</p>
+<div align="center"><br><img src="/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/12.png" width="510" height="190"><br></div>
+
+<h3 id="4-5-比较-HTML-string-embedding-与人工特征"><a href="#4-5-比较-HTML-string-embedding-与人工特征" class="headerlink" title="4.5 比较 HTML string embedding 与人工特征"></a>4.5 比较 HTML string embedding 与人工特征</h3><p>&emsp;&emsp;在图 9 中，展示了使用 50K-PD 数据集在 <strong>GBDT 分类器</strong>上使用 HTML string embedding 和人工设计的特征(即上文中提到的所有特征中，除 HTML string embedding 以外的所有特征)的性能，HTML string embedding 的维数设置为200。从图中可以看出，HTML string embedding 在accuracy rate、missing rate和 false alarm rate 方面都非常接近于人工设计的特性。值得注意的是，HTML string embedding 不需要任何网络钓鱼领域的知识，embedding 学习过程不依赖于任何监督或外部信息。实验结果表明，HTML string embedding 对网络钓鱼网页检测具有重要意义。</p>
+<div align="center"><br><img src="/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/13.png" width="400" height="180"><br></div>
+
+<h3 id="4-6-特征的重要性"><a href="#4-6-特征的重要性" class="headerlink" title="4.6 特征的重要性"></a>4.6 特征的重要性</h3><p>&emsp;&emsp;利用 GBDT 分类器，使用特征的重要性系数来可视化特征的重要性，如图 10 所示，排名前3位的重要特征是‘‘HTML string embedding’’, ‘‘URL length information’’ 和 ‘‘Internal and external resources’’。有趣的是，HTML  string embedding 的重要性非常高，甚至是排名第二的 URL length information 的10倍。</p>
+<div align="center"><br><img src="/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/14.png" width="800" height="230"><br></div>
+
+<p>&emsp;&emsp;此外，还评估了使用单一特征时的性能，结果如图 11 所示，其中特征按 accuracy 排序。其中，‘‘Alarm window’’, ‘‘Redirection’’, ‘‘Https’’, ‘‘Number ofdots in domain name’’ 和 ‘‘IP address’’单独使用时丢失率较高(接近100%)，说明它们是无效的。</p>
+<div align="center"><br><img src="/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/15.png" width="800" height="250"><br></div>
+
+<p>&emsp;&emsp;为了阐明本文提出的新特征的有效性，将这些特征进行划分：现有特征集 <strong>E</strong>，包括6个与url相关的特征和6个与 html 相关的特征；<br>new URL-related 特征集 <strong>U</strong>，包括2个特征；new HTML-related特征集 <strong>H</strong>，包括6个特征。然后比较了本文提出的 stacking 模型在不同特征集组合下的性能，如图 12 所示。实验结果表明，本文设计的新URL和HTML特征是有效的。</p>
+<div align="center"><br><img src="/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/16.png" width="500" height="170"><br></div>
+
+<h3 id="4-7-Stacking-模型中层数的影响"><a href="#4-7-Stacking-模型中层数的影响" class="headerlink" title="4.7 Stacking 模型中层数的影响"></a>4.7 Stacking 模型中层数的影响</h3><p>&emsp;&emsp;如图 13 所示，当 stacking 层数设为2时，本文提出的 stacking 模型性能最佳。之后，随着层数的增加，stacking 模型的性能不会有明显的提高，这是由特性中包含的信息量所决定的。随着层数的增加，高层产出之间的差异越来越小，使得预测模型的收益越来越少。</p>
+<div align="center"><br><img src="/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/17.png" width="500" height="190"><br></div>
+
+<h3 id="4-8-基本模型选择说明"><a href="#4-8-基本模型选择说明" class="headerlink" title="4.8 基本模型选择说明"></a>4.8 基本模型选择说明</h3><p>&emsp;&emsp;一般来说，集成方法在使用<strong>多样化</strong>和<strong>有效的</strong>基本模型时效果更好。<br>&emsp;&emsp;一方面，为了测量模型的多样性，使用 Kappa-Statistic [53] 来测量分类器对的预测结果。更具体地，给定两个分类器 $h_i$ 和 $h_j$：  </p>
+<ul>
+<li>a — 被 $h_i$ 和 $h_j$ 都预测为钓鱼网页的样本的数量；</li>
+<li>b — 被 $h_i$ 预测为钓鱼网页且被 $h_j$ 预测为合法网页的样本的数量；</li>
+<li>c — 被 $h_i$ 预测为合法网页且被 $h_j$ 预测为钓鱼网页的样本的数量；</li>
+<li>d — 被 $h_i$ 和 $h_j$ 都预测为合法网页的样本的数量。<br>然后可以根据下式估算 $h_i$ 和 $h_j$ 之间的 Kappa-measure：<br>$K_p=\frac{p_1-p_2}{1-p_2}$<br>$p_1=\frac{a+d}{a+b+c+d}$<br>$p_2=\frac{(a+b)(a+c)+(c+d)(b+d)}{(a+b+c+d)^2}$ </li>
+</ul>
+<table><tr><td bgcolor="yellow">$k_p$ 越接近1，$h_i$ 和 $h_j$ 之间的差异就越小。</td></tr></table>
+
+<p>&emsp;&emsp;另一方面，为了衡量模型的有效性，采用平均误差作为性能指标。选择支持向量机(SVM)、最近邻分类器(NN)、决策树(DT)、梯度增强决策树(GBDT)、XGBoost (XGB)和LightGBM (LGB)作为 stacking 的基本模型候选，采用5倍交叉验证对 50K-PD 数据集的训练集进行实验。如表 4 所示，一些分类器对的 $k_p$ 值较低，但平均误差较高。</p>
+<div align="center"><br><img src="/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/18.png" width="450" height="160"><br></div>
+
+<p>&emsp;&emsp;每个候选对的平均误差和 Kappa-Statistic 如图 14 所示。根据 low average error、high diversity 的原则，选择 GBDT、XGB 和 LGB 作为基本模型。</p>
+<div align="center"><br><img src="/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/19.png" width="460" height="200"><br></div>
+
+<blockquote>
+<p>[53] T.G.D. Dragos D Margineantu, Pruning adaptive boosting, in: Proceedings of the 14th International Conference on Machine Learning, 1997, pp. 112–122.</p>
+</blockquote>
+<h3 id="4-8-实现细节"><a href="#4-8-实现细节" class="headerlink" title="4.8 实现细节"></a>4.8 实现细节</h3><p>&emsp;&emsp;Stacking 模型的参数包括两个方面，即每个基本模型的参数，以及 stacking 中的参数(如每个 stacking 层的基本模型个数，层数)。在训练阶段，训练集进行5倍交叉验证。每当调整一个参数时，固定其他参数来训练模型，并通过观察验证集上模型的性能来确定参数的值。<br>&emsp;&emsp;逐层训练 stacking 模型，在各层的训练阶段对基本模型进行并行化训练。在对各基本模型进行训练的同时，对训练误差和评估误差进行验证。在训练时间成本方面，本文方法在 50K-PD 数据集(约35K训练样本)的训练集上花费64分钟(CPU: i7-6700HQ, RAM: 16G)。在模型的更新方面，当出现新的钓鱼数据时，采用增量学习策略对 XGB 和 LGB 进行训练，避免了从零开始训练；对于基本模型 GBDT，可以在训练集中加入新的钓鱼数据来训练以更新模型。</p>
+<h3 id="4-9-视觉特征探索"><a href="#4-9-视觉特征探索" class="headerlink" title="4.9 视觉特征探索"></a>4.9 视觉特征探索</h3><p>&emsp;&emsp;使用 50K-IPD 数据集。设计了两种提取视觉特征的方法：<br>（1）使用一个<strong>预先训练的 ResNet18 模型</strong>进行特征提取，将ResNet18的输出修改为二维，并修正了CONV层的所有参数。在50K-IPD数据集上对模型进行训练，对网页图像进行分类。最后，以模型的倒数第二层的输出作为图像特征；<br>（2）设计了一个小型的<strong>卷积神经网络(CNN)</strong>，它有三个卷积层和三个全连接的层。在50K-IPD数据集上训练CNN模型，并以CNN的倒数第二层的输出作为网页的图像特征。<br>&emsp;&emsp;表 5 为模型在有和没有视觉特性的情况下的性能比较，从表中可以看出，本文模型使用视觉特征后性能得到了显著的提高。当使用CNN提取的视觉特征时，性能得到了更明显的提高。然而，从 ResNet18 中提取的视觉特征贡献不大。原因可能是 ResNet18 的大部分参数都是在 ImageNet 上训练的。ImageNet 中的图片和网页上的图片之间有一个 gap。</p>
+<div align="center"><br><img src="/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/20.png" width="450" height="130"><br></div>
+
+<h2 id="5-未来工作"><a href="#5-未来工作" class="headerlink" title="5 未来工作"></a>5 未来工作</h2><p>（1）<strong>数据集增强</strong><br>（2）<strong>增强 HTML strings embedding 模型的鲁棒性</strong><br>&emsp;&emsp;要学习 HTML strings embedding，必须事先获得HTML字符串。缺点是它无法为从未出现在训练集或训练语料库中的新的 HTML string 学习 embedding。因此，必须考虑如何生成 HTML string 语料库，包括提取tags、variables 和 parameters作为语料库，或者在HTML代码中分割每个字符来创建语料库。<br>（3）<strong>目标识别</strong><br>&emsp;&emsp;研究人员已经开发了相当多的方法来检测钓鱼网页。然而，它们中的大多数通常依赖于多页面信息或搜索引擎，这是非常耗时的。计划设计一个基于单网页信息（特别是视觉特征），更高效地识别钓鱼目标的智能系统。</p>
+
+      
+    </div>
+    <div>
+      
+          <div> 
+     
+    	<div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------本文结束<i class="fa fa-paw"></i>感谢您的阅读------------
+    	</div>
+     
+</div>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Lei Zhang 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Feature-based/" rel="tag"><i class="fa fa-tag"></i> Feature-based</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/" rel="next" title="Jail-Phish: An improved search engine based phishing detection system（Computers Security 2019）">
+                <i class="fa fa-chevron-left"></i> Jail-Phish: An improved search engine based phishing detection system（Computers Security 2019）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/" rel="prev" title="A Keyword-based Combination Approach for Detecting Phishing Webpages（Computers & Security 2019）">
+                A Keyword-based Combination Approach for Detecting Phishing Webpages（Computers & Security 2019） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/touxiang.jpg" alt="Lei Zhang">
+            
+              <p class="site-author-name" itemprop="name">Lei Zhang</p>
+              <p class="site-description motion-element" itemprop="description">走自己的路吧开心最重要</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/LeiiZhang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zlcumtcs@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+          
+          
+
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-作者介绍"><span class="nav-number">1.</span> <span class="nav-text">1 作者介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-概述"><span class="nav-number">2.</span> <span class="nav-text">2 概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-本文方法"><span class="nav-number">3.</span> <span class="nav-text">3 本文方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-Feature-extraction"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 Feature extraction</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-1-URL-related-features"><span class="nav-number">3.1.1.</span> <span class="nav-text">3.1.1 URL-related features</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-2-HTML-related-features"><span class="nav-number">3.1.2.</span> <span class="nav-text">3.1.2 HTML-related features</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-Stacking-model"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 Stacking model</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-实验"><span class="nav-number">4.</span> <span class="nav-text">4 实验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-数据集"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 数据集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-Baselines"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 Baselines</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-与-Baselines-模型比较"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 与 Baselines 模型比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-与单个机器学习模型比较"><span class="nav-number">4.4.</span> <span class="nav-text">4.4 与单个机器学习模型比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-HTML-string-embedding-维度的影响"><span class="nav-number">4.5.</span> <span class="nav-text">4.5 HTML string embedding 维度的影响</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-比较-HTML-string-embedding-与人工特征"><span class="nav-number">4.6.</span> <span class="nav-text">4.5 比较 HTML string embedding 与人工特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-6-特征的重要性"><span class="nav-number">4.7.</span> <span class="nav-text">4.6 特征的重要性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-7-Stacking-模型中层数的影响"><span class="nav-number">4.8.</span> <span class="nav-text">4.7 Stacking 模型中层数的影响</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-8-基本模型选择说明"><span class="nav-number">4.9.</span> <span class="nav-text">4.8 基本模型选择说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-8-实现细节"><span class="nav-number">4.10.</span> <span class="nav-text">4.8 实现细节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-9-视觉特征探索"><span class="nav-number">4.11.</span> <span class="nav-text">4.9 视觉特征探索</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-未来工作"><span class="nav-number">5.</span> <span class="nav-text">5 未来工作</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lei Zhang</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总计&#58;</span>
+    
+    <span title="本站总计">34.2k 字</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 你是本站第
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      位访问者
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'culOf1aK4Nkj7faLPEIes1Qq-gzGzoHsz',
+        appKey: 'kLWDBKtAdcFzhEzyf9p4cjHB',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":80,"height":300,"hOffset":20,"vOffset":-200},"mobile":{"show":true},"log":false,"tagMode":false});</script></body>
+</html>
