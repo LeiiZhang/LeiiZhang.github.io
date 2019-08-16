@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon_my.jpg?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_my.jpg?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Logo,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1 作者介绍一作：Kang Leng Chiew研究所：马来西亚沙捞越大学计算机科学与信息技术学院主页：http://www.archive.unimas.my/faculties/fcsit/chiew-kang-leng.htmlGoogle Scholar：https://scholar.google.com.my/citations?user=fbeB3JEAAAAJ&amp;amp;hl=en">
+<meta name="keywords" content="Logo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Leverage website favicon to detect phishing websites（SCN 2018）">
+<meta property="og:url" content="https://leiizhang.github.io/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/index.html">
+<meta property="og:site_name" content="还是吃太多乐">
+<meta property="og:description" content="1 作者介绍一作：Kang Leng Chiew研究所：马来西亚沙捞越大学计算机科学与信息技术学院主页：http://www.archive.unimas.my/faculties/fcsit/chiew-kang-leng.htmlGoogle Scholar：https://scholar.google.com.my/citations?user=fbeB3JEAAAAJ&amp;amp;hl=en">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/1.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/2.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/3.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/4.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/5.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/6.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/7.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/12.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/8.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/9.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/10.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/11.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/13.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/14.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/15.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/16.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/17.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/18.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/19.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/20.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/21.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/22.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/23.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/24.png">
+<meta property="og:updated_time" content="2019-08-16T12:01:25.660Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Leverage website favicon to detect phishing websites（SCN 2018）">
+<meta name="twitter:description" content="1 作者介绍一作：Kang Leng Chiew研究所：马来西亚沙捞越大学计算机科学与信息技术学院主页：http://www.archive.unimas.my/faculties/fcsit/chiew-kang-leng.htmlGoogle Scholar：https://scholar.google.com.my/citations?user=fbeB3JEAAAAJ&amp;amp;hl=en">
+<meta name="twitter:image" content="https://leiizhang.github.io/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://leiizhang.github.io/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/">
+
+
+
+
+
+  <title>Leverage website favicon to detect phishing websites（SCN 2018） | 还是吃太多乐</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/LeiiZhang" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">还是吃太多乐</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leiizhang.github.io/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lei Zhang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还是吃太多乐">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Leverage website favicon to detect phishing websites（SCN 2018）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-15T16:57:31+08:00">
+                2019-08-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CCF-C/" itemprop="url" rel="index">
+                    <span itemprop="name">CCF-C</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5.7k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  21 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-作者介绍"><a href="#1-作者介绍" class="headerlink" title="1 作者介绍"></a>1 作者介绍</h2><p><strong>一作：</strong>Kang Leng Chiew<br><strong>研究所：</strong>马来西亚沙捞越大学计算机科学与信息技术学院<br><strong>主页：</strong><a href="http://www.archive.unimas.my/faculties/fcsit/chiew-kang-leng.html" target="_blank" rel="noopener">http://www.archive.unimas.my/faculties/fcsit/chiew-kang-leng.html</a><br><strong>Google Scholar：</strong><a href="https://scholar.google.com.my/citations?user=fbeB3JEAAAAJ&amp;hl=en" target="_blank" rel="noopener">https://scholar.google.com.my/citations?user=fbeB3JEAAAAJ&amp;hl=en</a></p>
+<div align="center"><br><img src="/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/1.png" width="530" height="300"><br></div>
+
+<h2 id="2-概述"><a href="#2-概述" class="headerlink" title="2 概述"></a>2 概述</h2><h3 id="2-1-摘要"><a href="#2-1-摘要" class="headerlink" title="2.1 摘要"></a>2.1 摘要</h3><p>&emsp;&emsp;本文是以前的工作的一个扩展，利用 favicon 和谷歌图像搜索来揭示网站的身份。身份检索技术包括一种有效的数学模型，可用于帮助从搜索结果的许多条目中检索正确的身份。本文介绍了基于 favicon 的钓鱼攻击检测的增强版本，引入了域名扩展特征（Domain Name Amplification feature）并添加了附加特征（addition features）。当被检查的网站没有 favicon 时，附加特征非常有用。</p>
+<p><table><tr><td bgcolor="yellow">选择 favicon 是因为它代表了网站的品牌，此外，favicon 不会受到网页上显示的动态内容(如广告)的影响。</td></tr></table></p>
+<h3 id="2-2-本文贡献"><a href="#2-2-本文贡献" class="headerlink" title="2.2 本文贡献"></a>2.2 本文贡献</h3><p>（1）利用从网站中提取的 favicon，通过谷歌图像引擎发现潜在的钓鱼尝试。与当前的反钓鱼解决方案不同，本文提出的方法不需要对基于文本或基于图像的内容进行深入分析，提高了检测速度；<br>（2）数学方程的使用使得能够从搜索结果的许多条目中检索真实身份；<br>（3）提出了 additional features ，以克服缺失 favicon 的问题；<br>（4）本文方法不需要图像数据库或任何来自合法网站的预存信息，因此降低了由于数据库过时而导致高错误检测的风险。</p>
+<a id="more"></a>
+<h2 id="3-本文方法"><a href="#3-本文方法" class="headerlink" title="3 本文方法"></a>3 本文方法</h2><h3 id="3-1-Website-Favicon"><a href="#3-1-Website-Favicon" class="headerlink" title="3.1 Website Favicon"></a>3.1 Website Favicon</h3><p>&emsp;&emsp;favicon 是一个附加到 URL 的快捷图标，显示在桌面浏览器的地址栏或浏览器选项卡上或浏览器书签列表中的网站名称旁边。图 2 显示了 PayPal favicon 的 Internet Explorer 浏览器示例。图标代表一个16×16像素图像文件的网站标识，也能是 32×32，48×48，或 64×64 像素大小。  </p>
+<div align="center"><br><img src="/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/2.png" width="360" height="70"><br></div>
+
+<p>&emsp;&emsp;<strong>获取 favicon</strong>：添加 favicon.ico 到网站域名后。例如，给定 PayPal 的 URL <a href="https://www.paypal.com/，提取域名" target="_blank" rel="noopener">https://www.paypal.com/，提取域名</a> paypal.com，然后将 favicon.ico 附加到域名的末尾，使其成为 paypal.com/favicon.ico。将该新生成的 URL 输入地址栏中，就可以获取与 favicon 相关的信息。</p>
+<h3 id="3-2-Google-Search-by-Image"><a href="#3-2-Google-Search-by-Image" class="headerlink" title="3.2 Google Search by Image"></a>3.2 Google Search by Image</h3><p>&emsp;&emsp;图 3 显示了google search by image (GSI) interface 的示例，包括两种选项（1）粘贴图像 URL；（2）上传图像。图 4 为查询 PayPal 的 favicon 时 GSI 返回的搜索结果示例，本文使用粘贴图像 URL 的选项来将 favicon 提供给 GSI。</p>
+<div align="center"><br><img src="/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/3.png" width="350" height="130"><br></div><br><div align="center"><br><img src="/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/4.png" width="380" height="310"><br></div><br>&emsp;&emsp;为此，本文使用 Schaback[21] 开发的自定义应用程序程序接口(API)，如图 5 所示。这个 API 利用 GSI 返回与查询图像相关的搜索条目列表。<br><br><div align="center"><br><img src="/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/5.png" width="280" height="40"><br></div>
+
+<blockquote>
+<p>[21] A. Schaback, <a href="http://skyzerblogger.blogspot.tw/2013/01/google-reverse-image-search-scraping.html" target="_blank" rel="noopener">http://skyzerblogger.blogspot.tw/2013/01/google-reverse-image-search-scraping.html</a>.</p>
+</blockquote>
+<h3 id="3-2-Proposed-Features"><a href="#3-2-Proposed-Features" class="headerlink" title="3.2 Proposed Features"></a>3.2 Proposed Features</h3><p>&emsp;&emsp;总共有 5 个特征，从搜索结果中提取了 4 个（参见图 4 中所示的红色框）：<br>（1）<strong>Second-level domain (SLD)</strong><br>&emsp;&emsp;二级域名(SLD)：SLD是已知网站的名称，位于顶级域(TLD)旁边。例如，在 <a href="http://www.mydomain.com/" target="_blank" rel="noopener">http://www.mydomain.com/</a> 中，mydomain 是 .com TLD 的 SLD。本文使用 SLD 作为特征是因为它有很大可能根据搜索结果显示网站的 identity。因此，从 GSI 返回的条目列表中提取 SLD。为了避免计数混淆，使用 “unique term” 表示从条目中提取的每个唯一 SLD，每个唯一项的频率由搜索结果中找到的 SLD 的出现次数计算。<br>（2）<strong>Path in URL (path)</strong><br>&emsp;&emsp;Path 通常位于 URL 的顶级域之后，例如，在 <a href="https://www.domain.com/image/index.php" target="_blank" rel="noopener">https://www.domain.com/image/index.php</a> 中，/image/index.php 指向一个名为 index.php 的文件的唯一位置。使用 path 作为特征是因为搜索结果中通常包含与目标合法网站的标识相关的 path 中的 terms。虽然钓鱼者可以用不同的方式改变 URL 的路径，但必须在 URL 中保留 identity 关键字，以便让互联网用户相信他们访问的是正确的目的地。因此，从 GSI 返回的搜索结果中提取每个 URL 的完整路径，然后使用预先提取的 unique terms 从所有路径中找到匹配的标识。因此，为了捕获此属性，将记录路径中找到的每个 unique terms 出现的次数。<br>（3）<strong>Title and snippet (TNS)</strong><br>&emsp;&emsp;Title 是出现在 URL 顶部的文本，snippet 是出现在 URL 下方的描述。网站的标识并不总是出现在搜索条目的 URL 中，也可以在搜索条目的 title 或 snippet 中找到。因此，每个预先提取的唯一术语都用于在所有标题和搜索结果片段中找到匹配项。因此，记录在 title 和 snippet 中找到的每个 unique term 的出现次数。<br>（4）<strong>Highlighted text (HLT)</strong><br>&emsp;&emsp;高亮文本是出现在搜索结果的 title or snippet 中的粗体文本，突出显示的文本表明是搜索图标最相关和最重要的关键字。这一特征有很高的趋势显示的真正身份的图标，这是因为 favicon 的内容必须符合 GSI 定义的图像内容，以便在搜索结果中显示粗体文本。因此，该方法从搜索结果中的每个条目中提取粗体文本，根据预先提取的 unique term 找到匹配项，记录在粗体文本中找到的每个 unique term 的出现次数。  </p>
+<p>&emsp;&emsp;为了展示每个特性的形成，使用图 4 所示的示例，表 1 为每个 unique term 的频率计数。</p>
+<div align="center"><br><img src="/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/6.png" width="330" height="120"><br></div>
+
+<p>&emsp;&emsp;使用下面的方程来计算每个 unique term 的所有特征的加权频率：</p>
+<div align="center"><br><img src="/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/7.png" width="150" height="190"><br></div>
+
+<ul>
+<li>$h_i^{sld}$，$h_i^{path}$，$h_i^{tns}$，$h_i^{hlt}$ —— 第 i 个 unique term 的四个特征的加权频率；</li>
+<li>$f_i^{sld}$，$f_i^{path}$，$f_i^{tns}$，$f_i^{hlt}$ —— 第 i 个 unique term 的频率计数；</li>
+<li>$F_{sld}$，$F_{path}$，$F_{tns}$，$F_{hlt}$ —— 在一个特征下所有 unique term 的总的频率计数；</li>
+<li>$\omega_{sld}$，$\omega_{path}$，$\omega_{tns}$，$\omega_{hlt}$ —— 为每个特性分配的权重。</li>
+</ul>
+<div align="center"><br><img src="/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/12.png" width="330" height="120"><br></div>
+
+<p>&emsp;&emsp;如表 2 所示，本文给第 4 个特征赋予了最高的权重，因为高亮的文本通常具有显示 favicon 身份的高倾向性。第 1 个和第 3 个特性的权重较小，主要是因为标识的频率依赖于谷歌搜索引擎索引。换句话说，当 GIS 无法返回与 favicon 相关的足够信息时，一个频率更高的假标识就可以取代真实标识。所以与第 4 个特征相比，这些特征的重要性稍微低一些。第 2 个特性的权重最低，因为钓鱼者总是可以在不影响整个网站的情况下更改网址中的 path。在得到每个特征的加权频率后，将它们组合起来形成每个 unique term 的最终频率：</p>
+<div align="center"><br><img src="/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/8.png" width="190" height="50"><br></div>
+
+<p>（5）<strong>Domain Name Amplification (DNA)</strong><br>&emsp;&emsp;一旦计算了所有 unique term 的最终频率，需要放大与查询网站的 SLD 对应的 unique term 的最终频率。为了实现这一点，搜索 unique term 列表以查看 unique term 与查询网站的 SLD 是否匹配。如果有匹配项，则将对应的 unique term 的最终频率增加 5%：</p>
+<div align="center"><br><img src="/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/9.png" width="290" height="55"><br></div>
+
+<p>&emsp;&emsp;否则，将把 SLD 附加到 unique term 列表中，并计算频率，这一步可以提高检测性能。其基本原理是，如果新的和不受欢迎的合法网站不在搜索索引中，GSI 可能并不总是在搜索结果中包含这些条目。相反，如果查询网站的 SLD 出现在 unique term 列表中，则可以从搜索结果中的其他条目获得标识。这是因为其他条目可能在 path、TNS 或 HLT 中包含标识关键字。接下来，利用下面的方程，得到最终频率最高的唯一项：</p>
+<div align="center"><br><img src="/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/10.png" width="290" height="33"><br></div>
+
+<p>&emsp;&emsp;最终频率最高的 unique term 被视为查询网站的标识。如果查询网站的标识与其 SLD 不匹配，赋值为1；否则，赋值为0：</p>
+<div align="center"><br><img src="/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/11.png" width="220" height="55"><br></div>
+
+<h3 id="3-2-Additional-Features"><a href="#3-2-Additional-Features" class="headerlink" title="3.2 Additional Features"></a>3.2 Additional Features</h3><p>&emsp;&emsp;一些网站没有 favicon，对此本文采用基于 url 的五个附加特征对网站进行分类。<br>（1）<strong>Suspicious URL</strong>  </p>
+<ul>
+<li>“@”符号：它强制删除左边的字符串，而右边的字符串被认为是实际的 URL。因此，用户将被重定向以访问位于“@”符号右侧的 URL。</li>
+<li>“-”符号：钓鱼者通过在 URL 中插入“-”来模仿合法的域名，让用户相信这是合法的域名。  </li>
+</ul>
+<p>&emsp;&emsp;基于“.”和“/”两个分隔符对 URL 进行 tokenize，通过遍历每个 token 找到“@”符号和“-”符号。如果令牌中有匹配的符号，则将该特征赋为1；否则，赋0。<br>（2）<strong>Dots in Domain</strong><br>&emsp;&emsp;在数据收集中发现，合法网页 URL 的域名中“.”的数量很少超过 5 个，而钓鱼网站则含有 5 个或 5 个以上的“.”。因此计算 URL 域名中“.”的数量，若含有 5 个或 5 个以上的“.”，则将该特征赋为1；否则，赋0。<br>（3）<strong>Age of Domain</strong><br>&emsp;&emsp;根据 APWG[23] 上发表的报告，钓鱼网站的最长寿命记录是 31 天。此外，报告还显示，大多数钓鱼网站的平均寿命只有一周。若寿命小于等于 30 天，则将该特征赋为1；否则，赋0。 </p>
+<blockquote>
+<p>[23] APWG, <a href="http://docs.apwg.org/reports/APWG" target="_blank" rel="noopener">http://docs.apwg.org/reports/APWG</a> Phishing Attack Report-Jul2004.pdf.</p>
+</blockquote>
+<p>（4）<strong>IP Address</strong><br>&emsp;&emsp;使用 IP 地址创建网站比较廉价，因为它可以通过使用个人计算机作为 web 服务器来完成，钓鱼者不需要向任何域名注册商注册网站地址。因此，从查询网站提取 URL 并查找是否存在 IP 地址。若 URL 包含 IP 地址，则将该特征赋为1；否则，赋0。<br>（5）<strong>Web of Trust (WOT)</strong>  </p>
+<div align="center"><br><img src="/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/13.png" width="500" height="55"><br></div>
+
+<p>&emsp;&emsp;WOT[24] 是一个根据互联网用户的反馈和来自第三方如 PhishTank 和 truste[25] 的信息显示另一个网站的声誉的网站。WOT 中有一个API，可以用来检查 Web 站点的合法性，图 6 显示了用于检索查询网站声誉的WOT API片段代码。代码中的 value 是插入查询网站的位置，api_key 是插入 api 注册 key 以激活 api 的位置。WOT 使用的声誉值如表 3 所示，其中 80 及以上的值表示该网站收到了非常好的网民反馈，而 19 及以下的值则表示该网站可能会危害到网民。为此，若美誉度小于 20，则将该特征赋为 1；否则，赋0。</p>
+<div align="center"><br><img src="/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/14.png" width="360" height="70"><br></div>
+
+<blockquote>
+<p>[24] “Web ofTrust,” <a href="https://www.mywot.com/wiki/api" target="_blank" rel="noopener">https://www.mywot.com/wiki/api</a><br>[25] “True Ultimate Standards Everywhere,” <a href="https://www.truste.com" target="_blank" rel="noopener">https://www.truste.com</a>.</p>
+</blockquote>
+<p>&emsp;&emsp;用以下方程来表示 additional 特征的计算：</p>
+<div align="center"><br><img src="/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/15.png" width="130" height="30"><br></div>
+
+<p>其中，$S_2$ 是查询网站的 additional 特征的得分，$h_j$ 是第 j 个 additional 特征获得的值，$w_j$ 是对每个特征的权重分配（由经验决定），如表 4 所示。</p>
+<div align="center"><br><img src="/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/16.png" width="730" height="70"><br></div>
+
+<h3 id="3-3-最终的综合钓鱼检测方案"><a href="#3-3-最终的综合钓鱼检测方案" class="headerlink" title="3.3 最终的综合钓鱼检测方案"></a>3.3 最终的综合钓鱼检测方案</h3><p>&emsp;&emsp;用以下等式计算网站的最终分数：</p>
+<div align="center"><br><img src="/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/17.png" width="200" height="30"><br></div>
+
+<p>其中 $C_1$ 和 $C_2$ 是从实验中获取的最优权重。FinalScore 用来确定查询网站的合法性，若 FinalScore 超过阈值 $\tau$，则被分类为钓鱼网页；否则，为合法网页。在实验中专门对这个阈值的不同变体进行了实验，最终提供了最佳阈值。</p>
+<h2 id="4-实验评估"><a href="#4-实验评估" class="headerlink" title="4 实验评估"></a>4 实验评估</h2><h3 id="4-1-数据集"><a href="#4-1-数据集" class="headerlink" title="4.1 数据集"></a>4.1 数据集</h3><p>&emsp;&emsp;从 2017.12.20-12.26，收集了 5000 个钓鱼网站（PhishTank）和 5000 个合法网站（Alexa）。在数据收集过程中，发现 Alexa 共有165个网站(3.30%)不存在 favicon。我们还发现PhishTank共有81个网站(1.62%)没有favicon。在数据收集中，发现 Alexa 共有 165 个网站(3.30%)不存在 favicon，PhishTank 共有 81 个网站(1.62%)没有 favicon。图 7 总结了数据集的分布。</p>
+<div align="center"><br><img src="/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/18.png" width="420" height="250"><br></div>
+
+<h3 id="4-2-实验"><a href="#4-2-实验" class="headerlink" title="4.2 实验"></a>4.2 实验</h3><p>&emsp;&emsp;通过 3 个实验验证了本文方法的有效性。（1）实验 1 在没有 additional 特征的情况下，对该方法的检测性能进行了评价；（2）实验 2 用于评估所提出方法与 additional 特征的集成，以便对缺少 favicon 的网站进行分类；（3）实验 3 比较了本文方法与其他钓鱼检测方法的性能。<br>&emsp;&emsp;在实验 1 和实验 2 中，使用 7000 个网站（3500个合法网站和3500个钓鱼网站）进行<em>训练</em>和<em>优化参数设置</em>。在实验 3 中，总共使用了3000个网站（1500个合法网站和1500个钓鱼网站）来验证所提出的方法。值得一提的是，实验3中使用的3000个网站是实验 1 和实验 2 中没有使用过的一组新样本。实验结果采用以下测量指标：  </p>
+<ul>
+<li>True positive (TP)：钓鱼网站被正确分类为钓鱼网站；</li>
+<li>True negative (TN)：合法网站被正确分类为合法网站；</li>
+<li>False positive (FP)：合法网站被错误分类为钓鱼网站；</li>
+<li>False negative (FN)：钓鱼网站被错误分类为合法网站；</li>
+<li>F-score（$F_1$）：模型整体分类正确率，$F_1=\frac{2TP}{2TP+FP+FN}$。</li>
+</ul>
+<p>（1）<strong>实验 1 —— 评估 Phishdentity</strong><br>&emsp;&emsp;实验 1 在没有 additional 特征的情况下，评估 Phishdentity 根据谷歌返回的搜索结果对网站进行分类的性能，使用 GSI API 中指定的默认参数来返回搜索结果。本实验设计了两个测试床：（1）第一个测试床是利用 SLD、path、TNS 和 HLT 对网站进行分类；（2）在第一个测试床所使用的所有特征的基础上，集成了一个 DNA 特征，形成第二个测试床，放大了一个与查询网站 SLD 对应的 unique term。  </p>
+<div align="center"><br><img src="/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/19.png" width="720" height="70"><br></div>
+
+<p>&emsp;&emsp;如表 5 所示，第二个测试床在将 DNA 整合到测试中后性能得到改善，即使用 DNA 提高了 Phishdentity 查找网站身份的有效性。换句话说，第二个测试床能够定位正确的身份，即使搜索结果可能包含许多假身份。在对合法网站进行分类时，FP 减少了6.23%，但仍然很高，原因如下：（1）3500 个合法的网站中有 91 个没有 favicon，因此，假阳性总数占 2.6%；（2）当使用错误版本的 favicon 时，API 可能返回不正确的信息，当查询网站的 favicon 版本比存储在谷歌图像数据库中的更新时，就会发生这种情况。虽然这个问题造成了一些误报，但预计新的 favicon 将很快在谷歌图像数据库中可用；（3）在进行测试时，有 13 个网站限制了对它们的图标的访问。另一方面，第二个测试床在检测钓鱼网站方面也有一定的进步，它减少了 2.43% 的假阴性。假阴性数量的下降是由于谷歌能够过滤搜索结果中的恶意条目。但是谷歌需要一些时间来确定新的恶意条目的合法性，因为大多数钓鱼事件通常发生在攻击的早期阶段。采用第二个测试床进行后续实验。  </p>
+<p>（2）<strong>实验 2 —— 在没有 favicon 的情况下评估 Phishdentity</strong><br>&emsp;&emsp;实验 2 用于评估所提出方法与 additional 特征的集成，以便对缺少 favicon 的网站进行分类。<br>&emsp;&emsp;设计了三个系列的实验：（1）第一个系列将用于确定 $C_1$ 和 $C_2$ 的最佳权重，使用 50 的阈值作为基线。每次记录 $C_1$ 增加 1 ，$C_2$ 减少 1 正确分类的网站的数量，在正确分类网站数最多时停止该过程。一旦确定了 $C_1$ 和 $C_2$，就用它们进行第二系列实验；（2）第二系列旨在确定最佳阈值 $\tau$，首先将 $\tau$ 设置为零，观察每次 $\tau$ 增加 1 时正确分类的网站的数量，在正确分类网站数最多时停止该过程；（3）第三个系列用于论证在 Phishdentity 中是否包含 additional 特征的性能差异，为第三个系列设计了两个测试床。第一个测试床用于证明没有 additional 特征时 Phishdentity 的性能，第二个测试床使用从第二系列实验中获得的 $\tau$ ，将 Phishdentity 与 additional 特征结合。实验二产生了 Phishdentity 的最终版本，并将其用于下一个实验。  </p>
+<div align="center"><br><img src="/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/20.png" width="320" height="130"><br></div>
+
+<div align="center"><br><img src="/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/21.png" width="700" height="150"><br></div>
+
+<div align="center"><br><img src="/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/22.png" width="700" height="80"><br></div>
+
+<p>&emsp;&emsp;如表 6 所示，当将权重分配为 $C_1=40$，$C_2=60$ 时，具有 additional 特征的 Phishdentity 在分类时的错误率(FP和FN)最低。如表 7 所示，当使用最优权值，且 $\tau$ 设置为 60 时，可以进一步降低分类错误率。如表 8 所示，additional 特征可以改善缺失 favicon 的薄弱环节，这减少了 0.57% 的假阳性。然而，假阴性的数量从 3.00% 增加到 3 .03%，本文认为这是可以接受的，因为假阳性的数量减少了 0.57%，这说明基于 URL 的检测方法可以提高检测结果。  </p>
+<div align="center"><br><img src="/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/23.png" width="320" height="140"><br></div>
+
+<p>&emsp;&emsp;分配给 $C_1$ 和 $C_2$ 的权重分别为 40 和 60，每个特征的得分如表 9 所示。注意，$C_2$ 的权重为 60，是来自 suspicious URL，dots in domain，age of domain，IP address 和 WOT 特征得分的组合，这些分数由表 4 所示的分布转换得到。  </p>
+<p>（3）<strong>实验 3 —— 评估最终的 Phishdentity</strong><br>&emsp;&emsp;实验 3 比较了本文方法与其他钓鱼检测方法的性能，选择 CANTINA 和 GoldPhish 进行基准测试。CANTINA 是一种基于内容的反钓鱼方法，它使用 TF-IDF 技术，从网站中提取了 5 个最重要的关键词提供给谷歌搜索引擎，然后，从搜索结果中搜索匹配的域名以确定网站的合法性。另一方面，GoldPhish 是一种基于图像的反钓鱼方法，它利用了光学字符识别（OCR）技术。首先，它使用一个预定义的分辨率来捕捉网站的截图。然后，OCR从捕获的屏幕中提取文本信息，并将其提供给谷歌搜索引擎。最后从搜索结果中搜索匹配的域名，以确定网站的合法性。  </p>
+<div align="center"><br><img src="/2019/08/15/Leverage-website-favicon-to-detect-phishing-websites-SCN-2018/24.png" width="740" height="100"><br></div>
+
+<p>&emsp;&emsp;如表 10 所示，CANTINA 将 5.87% 的合法网站错误的归类为网络钓鱼，TF-IDF 对于一些合法的网站并不适用。如果查询网站包含非常少的文本信息来描述网站，那么它将为谷歌搜索引擎生成不正确的词汇签名，Zhang等人也讨论了这个问题，他们计划研究其他方法。从这个实验得到的证据来看，CANTINA 并不适合钓鱼网站。GoldPhish 在对合法网站进行分类时表现很差，非法分类的合法网站高达 19.87%。本文认为，当使用 OCR 工具从屏幕截图中提取文本信息时，GoldPhish 面临几个限制。首先，GoldPhish 使用一个固定大小的窗口来裁剪截图，这可能会排除位于裁剪区域之外的一些重要内容；其次，Alexa 的大多数网站在主页上都有广告，有些广告太大了，占据了截屏的一半。这导致 OCR 提取不正确的消息；第三，一些合法的网站在主页上使用很多图片，这可能导致 OCR 捕获的图像不包含有关网站的重要信息；第四，OCR 不能很好地处理一些不常见的字体和字体大小，这使得 OCR 无法正确识别字符。在这三种方法中，GoldPhish 对钓鱼网站的检测效果最好，为 98.07%，这可以归因于谷歌搜索引擎对钓鱼网站信息的返回很少或为零。</p>
+<h2 id="5-局限性和讨论"><a href="#5-局限性和讨论" class="headerlink" title="5 局限性和讨论"></a>5 局限性和讨论</h2><p>&emsp;&emsp;本文提出的技术对实验有三个限制：<br>（1）钓鱼者可以稍微改变一个 favicon 的内容，从受害者的角度来看它仍是熟悉的，但它不会检索合法的网站。钓鱼者也可以替换一个类似于其他合法网站的图标。当谷歌还没有爬行到母公司及其子公司的所有新更新时，就会发生这种情况。然而，这个限制不是至关重要的。GSI 引擎将从更改后的 favicon 中提取不同的内容，并返回与目标合法网站无关的信息。此外，改变了 favicon 的网络钓鱼域名由于其相对较年轻，不太可能出现在搜索结果中。因此，改变了 favicon 的钓鱼网站仍然可以触发 Phishdentity 检测。</p>
+<p>（2）对新的或不受欢迎的合法网站的错误分类。新网站可能不会被谷歌索引，WOT 可能没有关于这些网站的信息，因此该方法可能会将这些网站错误地归类为网络钓鱼。然而，随着时间的推移，最终新的网站将被列入 WOT 数据库。至于那些不受欢迎的网站，它们很可能不会成为钓鱼者的目标。此外，本文还提出了一种基于网站 URL 的分类方法。这个额外的方法是轻量级的，可以用来弥补 Phishdentity 无法对没有 favicon 的网站进行分类。这种 additional 方法将减少这种错误分类的概率，如实验 3 中的低假阳性所证明的。</p>
+<p>（3）这些 additional 特征在一些合法网站上表现不佳。首先，WOT 将 Alexa 中列出的色情网站（pornographic websites）列为危险网站。虽然这类网站有很多恶意广告，会感染电脑病毒，但它在最终的计算中仍然被归类为合法的。理由是，我们不能否认，每一个合法的网站是无害的(即色情网站），但我们在这里的目标是确定合法性，而不是网站的危险。其次，WOT 将对那些不使用安全连接使用户登录或进行数字支付的电子商务网站给予较低的评级。在网页上使用安全连接可以防止窃听，但实施起来可能会很昂贵，尤其是对于只针对本地企业的电子商务网站。然而，这不大可能对合法网站造成虚假警报，因为合法性并不完全由 WOT 决定。</p>
+
+      
+    </div>
+    <div>
+      
+          <div> 
+     
+    	<div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------本文结束<i class="fa fa-paw"></i>感谢您的阅读------------
+    	</div>
+     
+</div>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Lei Zhang 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Logo/" rel="tag"><i class="fa fa-tag"></i> Logo</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/13/A-Keyword-based-Combination-Approach-for-Detecting-Phishing-Webpages-Computers-Security-2019/" rel="next" title="A Keyword-based Combination Approach for Detecting Phishing Webpages（Computers & Security 2019）">
+                <i class="fa fa-chevron-left"></i> A Keyword-based Combination Approach for Detecting Phishing Webpages（Computers & Security 2019）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/touxiang.jpg" alt="Lei Zhang">
+            
+              <p class="site-author-name" itemprop="name">Lei Zhang</p>
+              <p class="site-description motion-element" itemprop="description">走自己的路吧开心最重要</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/LeiiZhang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zlcumtcs@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+          
+          
+
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-作者介绍"><span class="nav-number">1.</span> <span class="nav-text">1 作者介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-概述"><span class="nav-number">2.</span> <span class="nav-text">2 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-摘要"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 摘要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-本文贡献"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 本文贡献</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-本文方法"><span class="nav-number">3.</span> <span class="nav-text">3 本文方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-Website-Favicon"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 Website Favicon</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-Google-Search-by-Image"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 Google Search by Image</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-Proposed-Features"><span class="nav-number">3.3.</span> <span class="nav-text">3.2 Proposed Features</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-Additional-Features"><span class="nav-number">3.4.</span> <span class="nav-text">3.2 Additional Features</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-最终的综合钓鱼检测方案"><span class="nav-number">3.5.</span> <span class="nav-text">3.3 最终的综合钓鱼检测方案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-实验评估"><span class="nav-number">4.</span> <span class="nav-text">4 实验评估</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-数据集"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 数据集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-实验"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 实验</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-局限性和讨论"><span class="nav-number">5.</span> <span class="nav-text">5 局限性和讨论</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lei Zhang</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总计&#58;</span>
+    
+    <span title="本站总计">39.9k 字</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 你是本站第
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      位访问者
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'culOf1aK4Nkj7faLPEIes1Qq-gzGzoHsz',
+        appKey: 'kLWDBKtAdcFzhEzyf9p4cjHB',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":80,"height":300,"hOffset":20,"vOffset":-200},"mobile":{"show":true},"log":false,"tagMode":false});</script></body>
+</html>
