@@ -297,6 +297,1562 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leiizhang.github.io/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lei Zhang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还是吃太多乐">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/" itemprop="url">A stacking model using URL and HTML features for phishing webpage detection（FGCS 2019）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-12T16:38:14+08:00">
+                2019-08-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CCF-C/" itemprop="url" rel="index">
+                    <span itemprop="name">CCF-C</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.9k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  18 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="1-作者介绍"><a href="#1-作者介绍" class="headerlink" title="1 作者介绍"></a>1 作者介绍</h2><p><strong>一作：</strong>Yukun Li（广东工业大学自动化学院研究生）  </p>
+<div align="center"><br><img src="/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/1.png" width="350" height="120"><br></div>
+
+<h2 id="2-概述"><a href="#2-概述" class="headerlink" title="2 概述"></a>2 概述</h2><p>&emsp;&emsp;本文设计了轻量级的 <strong>URL</strong> 和 <strong>HTML</strong> 特征，引入了 <strong>HTML string embedding</strong>。此外，还将 GBDT、XGBoost 和 LightGBM 多层结合，设计了一个 <strong>stacking 模型</strong>，使得不同的模型可以互补，从而提高了钓鱼网页检测的性能。本文收集了两个用于评估的真实数据集，分别为 50K-PD 和 50K-IPD。50K-PD 包含 49,947 个带有 URL 和 HTML代码的网页；50K-IPD 包含 53,103 个网页，除 URL 和 HTML 代码外还有 Screenshots。本文贡献如下：<br>（1）在特征提取方面，将人工设计的特征与 Word2Vec 模型提取的 HTML string embedding 相结合；<br>（2）结合几种机器学习模型的优点，提出了一种检测钓鱼网页的 stacking 模型；<br>（3）设计了一个实时的钓鱼检测系统，可以用来保护用户免受钓鱼攻击；<br>（4）发布了一个真实的钓鱼网页检测数据集。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/12/A-stacking-model-using-URL-and-HTML-features-for-phishing-webpage-detection-FGCS-2019/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    <div>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leiizhang.github.io/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lei Zhang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还是吃太多乐">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/" itemprop="url">Jail-Phish: An improved search engine based phishing detection system（Computers Security 2019）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-09T13:11:14+08:00">
+                2019-08-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CCF-B/" itemprop="url" rel="index">
+                    <span itemprop="name">CCF-B</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.7k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  14 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="1-作者介绍"><a href="#1-作者介绍" class="headerlink" title="1 作者介绍"></a>1 作者介绍</h2><p><strong>一作：</strong>Routhu Srinivasa Rao（印度NITK Surathkal计算机科学与工程系）<br><strong>Google Scholar：</strong><a href="https://scholar.google.co.in/citations?user=1X_WI3UAAAAJ&amp;hl=en" target="_blank" rel="noopener">https://scholar.google.co.in/citations?user=1X_WI3UAAAAJ&amp;hl=en</a></p>
+<div align="center"><br><img src="/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/1.png" width="350" height="140"><br></div>
+
+<h2 id="2-概述"><a href="#2-概述" class="headerlink" title="2 概述"></a>2 概述</h2><p>&emsp;&emsp;基于搜索引擎的技术的局限性在于，它们无法检测托管在受攻击服务器上的钓鱼网站。本文提出了一个名为 <strong>Jail-Phish</strong> 的应用程序，它可以提高基于搜索引擎的技术的准确性，能够检测受攻击服务器上托管的网络钓鱼站点（Phishing Sites Hosted on Compromised Servers, <strong>PSHCS</strong>）以及检测新注册的合法站点。Jail-Phish 比较可疑站点和搜索结果中匹配的域名，以计算它们之间的相似性得分。在同一网站的页面内存在某种程度的相似性，例如logo, favicon, images, scripts, styles 和 anchorlinks；而另一方面，PSHCS 中页面内的不相似性非常高。因此，使用可疑站点和匹配的域名之间的相似性得分作为检测 PSHCS 的参数。实验结果表明，Jail-Phish 的 accuracy 为98.61%，真阳性率为97.77%，假阳性率小于0.64%。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/09/Jail-Phish-An-improved-search-engine-based-phishing-detection-system-Computers-Security-2019/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    <div>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leiizhang.github.io/2019/08/05/A-new-hybrid-ensemble-feature-selection-framework-for-machine-learning-based-phishing-detection-system-Information-Sciences-2019/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lei Zhang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还是吃太多乐">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/05/A-new-hybrid-ensemble-feature-selection-framework-for-machine-learning-based-phishing-detection-system-Information-Sciences-2019/" itemprop="url">A new hybrid ensemble feature selection framework for machine learning-based phishing detection system（Information Sciences 2019）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-05T22:03:30+08:00">
+                2019-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CCF-B/" itemprop="url" rel="index">
+                    <span itemprop="name">CCF-B</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/08/05/A-new-hybrid-ensemble-feature-selection-framework-for-machine-learning-based-phishing-detection-system-Information-Sciences-2019/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/08/05/A-new-hybrid-ensemble-feature-selection-framework-for-machine-learning-based-phishing-detection-system-Information-Sciences-2019/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.8k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="1-作者介绍"><a href="#1-作者介绍" class="headerlink" title="1 作者介绍"></a>1 作者介绍</h2><p><strong>一作：</strong>Kang Leng Chiew<br><strong>研究所：</strong>马来西亚沙捞越大学计算机科学与信息技术学院<br><strong>主页：</strong><a href="http://www.archive.unimas.my/faculties/fcsit/chiew-kang-leng.html" target="_blank" rel="noopener">http://www.archive.unimas.my/faculties/fcsit/chiew-kang-leng.html</a><br><strong>Google Scholar：</strong><a href="https://scholar.google.com.my/citations?user=fbeB3JEAAAAJ&amp;hl=en" target="_blank" rel="noopener">https://scholar.google.com.my/citations?user=fbeB3JEAAAAJ&amp;hl=en</a></p>
+<div align="center"><br><img src="/2019/08/05/A-new-hybrid-ensemble-feature-selection-framework-for-machine-learning-based-phishing-detection-system-Information-Sciences-2019/1.png" width="530" height="300"><br></div>
+
+<h2 id="2-概述"><a href="#2-概述" class="headerlink" title="2 概述"></a>2 概述</h2><p>&emsp;&emsp;本文为基于机器学习的钓鱼网站检测方法提出了一个新的<strong>特征选择框架</strong>，叫做<strong>Hybrid Ensemble Feature Selection (HEFS)</strong>。<br>&emsp;&emsp;（1）在HEFS的第一阶段，提出了一种新的累积分布函数梯度(CDF-g)算法来生成主要特征子集，然后将这些特征子集输入到数据扰动集成中来生成次要特征子集。<br>&emsp;&emsp;（2）第二阶段通过使用函数扰动集成从次要特征子集导出一组基线特征。<br>&emsp;&emsp;（3）总体实验结果表明，当HEFS与随机森林分类器集成时表现最好，其中基线特征正确地区分了94.6％的网络钓鱼和合法网站，只使用了20.8％的原始特征。<br>&emsp;&emsp;（4）另一个实验表明，在随机森林中使用基线特征(总共10个)优于在SVM、朴素贝叶斯、C4.5、JRip和部分分类器中使用所有特征(总共48个)。</p>
+<p><strong>数据集（特征）下载</strong>：<a href="https://data.mendeley.com/datasets/h3cgnj8hft/1" target="_blank" rel="noopener">https://data.mendeley.com/datasets/h3cgnj8hft/1</a></p>
+<div align="center"><br><img src="/2019/08/05/A-new-hybrid-ensemble-feature-selection-framework-for-machine-learning-based-phishing-detection-system-Information-Sciences-2019/2.png" width="530" height="400"><br></div>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/05/A-new-hybrid-ensemble-feature-selection-framework-for-machine-learning-based-phishing-detection-system-Information-Sciences-2019/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    <div>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leiizhang.github.io/2019/08/05/Building-standard-offline-anti-phishing-dataset-for-benchmarking-IJET-2018/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lei Zhang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还是吃太多乐">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/05/Building-standard-offline-anti-phishing-dataset-for-benchmarking-IJET-2018/" itemprop="url">Building standard offline anti-phishing dataset for benchmarking（IJET 2018）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-05T19:46:58+08:00">
+                2019-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CCF-N/" itemprop="url" rel="index">
+                    <span itemprop="name">CCF-N</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/08/05/Building-standard-offline-anti-phishing-dataset-for-benchmarking-IJET-2018/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/08/05/Building-standard-offline-anti-phishing-dataset-for-benchmarking-IJET-2018/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  732 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="1-作者介绍"><a href="#1-作者介绍" class="headerlink" title="1 作者介绍"></a>1 作者介绍</h2><p><strong>一作：</strong>Kang Leng Chiew<br><strong>研究所：</strong>马来西亚沙捞越大学计算机科学与信息技术学院<br><strong>主页：</strong><a href="http://www.archive.unimas.my/faculties/fcsit/chiew-kang-leng.html" target="_blank" rel="noopener">http://www.archive.unimas.my/faculties/fcsit/chiew-kang-leng.html</a><br><strong>Google Scholar：</strong><a href="https://scholar.google.com.my/citations?user=fbeB3JEAAAAJ&amp;hl=en" target="_blank" rel="noopener">https://scholar.google.com.my/citations?user=fbeB3JEAAAAJ&amp;hl=en</a></p>
+<div align="center"><br><img src="/2019/08/05/Building-standard-offline-anti-phishing-dataset-for-benchmarking-IJET-2018/1.png" width="530" height="300"><br></div>
+
+<h2 id="2-概述"><a href="#2-概述" class="headerlink" title="2 概述"></a>2 概述</h2><p>&emsp;&emsp;本文提出并构建了一个<font color="red">可下载、通用、全面的大型标准离线数据集</font>，包含15000个钓鱼网页和15000个合法网页。<strong>数据集下载</strong>：<a href="http://www.fcsit.unimas.my/research/legit-phish-set" target="_blank" rel="noopener">http://www.fcsit.unimas.my/research/legit-phish-set</a></p>
+<div align="center"><br><img src="/2019/08/05/Building-standard-offline-anti-phishing-dataset-for-benchmarking-IJET-2018/2.png" width="530" height="500"><br></div>
+
+<table><tr><td bgcolor="yellow"><font color="red">Online phishing </font>is a security threat which combines social engineering and website spoofing techniques to deceive users into revealing their confidential information</td></tr></table>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/05/Building-standard-offline-anti-phishing-dataset-for-benchmarking-IJET-2018/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    <div>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leiizhang.github.io/2019/07/16/Utilisation-of-website-logo-for-phishing-detection-Computer-Security-2015/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lei Zhang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还是吃太多乐">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/16/Utilisation-of-website-logo-for-phishing-detection-Computer-Security-2015/" itemprop="url">Utilisation of website logo for phishing detection （Computer&Security 2015）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T16:30:26+08:00">
+                2019-07-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CCF-B/" itemprop="url" rel="index">
+                    <span itemprop="name">CCF-B</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/16/Utilisation-of-website-logo-for-phishing-detection-Computer-Security-2015/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/07/16/Utilisation-of-website-logo-for-phishing-detection-Computer-Security-2015/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.2k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="1-作者介绍"><a href="#1-作者介绍" class="headerlink" title="1 作者介绍"></a>1 作者介绍</h2><p><strong>一作：</strong>Kang Leng Chiew<br><strong>研究所：</strong>马来西亚沙捞越大学计算机科学与信息技术学院<br><strong>主页：</strong><a href="http://www.archive.unimas.my/faculties/fcsit/chiew-kang-leng.html" target="_blank" rel="noopener">http://www.archive.unimas.my/faculties/fcsit/chiew-kang-leng.html</a><br><strong>Google Scholar：</strong><a href="https://scholar.google.com.my/citations?user=fbeB3JEAAAAJ&amp;hl=en" target="_blank" rel="noopener">https://scholar.google.com.my/citations?user=fbeB3JEAAAAJ&amp;hl=en</a></p>
+<div align="center"><br><img src="/2019/07/16/Utilisation-of-website-logo-for-phishing-detection-Computer-Security-2015/1.png" width="530" height="300"><br></div>
+
+<h2 id="2-概述"><a href="#2-概述" class="headerlink" title="2 概述"></a>2 概述</h2><p>&emsp;&emsp;本文使用<strong>logo图像</strong>来确定网站的<em>真实身份</em>和<em>描绘身份</em>之间的一致性。首先下载网站的所有图片，并使用SVM分类模型提取网站的唯一logo；然后使用谷歌图像搜索库来识别logo标识；最后使用URL的一致性来检测钓鱼攻击。结果表明，谷歌的识别结果对钓鱼检测的成功率有很大的影响。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/16/Utilisation-of-website-logo-for-phishing-detection-Computer-Security-2015/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    <div>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leiizhang.github.io/2019/07/10/Deep-Learning-for-Phishing-Detection-ISPA-2018/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lei Zhang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还是吃太多乐">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/10/Deep-Learning-for-Phishing-Detection-ISPA-2018/" itemprop="url">Deep Learning for Phishing Detection （ISPA 2018）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-10T23:11:06+08:00">
+                2019-07-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CCF-C/" itemprop="url" rel="index">
+                    <span itemprop="name">CCF-C</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/10/Deep-Learning-for-Phishing-Detection-ISPA-2018/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/07/10/Deep-Learning-for-Phishing-Detection-ISPA-2018/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.9k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="1-作者介绍"><a href="#1-作者介绍" class="headerlink" title="1 作者介绍"></a>1 作者介绍</h2><p><strong>一作：</strong> Wenbin Yao（PhD，北京邮电大学）      </p>
+<h2 id="2-概述"><a href="#2-概述" class="headerlink" title="2 概述"></a>2 概述</h2><ul>
+<li><strong>二维码钓鱼攻击</strong>：网络钓鱼攻击者改变写在其中的URL链接，并用一个精心设计的钓鱼链接替换它，但不改变 logo 图像，以欺骗用户和窃取用户信息。</li>
+<li>对于二维码攻击，通过检测嵌入在二维码中的 logo 来评估二维码中URL的合法性：<strong>logo识别 + 身份一致性 → 判断二维码的有效性</strong>（验证 logo 和域名之间的匹配来区分网站的合法性）。</li>
+<li>难点在于标志图像小，传统的目标识别方法降低了小目标的识别率。本文将<strong>改进的特征金字塔网络(FPN <font color="blue">[3]</font>)</strong>与 <strong>Faster R-CNN</strong> 相结合，进行小尺度识别。</li>
+<li>测量了该方法在<strong>FlickrLogos-32 数据集</strong>上的效果。</li>
+</ul>
+<blockquote>
+<p><font color="blue">[3]</font> Lin, Tsung-Yi, “Feature Pyramid Networks for Object Detection.” CVPR. Vol. 1. No. 2. 2017.</p>
+</blockquote>
+<table><tr><td bgcolor="yellow"><font color="red">选择 logo 进行检测的原因：</font>（1）网站的 logo 比其他元素更有优势，因为它是官方和网站的代表；（2）网站 logo 和域名之间的关系是匹配的，logo 和域名之间的任何不匹配都将成为钓鱼攻击的标志。</td></tr></table>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/10/Deep-Learning-for-Phishing-Detection-ISPA-2018/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    <div>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leiizhang.github.io/2019/07/07/On-Designing-and-Evaluating-Phishing-Webpage-Detection-Techniques-for-the-Real-World/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lei Zhang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还是吃太多乐">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/07/On-Designing-and-Evaluating-Phishing-Webpage-Detection-Techniques-for-the-Real-World/" itemprop="url">On Designing and Evaluating Phishing Webpage Detection Techniques for the Real World（USENIX Security 2018）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-07T22:09:39+08:00">
+                2019-07-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CCF-A/" itemprop="url" rel="index">
+                    <span itemprop="name">CCF-A</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/07/On-Designing-and-Evaluating-Phishing-Webpage-Detection-Techniques-for-the-Real-World/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/07/07/On-Designing-and-Evaluating-Phishing-Webpage-Detection-Techniques-for-the-Real-World/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="1-作者介绍"><a href="#1-作者介绍" class="headerlink" title="1 作者介绍"></a>1 作者介绍</h2><p><strong>一作：</strong>Samuel Marchal（博士后研究员，美国阿尔托大学）<br><strong>大学个人主页：</strong><a href="https://www.aalto.fi/en/people/samuel-marchal" target="_blank" rel="noopener">https://www.aalto.fi/en/people/samuel-marchal</a><br><strong>Google Scholar：</strong><a href="https://scholar.google.fr/citations?user=iVagvX4AAAAJ&amp;hl=en" target="_blank" rel="noopener">https://scholar.google.fr/citations?user=iVagvX4AAAAJ&amp;hl=en</a></p>
+<div align="center"><br><img src="/2019/07/07/On-Designing-and-Evaluating-Phishing-Webpage-Detection-Techniques-for-the-Real-World/1.png" width="500" height="300"><br></div>
+
+<h2 id="2-概述"><a href="#2-概述" class="headerlink" title="2 概述"></a>2 概述</h2><p>&emsp;&emsp;提出了一套设计和评估钓鱼网页检测技术的指导方针。这些指导方针可以提高现实场景中钓鱼检测技术的有效性，促进技术转让，且有助于对不同技术的评价结果进行比较。将有效性视为<font color="red">检测性能，时间弹性，可部署性和可用性的组合</font>。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/07/On-Designing-and-Evaluating-Phishing-Webpage-Detection-Techniques-for-the-Real-World/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    <div>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leiizhang.github.io/2019/07/07/Phishing-URL-Detection-with-Oversampling-based-on-Text-Generative-Adversarial-Networks/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lei Zhang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还是吃太多乐">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/07/Phishing-URL-Detection-with-Oversampling-based-on-Text-Generative-Adversarial-Networks/" itemprop="url">Phishing URL Detection with Oversampling based on Text Generative Adversarial  Networks（Big Data 2018）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-07T13:11:26+08:00">
+                2019-07-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CCF-C/" itemprop="url" rel="index">
+                    <span itemprop="name">CCF-C</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/07/Phishing-URL-Detection-with-Oversampling-based-on-Text-Generative-Adversarial-Networks/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/07/07/Phishing-URL-Detection-with-Oversampling-based-on-Text-Generative-Adversarial-Networks/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.3k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  13 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="1-作者介绍"><a href="#1-作者介绍" class="headerlink" title="1 作者介绍"></a>1 作者介绍</h2><p><strong>一作：</strong>Ankesh Anand（博士）<br><strong>研究所：</strong>加拿大蒙特利尔学习算法研究所<br><strong>主页：</strong><a href="https://mila.quebec/en/person/ankesh-anand/" target="_blank" rel="noopener">https://mila.quebec/en/person/ankesh-anand/</a><br><strong>Google Scholar：</strong><a href="https://scholar.google.co.in/citations?user=HEozmkMAAAAJ&amp;hl=en" target="_blank" rel="noopener">https://scholar.google.co.in/citations?user=HEozmkMAAAAJ&amp;hl=en</a></p>
+<div align="center"><br><img src="/2019/07/07/Phishing-URL-Detection-with-Oversampling-based-on-Text-Generative-Adversarial-Networks/1.png" width="500" height="300"><br></div>
+
+<h2 id="2-概述"><a href="#2-概述" class="headerlink" title="2 概述"></a>2 概述</h2><p>&emsp;&emsp;在二分类任务中经常出现类的不平衡问题。如果一个类的数量超过另一个类，分类器将会严重偏向于数据量多的一类。可以对数据量少的类进行过采样，但现有方法在特征空间中进行过采样（将数据样本转化为特征空间中的向量，然后进行随机加权组合），删除了原始数据格式，用向量简洁地表示url。只有当特征定义正确且数据集多样化且不太稀疏时，这些方法才会有效。<br>&emsp;&emsp;本文提出了一种数据空间中的过采样技术。使用少数类中的URL训练<font color="red">text-GANs</font>，并生成可作为训练集一部分的合成URL。实验表明，采用过采样技术后，系统性能有了明显的提高。有趣的是，一些原始的测试url正是由text-GANs重新生成的。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/07/Phishing-URL-Detection-with-Oversampling-based-on-Text-Generative-Adversarial-Networks/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    <div>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://leiizhang.github.io/2019/06/27/A-Deep-Learning-Approach-to-Fast-Format-Agnostic-Detection-of-Malicious-WebContent-S-P-2018/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -728,7 +2284,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -750,7 +2306,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -827,7 +2383,7 @@
     
       <span class="post-meta-item-text">本站总计&#58;</span>
     
-    <span title="本站总计">39.9k 字</span>
+    <span title="本站总计">77.1k 字</span>
   
 </div>
 

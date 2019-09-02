@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon_my.jpg?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_my.jpg?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Evaluation,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1 作者介绍一作：Xiao Han实验室：Orange LabsGoogle Scholar：https://scholar.google.com/citations?user=Znrv-ysAAAAJ&amp;amp;hl=en&amp;amp;oi=sra   2 概述2.1 摘要&amp;emsp;&amp;emsp;在本文中，我们提出了一种新的沙箱实时钓鱼工具包方法，可以完全保护受害者的隐私。基于 5 个月期间收集的数据">
+<meta name="keywords" content="Evaluation">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PhishEye: Live Monitoring of Sandboxed Phishing Kits（CCS 2016）">
+<meta property="og:url" content="https://leiizhang.github.io/2019/09/01/PhishEye-Live-Monitoring-of-Sandboxed-Phishing-Kits-CCS-2016/index.html">
+<meta property="og:site_name" content="还是吃太多乐">
+<meta property="og:description" content="1 作者介绍一作：Xiao Han实验室：Orange LabsGoogle Scholar：https://scholar.google.com/citations?user=Znrv-ysAAAAJ&amp;amp;hl=en&amp;amp;oi=sra   2 概述2.1 摘要&amp;emsp;&amp;emsp;在本文中，我们提出了一种新的沙箱实时钓鱼工具包方法，可以完全保护受害者的隐私。基于 5 个月期间收集的数据">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://leiizhang.github.io/2019/09/01/PhishEye-Live-Monitoring-of-Sandboxed-Phishing-Kits-CCS-2016/1.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/09/01/PhishEye-Live-Monitoring-of-Sandboxed-Phishing-Kits-CCS-2016/2.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/09/01/PhishEye-Live-Monitoring-of-Sandboxed-Phishing-Kits-CCS-2016/3.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/09/01/PhishEye-Live-Monitoring-of-Sandboxed-Phishing-Kits-CCS-2016/4.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/09/01/PhishEye-Live-Monitoring-of-Sandboxed-Phishing-Kits-CCS-2016/5.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/09/01/PhishEye-Live-Monitoring-of-Sandboxed-Phishing-Kits-CCS-2016/6.png">
+<meta property="og:updated_time" content="2019-09-02T09:50:38.638Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PhishEye: Live Monitoring of Sandboxed Phishing Kits（CCS 2016）">
+<meta name="twitter:description" content="1 作者介绍一作：Xiao Han实验室：Orange LabsGoogle Scholar：https://scholar.google.com/citations?user=Znrv-ysAAAAJ&amp;amp;hl=en&amp;amp;oi=sra   2 概述2.1 摘要&amp;emsp;&amp;emsp;在本文中，我们提出了一种新的沙箱实时钓鱼工具包方法，可以完全保护受害者的隐私。基于 5 个月期间收集的数据">
+<meta name="twitter:image" content="https://leiizhang.github.io/2019/09/01/PhishEye-Live-Monitoring-of-Sandboxed-Phishing-Kits-CCS-2016/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://leiizhang.github.io/2019/09/01/PhishEye-Live-Monitoring-of-Sandboxed-Phishing-Kits-CCS-2016/">
+
+
+
+
+
+  <title>PhishEye: Live Monitoring of Sandboxed Phishing Kits（CCS 2016） | 还是吃太多乐</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/LeiiZhang" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">还是吃太多乐</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leiizhang.github.io/2019/09/01/PhishEye-Live-Monitoring-of-Sandboxed-Phishing-Kits-CCS-2016/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lei Zhang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还是吃太多乐">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">PhishEye: Live Monitoring of Sandboxed Phishing Kits（CCS 2016）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-01T20:11:25+08:00">
+                2019-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CCF-A/" itemprop="url" rel="index">
+                    <span itemprop="name">CCF-A</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/09/01/PhishEye-Live-Monitoring-of-Sandboxed-Phishing-Kits-CCS-2016/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/09/01/PhishEye-Live-Monitoring-of-Sandboxed-Phishing-Kits-CCS-2016/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.3k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-作者介绍"><a href="#1-作者介绍" class="headerlink" title="1 作者介绍"></a>1 作者介绍</h2><p><strong>一作：</strong>Xiao Han<br><strong>实验室：</strong>Orange Labs<br><strong>Google Scholar：</strong><a href="https://scholar.google.com/citations?user=Znrv-ysAAAAJ&amp;hl=en&amp;oi=sra" target="_blank" rel="noopener">https://scholar.google.com/citations?user=Znrv-ysAAAAJ&amp;hl=en&amp;oi=sra</a></p>
+<div align="center"><br><img src="/2019/09/01/PhishEye-Live-Monitoring-of-Sandboxed-Phishing-Kits-CCS-2016/1.png" width="340" height="180"><br></div>
+
+<h2 id="2-概述"><a href="#2-概述" class="headerlink" title="2 概述"></a>2 概述</h2><h3 id="2-1-摘要"><a href="#2-1-摘要" class="headerlink" title="2.1 摘要"></a>2.1 摘要</h3><p>&emsp;&emsp;在本文中，我们提出了一种新的<strong>沙箱实时钓鱼工具包</strong>方法，可以完全保护受害者的隐私。基于 5 个月期间收集的数据，对钓鱼攻击、其机制、罪犯&amp;受害者&amp;参与该过程的安全社区的行为进行了全面真实的评估，<strong>绘制了第一个全面的钓鱼攻击图</strong>，从攻击者在受攻击的主机上安装和测试钓鱼页面开始，直到最后一次与真正的受害者和安全研究人员进行交互。我们的研究提供了对这种流行威胁的持续时间和有效性的精确测量，并讨论了通过监视数百次钓鱼活动所观察到的许多新的和有趣的方面。<br>&emsp;&emsp;本文利用一个网络蜜罐来吸引真正的攻击者在一个 compromised 的网页应用中安装钓鱼工具。这是因为，根据 APWG 的全球网络钓鱼调查，承载钓鱼网页的域名中，有 71.4% 的域名为 compromised domains。本文提出了一种新的沙箱技术，旨在中和钓鱼工具包并在很长一段时间内保持其功能，严格预先服务于受害者的隐私，不干扰攻击过程，以确保攻击者可以破坏蜜罐，安装钓鱼工具，并进行功能测试，而不发现沙箱配置。<strong>之前的工作无法以白盒方式监视钓鱼工具包的生命周期</strong>。</p>
+<h3 id="2-2-本文贡献"><a href="#2-2-本文贡献" class="headerlink" title="2.2 本文贡献"></a>2.2 本文贡献</h3><p>（1）提出了一种新的方法，沙箱实时钓鱼工具包，完全保护终端用户的隐私；<br>（2）通过观察攻击者、受害者和安全研究人员与钓鱼页面的交互，首次重构了钓鱼工具包的整个生命周期；<br>（3）第一次测量黑名单服务对网络钓鱼页面的影响，从首次安装时开始（而不是从安全公司报告或发现的时间开始）。还讨论了使用收集的数据来迅速识别犯罪分子用来检索被盗信息的电子邮件地址的新技术。</p>
+<a id="more"></a>
+<h2 id="3-背景"><a href="#3-背景" class="headerlink" title="3 背景"></a>3 背景</h2><p>&emsp;&emsp;蜜罐从来没有被用来研究受害者的行为，因为它们与安装的钓鱼网页连接和互动，需要考虑道德问题。</p>
+<p><strong>（1）服务器端</strong><br>&emsp;&emsp;钓鱼工具包旨在收集用户提交的数据。被窃取的数据可以存储在本地的蜜罐服务器上，直到被 phisher 检索到，也可以立即通过电子邮件或直接 HTTP 连接发送给 phisher。Moore 等人[29,30] 使用从易受攻击的web服务器上收集的公共可访问数据，包括 web 页面点击率的统计数据和攻击者已经收集并忘记从易受攻击的服务器上删除的凭证。在他们的研究发表之后，更多关于用户凭证的道德问题被暴露出来，其中大部分问题仍然没有得到解答。</p>
+<blockquote>
+<p>[29] T. Moore and R. Clayton. Examining the impact of website take-down on phishing. In Anti-phishing working groups annual eCrime researchers summit, 2007.<br>[30] T. Moore and R. Clayton. Evil searching: Compromise and recompromise of internet hosts for phishing. In Financial Cryptography and Data Security. 2009.</p>
+</blockquote>
+<p><strong>（2）客户端</strong><br>&emsp;&emsp;除了上述关于如何防止信息存储在服务器上的道德问题外，客户端也存在道德问题。钓鱼工具可能通过将用户凭证发布到攻击者直接控制的其他恶意服务器来收集用户凭证。此外，97% 的钓鱼网页可以通过明文 HTTP 连接访问 [2]，从而暴露出受害者的敏感数据，以便通过网络窃听。因此，即使没有敏感数据驻留在远程服务器上，由于网络上用户凭证的明文共享，仍然存在相当大的风险。</p>
+<blockquote>
+<p>[2] G. Aaron and R. Manning. APWG global phishing report 2014. <a href="http://apwg.org/download/document/" target="_blank" rel="noopener">http://apwg.org/download/document/</a> 245/APWG Global Phishing Report 2H 2014.pdf.</p>
+</blockquote>
+<h2 id="4-系统概述"><a href="#4-系统概述" class="headerlink" title="4 系统概述"></a>4 系统概述</h2><p>&emsp;&emsp;如图 2 所示，蜜罐系统包括 5 个模块。</p>
+<div align="center"><br><img src="/2019/09/01/PhishEye-Live-Monitoring-of-Sandboxed-Phishing-Kits-CCS-2016/2.png" width="320" height="105"><br></div>
+
+<p><strong>（1）attacker tracking module</strong><br>&emsp;&emsp;攻击者跟踪模块负责将连接到蜜罐的攻击者与其他良性用户区分开来，这使能够应用不同的访问控制策略，使攻击者能够验证和测试他们的钓鱼工具包，同时防止受害者发布的任何敏感数据被攻击者捕获。该模块进一步跟踪使用攻击者 IP 地址及其关联用户代理的历史记录连接到蜜罐的所有攻击者，并将此信息作为输入提供给后续的保护和数据收集模块。</p>
+<p><strong>（2）client-side protection 和 server-side protection</strong><br>&emsp;&emsp;客户端和服务器端保护模块使用跟踪模块提供的攻击者列表作为输入，以识别潜在的受害者，并防止他们的数据被导出或从用户终端劫持。如果访问者不是攻击者，模块将检查每个传出的 HTTP 响应，并在每个页面中注入一个 HTML noscript 标记和一个静态 JavaScript 文件，该文件挂钩数据提交，并用虚假信息替换用户的数据。<br>&emsp;&emsp;服务器端保护模块执行两个功能：后端数据随机化和恶意重定向破坏。在第一种情况下，它作为客户端保护之外的第二道防线。它在服务器端操作，并在传入数据传递到 web 应用程序之前用随机值替换这些数据。服务器端保护模块还拦截和阻止指向其他重定向网站的所有 HTTP、HTML 和 JavaScript 重定向，以确保蜜罐服务器不能用作更广泛的恶意重定向链中的垫脚石。它通过对服务器提供的每个 HTTP 响应的内容执行基于规则的静态分析来检测这种重定向，只允许重定向到托管在蜜罐中的其他页面。</p>
+<p><strong>（3）controlled SMTP module</strong><br>&emsp;&emsp;由于大多数网络钓鱼工具包通过电子邮件泄露被盗数据，蜜罐配置为丢弃传出的 SMTP 连接以防止攻击者发送垃圾邮件。我们还实现了一个 SMTP 模块，该模块允许跟踪模块识别的每个攻击者发送可配置数量的消息，以测试新安装的钓鱼工具包。</p>
+<p><strong>（4）data collection and processing module</strong><br>&emsp;&emsp;该模块进行数据收集和处理。</p>
+<h2 id="5-数据收集"><a href="#5-数据收集" class="headerlink" title="5 数据收集"></a>5 数据收集</h2><p>&emsp;&emsp;利用现有的蜜罐基础设施 [5] 作为基础来实现本文的系统。如图 2 所示，本文的体系结构由两个主要组件组成：（1）公共代理网关；（2）私有后端服务器（实现主蜜罐应用程序）。该网关托管在许多公共主机提供商上（包括 Amazon EC2，此前的研究显示 Amazon EC2 是攻击者的热门目标），代理服务器不承载任何内容，只充当反向代理，通过安全的 VPN 通道将所有 HTTP 连接转发到蜜罐服务器。出于安全原因，蜜罐发出的流量被丢弃在防火墙上，除了 DNS 查询和有限数量的经过验证的 SMTPS 连接。在蜜罐服务器上配置了 18 个易受攻击的 PHP 页面，这些页面可以被攻击者利用，并允许他们上传文件和执行 shell 命令，但攻击者无法修改这些 PHP 页面。数据收集模块定期检索蜜罐服务器上收集的数据，包括服务器访问日志和上传的文件（如 web shell、钓鱼工具、篡改页面、攻击工具和黑客工具）。</p>
+<blockquote>
+<p>[5] D. Canali and D. Balzarotti. Behind the scenes of online attacks: an analysis of exploitation behaviors on the web. In Annual Network and Distributed System Security Symposium (NDSS), 2013.</p>
+</blockquote>
+<h2 id="6-钓鱼攻击全局图"><a href="#6-钓鱼攻击全局图" class="headerlink" title="6 钓鱼攻击全局图"></a>6 钓鱼攻击全局图</h2><p>&emsp;&emsp;从 2015.9-2016.1，从蜜罐中共收集了 643 个钓鱼工具包，其中 474 个工具包被 471 个不同攻击者正确安装，剩下的工具包很可能是由开发机器人自动上传的，但从未被攻击者解包或配置。安装的钓鱼工具包针对 36 个不同的组织，主要是在线银行，也包括社交网络和电子商务门户网站。最常见的五个目标分别是 Paypal (375)、苹果 (26)、谷歌 (10)、Facebook (9) 和法国在线纳税系统 (6)。</p>
+<div align="center"><br><img src="/2019/09/01/PhishEye-Live-Monitoring-of-Sandboxed-Phishing-Kits-CCS-2016/3.png" width="450" height="200"><br></div>
+
+<p>&emsp;&emsp;图 3 为在研究中观察到的所有钓鱼攻击的聚合时间表，Y  轴表示攻击的主要阶段（安装、测试、与第一个和最后一个受害者的交互、被流行的黑名单检测），X 轴表示自首次将网络钓鱼工具包上传到蜜罐后经过的时间。</p>
+<h3 id="6-1-攻击者的行为"><a href="#6-1-攻击者的行为" class="headerlink" title="6.1 攻击者的行为"></a>6.1 攻击者的行为</h3><p>&emsp;&emsp;大多数攻击者只安装了一份钓鱼工具包，26% 的攻击者在多个子目录上安装了钓鱼工具包。安装完成后，70% 的攻击者访问了钓鱼页面，58% 的攻击者提交了假证书，以验证工具包是否正常运行。<br>&emsp;&emsp;在工具包上传几分钟后，phishers 很快就把上传的工具包安装在了受损的 web 服务器上。测试阶段也在安装之后立即执行，然而，几分钟的延迟和不规则的模式表明，这是手工完成的。在测试阶段完成后，之后从未观察到来自该相同 IP 地址连接钓鱼页面。<br>&emsp;&emsp;攻击者利用社会工程技术促使潜在的受害者连接到他们的网络钓鱼页面。在整个研究过程中，只观察到一个攻击者试图使用受攻击的机器发送钓鱼邮件（所有消息都被防火墙屏蔽了）。这表明，攻击者已经将危害公共服务器和安装钓鱼工具的过程与发送钓鱼消息的过程分离开来，通过使用不同基础设施使其更加健壮，并且降低了被检测的可能性。</p>
+<h3 id="6-2-受害者的行为"><a href="#6-2-受害者的行为" class="headerlink" title="6.2 受害者的行为"></a>6.2 受害者的行为</h3><p>&emsp;&emsp;经过过滤，统计了 2468 名受害者，他们连接了127个不同的钓鱼工具。我们的研究的优点是首次对钓鱼攻击的受害者数量进行了细致的评估，解决了过去导致高估钓鱼攻击受害者数量的两个主要限制：（1）在钓鱼页面首次出现在公共钓鱼黑名单之后，（第三方）访问者的数量出现了激增，而之前的研究没有将此与真正的受害者进行区分；（2）能够第一时间观察到受害者提交他们的信息到钓鱼页面。</p>
+<h3 id="6-3-钓鱼工具包的寿命"><a href="#6-3-钓鱼工具包的寿命" class="headerlink" title="6.3 钓鱼工具包的寿命"></a>6.3 钓鱼工具包的寿命</h3><p>&emsp;&emsp;只要新受害者连接到钓鱼网页，钓鱼工具包就是可以使用的。主要的挑战是很难捕捉到最后一个连接到钓鱼页面的受害者的确切时间。特别是，在网络钓鱼工具包被攻击者遗弃后的几天内，可能仍然观察到很少有用户连接到网络钓鱼工具包，从而导致高估了钓鱼工具包的生命周期。因此切断了分布的尾部，只考虑观察到的 90% 的受害者之间联系的时间间隔。如图 3 所示，第一个受害者捕获的时间，直到我们观察到 5% 的受害者连接到给定的钓鱼页面，最后一个受害者捕获的时间，直到我们观察到 95% 的受害者。使用该定义，在研究中观察到第一个受害者连接到网络钓鱼页面的平均时间为攻击者安装该页面后的 2 天，最后一个受害者（95% 的阈值）平均在 10 天后连接到网络钓鱼页面，即寿命估计为8天。</p>
+<h3 id="6-4-钓鱼黑名单的有效性"><a href="#6-4-钓鱼黑名单的有效性" class="headerlink" title="6.4 钓鱼黑名单的有效性"></a>6.4 钓鱼黑名单的有效性</h3><p>&emsp;&emsp;主要目标是度量反钓鱼服务（GSB 和 PhishTank）将钓鱼 url 列入黑名单所需的时间，从相应的工具包首次被上传到蜜罐中开始。为了做到这一点，在我们的实验过程中，我们会定期检查，每天多次，这两个黑名单上的所有钓鱼网址都安装在我们的蜜罐。<br>&emsp;&emsp;虽然几乎所有安装在蜜罐上的钓鱼网页（98%）都被这两个钓鱼黑名单正确检测并列入黑名单，但平均检测延迟为 12 天。分为两类：观察到受害者的在安装后平均 20 天内被列入黑名单，而没有受害者的工具包在安装后平均 10 天内被列入黑名单。如图 3 所示，检测延迟随钓鱼页面和攻击者使用的规避技术的不同而变化很大。更重要的是，75% 的受害者已经连接到相应的钓鱼页面后，62% 的钓鱼工具才被列入黑名单，结果表明反钓鱼服务没有有效的对某种类别的钓鱼攻击。在我们的研究中，他们确实对另外 27% 的网络钓鱼工具非常积极，甚至在 25% 的受害者尚未连接到网络钓鱼页面之前就将这些 url 列入了黑名单。</p>
+<h3 id="6-5-测量偏差"><a href="#6-5-测量偏差" class="headerlink" title="6.5 测量偏差"></a>6.5 测量偏差</h3><p>&emsp;&emsp;在我们的研究中，我们评估了 PhishTank 数据集相对于我们的蜜罐中安装的471个钓鱼工具包的有效性。即使 375（约80%）个 PK 涉及PayPal，但只有一小部分（约1%）被报告，因而包含在 PhishTank 数据集中。这在一定程度上证实了我们数据集的多样性和代表性。因此，认为我们的测量是相对有代表性的。</p>
+<h2 id="7-案例分析"><a href="#7-案例分析" class="headerlink" title="7 案例分析"></a>7 案例分析</h2><h3 id="7-1-Dropping-技术"><a href="#7-1-Dropping-技术" class="headerlink" title="7.1 Dropping 技术"></a>7.1 Dropping 技术</h3><p>&emsp;&emsp;如表 1 所示，绝大多数工具包使用电子邮件帐户向攻击者发送数据，很少有工具包直接将收集到的信息保存在服务器上，只有两个工具包使用 HTTP POST 请求将其发送到远程服务器。研究发现攻击者试验了一种新的 drop 技术，该技术旨在通过电子邮件从终端直接发送 HTML 表单中的信息。为了实现这一点，攻击者将 HTML 表单操作配置为将值直接发送到其电子邮件地址。尽管这种技术已经有文档记载，但这是第一次观察到钓鱼者在钓鱼工具包中实现它。然而这种方法非常不可靠，只适用于 Internet Explorer 和 Outlook Express 的特定组合。</p>
+<div align="center"><br><img src="/2019/09/01/PhishEye-Live-Monitoring-of-Sandboxed-Phishing-Kits-CCS-2016/4.png" width="260" height="90"><br></div>
+
+<p>&emsp;&emsp;分析所有上传到蜜罐的工具包中包含的外部链接，发现 10 个工具包使用了直接从目标组织的 CDN 获取的资源，另外 98 个工具包中含有联系其他电脑的代码，这些电脑很可能在钓鱼者的控制之下。</p>
+<h3 id="7-2-Blacklist-Evasion"><a href="#7-2-Blacklist-Evasion" class="headerlink" title="7.2 Blacklist Evasion"></a>7.2 Blacklist Evasion</h3><div align="center"><br><img src="/2019/09/01/PhishEye-Live-Monitoring-of-Sandboxed-Phishing-Kits-CCS-2016/5.png" width="325" height="220"><br></div>
+
+<p>&emsp;&emsp;在图 4 中，X 轴表示工具包上传到蜜罐后所经过的时间（以日志为单位），Y 轴表示连接到钓鱼工具包的访问者数量。垂直线对应 GSB 或 PhishTank 检测到给定钓鱼工具包的时间。</p>
+<h3 id="7-3-受害者时间分布"><a href="#7-3-受害者时间分布" class="headerlink" title="7.3 受害者时间分布"></a>7.3 受害者时间分布</h3><p>&emsp;&emsp;如图 5 所示，为 4 个最重要的钓鱼工具的受害者时间分布。</p>
+<div align="center"><br><img src="/2019/09/01/PhishEye-Live-Monitoring-of-Sandboxed-Phishing-Kits-CCS-2016/6.png" width="550" height="450"><br></div>
+
+<p>&emsp;&emsp;观察到两种不同的分布形状：（1）一种歪斜的右分布，其中大多数受害者在工具包上载到蜜罐后的短时间内连接到钓鱼工具包；（2）一种双峰分布，其中两组受害者连接到两个不同时期的网络钓鱼工具包。图 5a、5b 和 5c 中所示的工具 1-3 属于第一类，在短时间内只有一组受害者，其次是极少数受害者的长尾。三个工具包中的钓鱼者可能只进行了一次钓鱼活动，之后他们放弃了这些工具包。与之前的工具包不同，图 5d 中的工具包 4 属于第二类，有两组不同的受害者。第一组在 24 小时内连接到网络钓鱼工具包，而第二组则在 70 小时（约 3 天）后到达，这可能是两种不同网络钓鱼活动的结果。</p>
+<h2 id="8-相关工作"><a href="#8-相关工作" class="headerlink" title="8 相关工作"></a>8 相关工作</h2><p>&emsp;&emsp;文献包括大量与钓鱼攻击相关的论文，将这些论文分为 3 类：<strong>（1）剖析网络钓鱼；（2）反钓鱼技术（钓鱼网页检测、拦截和用户培训）；（3）评估反钓鱼技术。</strong></p>
+
+      
+    </div>
+    <div>
+      
+          <div> 
+     
+    	<div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------本文结束<i class="fa fa-paw"></i>感谢您的阅读------------
+    	</div>
+     
+</div>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Lei Zhang 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Evaluation/" rel="tag"><i class="fa fa-tag"></i> Evaluation</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/28/PhishFarm-A-Scalable-Framework-for-Measuring-the-Effectiveness-of-Evasion-Techniques-Against-Browser-Phishing-Blacklists-S-P-2019/" rel="next" title="PhishFarm: A Scalable Framework for Measuring the Effectiveness of Evasion Techniques Against Browser Phishing Blacklists（S&P 2019）">
+                <i class="fa fa-chevron-left"></i> PhishFarm: A Scalable Framework for Measuring the Effectiveness of Evasion Techniques Against Browser Phishing Blacklists（S&P 2019）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/02/Boosting-the-phishing-detection-performance-by-semantic-analysis-BigData-2018/" rel="prev" title="Boosting the phishing detection performance by semantic analysis（Big Data 2018）">
+                Boosting the phishing detection performance by semantic analysis（Big Data 2018） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/touxiang.jpg" alt="Lei Zhang">
+            
+              <p class="site-author-name" itemprop="name">Lei Zhang</p>
+              <p class="site-description motion-element" itemprop="description">走自己的路吧开心最重要</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/LeiiZhang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zlcumtcs@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+          
+          
+
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-作者介绍"><span class="nav-number">1.</span> <span class="nav-text">1 作者介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-概述"><span class="nav-number">2.</span> <span class="nav-text">2 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-摘要"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 摘要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-本文贡献"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 本文贡献</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-背景"><span class="nav-number">3.</span> <span class="nav-text">3 背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-系统概述"><span class="nav-number">4.</span> <span class="nav-text">4 系统概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-数据收集"><span class="nav-number">5.</span> <span class="nav-text">5 数据收集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-钓鱼攻击全局图"><span class="nav-number">6.</span> <span class="nav-text">6 钓鱼攻击全局图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-攻击者的行为"><span class="nav-number">6.1.</span> <span class="nav-text">6.1 攻击者的行为</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-受害者的行为"><span class="nav-number">6.2.</span> <span class="nav-text">6.2 受害者的行为</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-钓鱼工具包的寿命"><span class="nav-number">6.3.</span> <span class="nav-text">6.3 钓鱼工具包的寿命</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-4-钓鱼黑名单的有效性"><span class="nav-number">6.4.</span> <span class="nav-text">6.4 钓鱼黑名单的有效性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-5-测量偏差"><span class="nav-number">6.5.</span> <span class="nav-text">6.5 测量偏差</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-案例分析"><span class="nav-number">7.</span> <span class="nav-text">7 案例分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-Dropping-技术"><span class="nav-number">7.1.</span> <span class="nav-text">7.1 Dropping 技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-Blacklist-Evasion"><span class="nav-number">7.2.</span> <span class="nav-text">7.2 Blacklist Evasion</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-受害者时间分布"><span class="nav-number">7.3.</span> <span class="nav-text">7.3 受害者时间分布</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-相关工作"><span class="nav-number">8.</span> <span class="nav-text">8 相关工作</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lei Zhang</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总计&#58;</span>
+    
+    <span title="本站总计">77.1k 字</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 你是本站第
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      位访问者
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'culOf1aK4Nkj7faLPEIes1Qq-gzGzoHsz',
+        appKey: 'kLWDBKtAdcFzhEzyf9p4cjHB',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":80,"height":300,"hOffset":20,"vOffset":-200},"mobile":{"show":true},"log":false,"tagMode":false});</script></body>
+</html>

@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon_my.jpg?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_my.jpg?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Deep Learning,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1 作者介绍一作：Minh Nguyen（越南河内科技大学）       2 概述&amp;emsp;&amp;emsp;本文研究了 NLP 文本分类的最新技术，以解决电子邮件的反网络钓鱼问题（即，预测电子邮件是否是网络钓鱼）。提出了一个框架，其中包含分层的长短时记忆网络（H-LSTM）和注意力机制，以便在单词和句子级别同时对电子邮件进行建模。&amp;emsp;&amp;emsp;在 H-LSTM 模型中，电子邮件被认为是一种">
+<meta name="keywords" content="Deep Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A Deep Learning Model with Hierarchical LSTMs and Supervised Attention for Anti-Phishing（arXiv 2018）">
+<meta property="og:url" content="https://leiizhang.github.io/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/index.html">
+<meta property="og:site_name" content="还是吃太多乐">
+<meta property="og:description" content="1 作者介绍一作：Minh Nguyen（越南河内科技大学）       2 概述&amp;emsp;&amp;emsp;本文研究了 NLP 文本分类的最新技术，以解决电子邮件的反网络钓鱼问题（即，预测电子邮件是否是网络钓鱼）。提出了一个框架，其中包含分层的长短时记忆网络（H-LSTM）和注意力机制，以便在单词和句子级别同时对电子邮件进行建模。&amp;emsp;&amp;emsp;在 H-LSTM 模型中，电子邮件被认为是一种">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/1.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/2.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/3.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/4.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/5.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/6.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/7.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/8.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/9.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/10.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/11.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/12.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/13.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/14.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/15.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/16.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/17.png">
+<meta property="og:image" content="https://leiizhang.github.io/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/18.png">
+<meta property="og:updated_time" content="2019-08-28T10:38:08.142Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="A Deep Learning Model with Hierarchical LSTMs and Supervised Attention for Anti-Phishing（arXiv 2018）">
+<meta name="twitter:description" content="1 作者介绍一作：Minh Nguyen（越南河内科技大学）       2 概述&amp;emsp;&amp;emsp;本文研究了 NLP 文本分类的最新技术，以解决电子邮件的反网络钓鱼问题（即，预测电子邮件是否是网络钓鱼）。提出了一个框架，其中包含分层的长短时记忆网络（H-LSTM）和注意力机制，以便在单词和句子级别同时对电子邮件进行建模。&amp;emsp;&amp;emsp;在 H-LSTM 模型中，电子邮件被认为是一种">
+<meta name="twitter:image" content="https://leiizhang.github.io/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://leiizhang.github.io/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/">
+
+
+
+
+
+  <title>A Deep Learning Model with Hierarchical LSTMs and Supervised Attention for Anti-Phishing（arXiv 2018） | 还是吃太多乐</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/LeiiZhang" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">还是吃太多乐</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leiizhang.github.io/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lei Zhang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还是吃太多乐">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">A Deep Learning Model with Hierarchical LSTMs and Supervised Attention for Anti-Phishing（arXiv 2018）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-28T11:16:31+08:00">
+                2019-08-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CCF-N/" itemprop="url" rel="index">
+                    <span itemprop="name">CCF-N</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-作者介绍"><a href="#1-作者介绍" class="headerlink" title="1 作者介绍"></a>1 作者介绍</h2><p><strong>一作：</strong>Minh Nguyen（越南河内科技大学）      </p>
+<h2 id="2-概述"><a href="#2-概述" class="headerlink" title="2 概述"></a>2 概述</h2><p>&emsp;&emsp;本文研究了 NLP 文本分类的最新技术，以解决电子邮件的反网络钓鱼问题（即，预测电子邮件是否是网络钓鱼）。提出了一个框架，其中包含<strong>分层的长短时记忆网络（H-LSTM）</strong>和<strong>注意力机制</strong>，以便在单词和句子级别同时对电子邮件进行建模。<br>&emsp;&emsp;在 H-LSTM 模型中，电子邮件被认为是一种层次化的体系结构，低层为单词(单词级)，高层为句子(句子级)。LSTM 模型首先在 word 级实现，其结果将传递给句子级的 LSTM 模型，从而生成整个电子邮件的表示向量。两个层次的 LSTM 模型的输出使用注意力机制进行组合，为电子邮件中的单词和句子分配贡献权重。如果电子邮件的标题可用，还集成了一个标题网络来对其进行建模。此外，还提出了一种基于单词在词汇表中的出现顺序，在分层 LSTMs 的单词级监督注意力机制的新技术。</p>
+<a id="more"></a>
+<h2 id="2-本文模型"><a href="#2-本文模型" class="headerlink" title="2 本文模型"></a>2 本文模型</h2><p>&emsp;&emsp;钓鱼邮件检测是一个二进制分类问题，其形式化描述如下。<br>&emsp;&emsp;设 $e={b, s}$ 为电子邮件，其中 $b$ 和 $s$ 分别为电子邮件的正文内容和标题。设 y 为二进制变量，表示 e 是否是钓鱼邮件。为了预测邮件的合法性，我们的目标是估计概率 $P(y=1|e)=P(y=1|b,s)$。接下来将描述分别使用 body 网络和 header 网络对 body $b$ 和 header $s$ 进行建模的方法，以实现此目标。</p>
+<h3 id="2-1-Body-Network-with-Hierarchical-LSTMs"><a href="#2-1-Body-Network-with-Hierarchical-LSTMs" class="headerlink" title="2.1 Body Network with Hierarchical LSTMs"></a>2.1 Body Network with Hierarchical LSTMs</h3><p>&emsp;&emsp;对于 body $b$，把它看作是 $b=(u_1, u_2, \dots, u_L)$，其中 $u_i$ 是第 $i$ 个句子，$L$ 是电子邮件正文 $b$ 中句子的数量。每个句子 $u_i$ 依次是 words/tokens 序列 $u_i=(v_{i, 1}, v_{i, 2}, \dots, v_{i, K})$，其中 $v_{i, j}$ 为句子 $u_i$ 中的第 $j$ 个 token，$K$ 为句子的长度。注意，将 $L$ 和 $K$ 设置为固定值，方法是用虚拟符号填充句子 $u_i$ 和 body $b$。<br>&emsp;&emsp;由于 $b$ 中存在两个级别的信息（即，单词级别的单词 $v_{i, j}$，句子级别的句子 $u_i$），考虑一个包含两层双向 LSTMs 的分层网络来对这些信息进行建模。 具体地，第一层通过 embedding 模块，Bi-LSTM 模块和 attention 模块消费句子中的单词，以获得 $b$ 中的每个句子 $u_i$ 的表示向量（the word level layer）。 之后，第二层将来自第一层的表示向量与另一个 Bi-LSTM 和 attention 模块组合，得到整个电子邮件正文 $b$ 的表示向量（the sentence level layer）。然后将该表示向量用作估计 $P(y|b, s)$ 的特征并对初始电子邮件 $e$ 进行预测。</p>
+<h4 id="2-1-1-The-Word-Level-Layer"><a href="#2-1-1-The-Word-Level-Layer" class="headerlink" title="2.1.1 The Word Level Layer"></a>2.1.1 The Word Level Layer</h4><p><strong>（1）Embedding</strong><br>&emsp;&emsp;在 word level 层中，$b$ 中的每个句子 $u_i$ 中的每个单词 $v_{i, j}$ 首先转化为 embedding 向量 $w_{i, j}$，本文从一个大型语料库中预先训练好的 word embedding 矩阵 $W_e$ 中取对应的列向量 $w_{i, j}=W_e[v_{i, j}]$ （矩阵中每一列对应词汇表中的一个单词），得到 $w_{i, j}$。然后，$b$ 中的每个句子 $u_i=(v_{i, 1}, v_{i, 2}, \dots, v_{i, K})$ 将被转换成向量序列 $(w_{i, 1}, w_{i, 2}, \dots,  w_{i, K})$，构成下一步 Bi-LSTM 模型的输入。</p>
+<p><strong>（2）Bidirectional LSTMs for the word level</strong><br>&emsp;&emsp;该模块使用正向和反向的两个 LSTMs 运行在每个输入向量序列 $(w_{i, 1}, w_{i, 2}, \dots,  w_{i, K})$，前向 LSTM 生成前向隐向量序列 $(\vec{h_{i, 1}}, \vec{h_{i, 2}}, \dots, \vec{h_{i, K}})$，而向后 LSTM 产生向后隐向量序列 $(\overleftarrow{h_{i, 1}}, \overleftarrow{h_{i, 2}}, \dots, \overleftarrow{h_{i, K}})$。然后将这两个隐向量序列在每个位置连接起来，得到新的隐藏向量序列 $(h_{i, 1}, h_{i, 2}, \dots,  h_{i, K})$ 用于 $b$ 中的句子 $u_i$，其中 $h_{i, j}=[\vec{h_{i, j}}, \overleftarrow{h_{i, j}}]$。隐藏向量 $h_{i, j}$ 的显著特征是，由于前向和后向 LSTMs 的重复属性，它对整个句子 $u_i$ 的上下文信息进行编码，尽管当前的单词 $v_{i, j}$ 受到了更大的关注。</p>
+<p><strong>（3）Attention</strong><br>&emsp;&emsp;在此模块中，隐向量序列中的每个向量 $(h_{i, 1}, h_{i, 2}, \dots,  h_{i, K})$ 将被组合生成句子 $u_i$ 的单个表示向量，注意机制通过计算序列中向量的加权和来实现。为每个隐藏向量 $h_{i, j}$ 分配一个权重 $\alpha_{i, j}$ 来估计其在句子 $u_i$ 表示向量中的重要性或/贡献对于钓鱼邮件检测。$h_{i, j}$ 的权重计算如下：</p>
+<div align="center"><br><img src="/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/1.png" width="350" height="95"><br></div>
+
+<p>其中 $W_{att}, b_{att}, w_a$ 是训练过程中需要学习的模型参数。因此，$b$ 中句子 $u_i$ 的表示向量 $\widehat{u_i}$ 为</p>
+<div align="center"><br><img src="/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/2.png" width="350" height="50"><br></div>
+
+<p>word level 层完成对 $b$ 中所有句子 $b=(u_1, u_2, \dots, u_L)$ 的操作后，得到了对应的句子表示向量序列 $\widehat{u_1}, \widehat{u_2}, \dots, \widehat{u_L}$。该向量序列将在下一 sentence level 层中组合，生成一个 $b$ 的向量表示，用于钓鱼预测。</p>
+<h4 id="2-1-2-The-Sentence-Level-Layer"><a href="#2-1-2-The-Sentence-Level-Layer" class="headerlink" title="2.1.2 The Sentence Level Layer"></a>2.1.2 The Sentence Level Layer</h4><p>&emsp;&emsp;sentence level 层处理向量序列 $\widehat{u_1}, \widehat{u_2}, \dots, \widehat{u_L}$ 的方式与 word level 层用于每个句子 $u_i$ 的向量序列 $(w_{i, 1}, w_{i, 2}, \dots,  w_{i, K})$ 的方式相同。具体地说，$\widehat{u_1}, \widehat{u_2}, \dots, \widehat{u_L}$ 也首先被送入一个双向 LSTM 模块，该模块的结果在每个位置串联起来，产生相应的隐向量序列 $\widehat{h_1}, \widehat{h_2}, \dots, \widehat{h_L}$ 。在下一步 attention 模块中对 $\widehat{h_1}, \widehat{h_2}, \dots, \widehat{h_L}$ 进行加权求和，最终生成邮件正文 $b$ 的表示向量 $r^b$。假设 attention 为 $\widehat{h_1}, \widehat{h_2}, \dots, \widehat{h_L}$ 分配的权重分别为 $(\beta_1, \beta_2, \dots, \beta_L)$，计算正文的向量 $r^b$ ：</p>
+<div align="center"><br><img src="/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/3.png" width="350" height="45"><br></div>
+
+<p>&emsp;&emsp;注意，word level  层和 sentence level 层中双向 LSTM 模块和 attention 模块的模型参数是分开的，都是在单个训练过程中学习的。图 1 为具有分层 LSTMs 和 attention 的 body 网络的概述。</p>
+<div align="center"><br><img src="/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/4.png" width="220" height="245"><br></div>
+
+<p>&emsp;&emsp;一旦计算出 body vector $r^b$，可以用它作为特征来评估钓鱼的可能：</p>
+<div align="center"><br><img src="/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/5.png" width="360" height="35"><br></div>
+
+<p>其中 $W_{out}$ 和 $b_{out}$ 是模型参数，$\sigma$ 为 logistic 方程。</p>
+<h2 id="2-2-Header-Network"><a href="#2-2-Header-Network" class="headerlink" title="2.2 Header Network"></a>2.2 Header Network</h2><p>&emsp;&emsp;式 5 中的概率估计不考虑邮件的标题（header）。对于具有可用标题的电子邮件数据集，可以使用单独的网络对标题进行建模，并使用结果表示作为附加特征来估计钓鱼的概率。将初始电子邮件 e 的标题 $s$ 看作 words/tokens 序列 $(x_1, x_2, \dots, x_H)$，其中 $x_i$ 是 header 中的第 $i$ 个单词，$H$ 是 header 的长度。为了计算 $s$ 的表示向量 $r^s$，采用与 body network 中 word level 层相同的网络结构。图 2 为这个 header network 的概述。</p>
+<div align="center"><br><img src="/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/6.png" width="280" height="245"><br></div>
+
+<p>&emsp;&emsp;header 的表示向量 $r^s$ 生成后，将它与 body 的表示向量 $r^b$ 连接，得到最后的表示向量 $r=[r^b, r^s]$ 来计算概率 $P(y=1|b, s)=\sigma (W_{sub}r+b{sub})$，其中 $W_{sub}$ 和 $b_{sub}$ 为模型参数。</p>
+<p>&emsp;&emsp;为了训练模型，将训练数据集中模型的负对数似然最小化，其中邮件 e 的负对数似然计算公式为：</p>
+<div align="center"><br><img src="/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/7.png" width="360" height="32"><br></div>
+
+<p>为了方便起见，将目前描述的模型称为 H-LSTMs。</p>
+<h2 id="2-3-Supervised-Attention"><a href="#2-3-Supervised-Attention" class="headerlink" title="2.3 Supervised Attention"></a>2.3 Supervised Attention</h2><p>&emsp;&emsp;body 和 header 网络中的注意机制，期望对为信息丰富的单词/句子分配高权重，对邮件中不相关的词/句降级，以便于钓鱼检测。然而，只有提供大量的训练数据集来训练模型，才能实现这种理想的操作。在本文的钓鱼邮件检测案例中，训练数据集不够大，无法充分利用 attention 的优势。因此寻找有用的启发式问题，并将它们注入模型，以方便 attention 机制的运作。特别是，会先启发式地为句子中的每个单词确定一个分数，这样得分高的单词会被认为比得分低的单词对钓鱼检测更重要。之后，这些模型将被鼓励为接近启发式 importance scores 的单词生成注意力权重。我们的期望是，这种机制将有助于将我们的直觉引入注意力权重，以补偿训练数据集的小范围，从而潜在地提高模型的性能。假设句子中单词 $(v_{i, 1}, v_{i, 2}, \dots, v_{i, K})$ 的重要性得分分别为 $(g_{i, 1}, g_{i, 2}, \dots, g_{i, K})$，我们强制 attention 权重 $(\alpha_{i, 1}, \alpha_{i, 2}, \dots, \alpha_{i, K})$（等式1）接近重要性得分，通过惩罚在 attention 权重和重要性得分之间产生大的方差的模型。这相当于将方差加入等式 6 中的目标函数：</p>
+<div align="center"><br><img src="/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/8.png" width="360" height="48"><br></div>
+
+<p>其中λ是权衡常数。</p>
+<p><strong>Importance scores 计算</strong>。为了计算重要性得分，我们的直觉是，如果一个单词在钓鱼邮件中频繁出现，而在合法邮件中出现的频率较低，那么这个单词对于钓鱼检测是很重要的。一个重要的单词不会出现在许多合法的电子邮件中，这一事实有助于消除大多数文档中使用的常见单词。因此，在我们的方法中，针对钓鱼电子邮件的频繁词汇会收到更高的影响分数。需要注意的是，我们查找钓鱼邮件中重要单词的方法与之前的工作不同，之前的工作只考虑钓鱼邮件中最频繁的单词，而忽略了它们在合法邮件中的出现。<br>&emsp;&emsp;计算 importance scores 如下。对于词汇表中的每个单词 $v$，计算包含该单词的训练数据集中的钓鱼和合法电子邮件的数量，将结果分别称为 $v$ 的钓鱼邮件频率和合法邮件频率。下一步，我们根据单词的钓鱼频率和合法邮件频率按降序对单词进行排序。在此之后，根据网络钓鱼和合法频率(等级越高，频率越低)，一个单词$ v$ 在排序后的单词序列中会有一个钓鱼等级（$phishingRank(v)$）和一个合法等级（$valid aterank (v)$）。给出这些等级，$v$ 的非标准化重要性得分计算方法为：</p>
+<div align="center"><br><img src="/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/9.png" width="360" height="50"><br></div>
+
+<p>这个公式的基本原理是，如果一个单词的合法排名高，而它的钓鱼排名低，那么这个单词对于钓鱼预测的重要性就会很高。注意，我们使用单词的级别而不是频率，因为频率受训练数据集大小的影响，这可能会使分数不稳定。等级受数据集大小的影响较小，并且提供了更稳定的度量。表 1 展示了词汇表中非标准化重要性得分最高的前20个单词。</p>
+<div align="center"><br><img src="/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/10.png" width="260" height="300"><br></div>
+
+<p>&emsp;&emsp;在实验中，将上述 supervised attention 机制增强的 H-LSTMs 模型称为 H-LSTM+supervised。</p>
+<p><strong>训练</strong>：使用随机梯度下降，shuffled mini-batches，Adam 更新规则训练模型。 梯度是通过反向传播计算的，dropout 用于正则化。实现了 gradient clipping，以便在 non-embedding weights 超过预定义阈值时重新缩放 non-embedding weights 的 Frobenius 范数。</p>
+<h2 id="3-评估"><a href="#3-评估" class="headerlink" title="3 评估"></a>3 评估</h2><h3 id="3-1-数据集"><a href="#3-1-数据集" class="headerlink" title="3.1 数据集"></a>3.1 数据集</h3><p>&emsp;&emsp;本文中的模型是为了参与 IWSPA-AP 2018 而开发的。组织者提供了两个数据集来训练电子邮件钓鱼识别模型，第一个数据集包含只有 body 部分的电子邮件（称为 data-no-header），而第二个数据集包含 bodies 和 headers 的电子邮件（称为 data-full-header）。这两个数据集转换为两个共享任务，由参与者解决。这两个数据集的训练数据统计如表 2 所示。</p>
+<div align="center"><br><img src="/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/11.png" width="300" height="120"><br></div>
+
+<h3 id="3-2-预处理"><a href="#3-2-预处理" class="headerlink" title="3.2 预处理"></a>3.2 预处理</h3><p>&emsp;&emsp;电子邮件正文中的大部分文本是非结构化的，这些句子通常很短，并且没有被句子的结尾符号（{. ! ?}）清楚的分开。为了将电子邮件主体分割成句子，本文开发了一个专门为数据集设计的内部句子分割器，通过考虑新行的第一个单词是否大写来确定句子的开头，或者一个大写的单词后面紧跟一个结束句符号。长度小于 3 的句子被组合成一个更长的句子，这大大减少了句子的数量，并在模型处理句子时扩展了句子中单词的上下文。图 3 显示了来自数据集的钓鱼电子邮件。</p>
+<div align="center"><br><img src="/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/12.png" width="290" height="140"><br></div>
+
+<h3 id="3-3-Baselines"><a href="#3-3-Baselines" class="headerlink" title="3.3 Baselines"></a>3.3 Baselines</h3><p>&emsp;&emsp;将提出的模型与基于 SVM 的基线模型进行比较。使用词汇表中单词的 tf-idf 评分作为基线的特征，采用了来自 sklearn 库的线性和非线性 SVM 的实现，其中通过 <strong>gensim toolkit</strong> 获得电子邮件的 tf-idf 表示。</p>
+<h3 id="3-4-Hyper-parameter-Selection"><a href="#3-4-Hyper-parameter-Selection" class="headerlink" title="3.4 Hyper-parameter Selection"></a>3.4 Hyper-parameter Selection</h3><p>&emsp;&emsp;由于提供的数据集的大小很小，因此对提供的训练集使用 5 倍分层交叉验证，以搜索模型的最佳超参数，超参如下。<br>&emsp;&emsp;在 body 和 header 网络中，对于所有 LSTMs，word embedding vector 的大小为300，cell 大小为 60。在 body 和 header 网络的 attention 模型上，attention vectors 的大小也设为 60。supervised attention 的 $\lambda$ 系数设置为 0.1，gradient clipping 的阈值是 0.3，drop-out 的 drop 率是 0.5。对于 Adam 更新规则，使用 0.0025 的学习率。最后，将线性 SVM baseline 设为 $C=10.0$，使用的 SVM 的非线性版本是带径向基函数内核的 C-SVC，其中 $(C,\gamma)=(50.0,0.1)$。</p>
+<h3 id="3-5-Results"><a href="#3-5-Results" class="headerlink" title="3.5 Results"></a>3.5 Results</h3><p><strong>（1）Data without header</strong><br>&emsp;&emsp;在第一个实验中，在两种不同的设置下将所提出的模型与 SVM 基线进行比较。在第一个设置中使用 data-no-header 作为训练数据，并执行 5-fold 分层交叉验证来评估模型；在第二个设置中，data-no-header 作为训练数据，从 data-full-header 中提取 body（以及相应的标签）作为测试数据。第一个设置的结果如表 3 所示，第二个设置的结果如表 4 所示。</p>
+<div align="center"><br><table><br><tr><br><td><center><img src="/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/13.png" width="320" height="175"></center></td><br><td><center><img src="/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/14.png" width="320" height="160"></center></td><br></tr><br></table><br></div>
+
+<p>&emsp;&emsp;从表中可以看出，H-LSTMs 和H-LSTMs+supervised 的实验结果都比 baselines 好。通过对H-LSTMs+supervised 和 H-LSTMs 的比较，发现 H-LSTMs+supervised 明显优于 H-LSTMs，在第二种设置下有明显的改善，这表明了 supervised attention 用于分层 LSTM 模型的好处。最后，第一种设置的性能通常比第二种设置好得多，将此归因于 data-no-header 和 data-full-header 中的文本数据存在较大差异，导致第二个实验设置中训练数据与测试数据分布不匹配。</p>
+<p><strong>（2）Data with full header</strong><br>&emsp;&emsp;本实验的目的是评估 header network 是否有助于提高 H-LSTMs 的性能。从 data-full-header 中获取训练数据集，执行 5-fold 交叉验证评估，包含和不包含 header 网络时 H-LSTMs 的性能如表 5 所示，可以看到 header 网络对 H-LSTMs 很有帮助。</p>
+<div align="center"><br><img src="/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/15.png" width="300" height="80"><br></div>
+
+<p>模型的训练和测试时间如表 6 所示。</p>
+<div align="center"><br><img src="/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/16.png" width="320" height="70"><br></div>
+
+<p>表 7 和表 8 显示了参与 shared tasks 的所有团队的实际测试数据的最佳性能。</p>
+<div align="center"><br><table><br><tr><br><td><center><img src="/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/17.png" width="290" height="160"></center></td><br><td><center><img src="/2019/08/28/A-Deep-Learning-Model-with-Hierarchical-LSTMs-and-Supervised-Attention-for-Anti-Phishing-arXiv-2018/18.png" width="290" height="160"></center></td><br></tr><br></table><br></div>
+
+      
+    </div>
+    <div>
+      
+          <div> 
+     
+    	<div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------本文结束<i class="fa fa-paw"></i>感谢您的阅读------------
+    	</div>
+     
+</div>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Lei Zhang 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Deep-Learning/" rel="tag"><i class="fa fa-tag"></i> Deep Learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/23/Phishing-environments-techniques-and-countermeasures-A-survey-Computers-Security-2017/" rel="next" title="Phishing environments, techniques, and countermeasures: A survey（Computers & Security 2017）">
+                <i class="fa fa-chevron-left"></i> Phishing environments, techniques, and countermeasures: A survey（Computers & Security 2017）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/28/PhishFarm-A-Scalable-Framework-for-Measuring-the-Effectiveness-of-Evasion-Techniques-Against-Browser-Phishing-Blacklists-S-P-2019/" rel="prev" title="PhishFarm: A Scalable Framework for Measuring the Effectiveness of Evasion Techniques Against Browser Phishing Blacklists（S&P 2019）">
+                PhishFarm: A Scalable Framework for Measuring the Effectiveness of Evasion Techniques Against Browser Phishing Blacklists（S&P 2019） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/touxiang.jpg" alt="Lei Zhang">
+            
+              <p class="site-author-name" itemprop="name">Lei Zhang</p>
+              <p class="site-description motion-element" itemprop="description">走自己的路吧开心最重要</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/LeiiZhang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zlcumtcs@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+          
+          
+
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-作者介绍"><span class="nav-number">1.</span> <span class="nav-text">1 作者介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-概述"><span class="nav-number">2.</span> <span class="nav-text">2 概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-本文模型"><span class="nav-number">3.</span> <span class="nav-text">2 本文模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Body-Network-with-Hierarchical-LSTMs"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 Body Network with Hierarchical LSTMs</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-The-Word-Level-Layer"><span class="nav-number">3.1.1.</span> <span class="nav-text">2.1.1 The Word Level Layer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-The-Sentence-Level-Layer"><span class="nav-number">3.1.2.</span> <span class="nav-text">2.1.2 The Sentence Level Layer</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-Header-Network"><span class="nav-number">4.</span> <span class="nav-text">2.2 Header Network</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-Supervised-Attention"><span class="nav-number">5.</span> <span class="nav-text">2.3 Supervised Attention</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-评估"><span class="nav-number">6.</span> <span class="nav-text">3 评估</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-数据集"><span class="nav-number">6.1.</span> <span class="nav-text">3.1 数据集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-预处理"><span class="nav-number">6.2.</span> <span class="nav-text">3.2 预处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-Baselines"><span class="nav-number">6.3.</span> <span class="nav-text">3.3 Baselines</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-Hyper-parameter-Selection"><span class="nav-number">6.4.</span> <span class="nav-text">3.4 Hyper-parameter Selection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-Results"><span class="nav-number">6.5.</span> <span class="nav-text">3.5 Results</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lei Zhang</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总计&#58;</span>
+    
+    <span title="本站总计">77.1k 字</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 你是本站第
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      位访问者
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'culOf1aK4Nkj7faLPEIes1Qq-gzGzoHsz',
+        appKey: 'kLWDBKtAdcFzhEzyf9p4cjHB',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":80,"height":300,"hOffset":20,"vOffset":-200},"mobile":{"show":true},"log":false,"tagMode":false});</script></body>
+</html>
